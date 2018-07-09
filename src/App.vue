@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <Navbar/>
-    <div class="container">
-      <router-view/>
-    </div>
+    <router-view/>
   </div>
 </template>
 
@@ -17,10 +15,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "assets/_custom.scss";
-  @import "~bootstrap/scss/bootstrap.scss";
-
-  body {
-    background-color: #23272A;
-  }
+  @import "assets/main";
 </style>

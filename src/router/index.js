@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Homepage from '@/components/Homepage'
-import LoginLoading from '@/components/LoginLoading'
+import LoginCallback from '@/components/LoginCallback'
 
 Vue.use(Router)
 
@@ -13,9 +13,9 @@ export default new Router({
       component: Homepage
     },
     {
-      path: '/loginCallback#/:params',
-      name: 'LoginLoading',
-      component: LoginLoading
+      path: '/loginCallback/:params',
+      name: 'LoginCallback',
+      component: LoginCallback
     }
   ]
 })

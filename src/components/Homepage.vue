@@ -1,8 +1,8 @@
 <template>
   <div class="header">
     <h1>The last bot you'll ever need</h1>
-    <b-button variant="secondary" size="lg" href="http://support.switchblade.xyz/" class="button">Join our support server</b-button>
-    <b-button variant="primary" size="lg" href="http://invite.switchblade.xyz/" class="button">Invite to your server</b-button>
+    <a class="button is-secondary is-rounded is-large" href="http://support.switchblade.xyz/">Join our server</a>
+    <a class="button is-primary is-rounded is-large" href="http://invite.switchblade.xyz/">Invite to your server</a>
   </div>
 </template>
 

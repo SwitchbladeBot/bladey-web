@@ -1,0 +1,27 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+$blurple: #7289DA;
+$blurple-invert: findColorInvert($blurple);
+
+$greyple: #99AAB5;
+$greyple-invert: findColorInvert($greyple);
+
+$dark-but-not-black: #2C2F33;
+$dark-but-not-black-invert: findColorInvert($dark-but-not-black);
+
+$not-quite-black: #23272A;
+$not-quite-black-invert: findColorInvert($not-quite-black);
+
+$family-sans-serif: "Montserrat", sans-serif;
+
+$primary: $blurple;
+$primary-invert: $blurple-invert;
+$family-primary: $family-sans-serif;
+
+$body-background-color: $dark-but-not-black;
+
+$navbar-background-color: $not-quite-black;
+$navbar-item-color: $white;
+
+@import "~bulma/bulma";
