@@ -21,17 +21,9 @@ $family-primary: $family-sans-serif;
 
 $body-background-color: #18191c;
 
-$link: $blurple;
-
 $navbar-background-color: $not-quite-black;
-$navbar-item-hover-background-color: $not-quite-black;
-$navbar-item-active-background-color: $not-quite-black;
 $navbar-item-color: $white;
 
-$navbar-dropdown-background-color: $not-quite-black;
-$navbar-dropdown-item-active-background-color: $not-quite-black;
-$navbar-dropdown-item-hover-color: $link;
-$navbar-dropdown-item-color: $white;
 
 @import "~bulma/bulma";
 

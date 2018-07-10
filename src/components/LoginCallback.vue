@@ -1,14 +1,14 @@
 <template>
-  <a>{{ params }}</a>
+  <div>
+    Hey, listen!
+  </div>
 </template>
 
 <script>
 export default {
   name: 'LoginCallback',
   created () {
-    this.$session.start()
-    this.$session.set('jwt', 'token here') // this.$route.hash
-    this.$router.push('/')
+    console.log(this.$route.params)
   }
 }
 </script>
