@@ -12,10 +12,10 @@
     </div>
     <div class="navbar-menu" id="navMenu">
       <div class="navbar-end">
-        <div class="navbar-item has-dropdown" id="navDropdown">
+        <div v-if="logged" class="navbar-item has-dropdown" id="navDropdown">
           <a class="navbar-link" v-on:click="dropdown" data-target="navDropdown">
             <span class="icon user-pic">
-              <img class="round" src="https://cdn.discordapp.com/avatars/135152303773712384/38ea62493b1b22541426b99d835b87ba.png?size=2048" />
+              <img class="round" :src="avatarUrl" />
             </span>
             <span>davipatury</span>
           </a>
@@ -27,7 +27,7 @@
               <span>Dashboard</span>
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <a class="navbar-item" v-on:click="logout">
               <span class="icon">
                 <fai icon="sign-out-alt" />
               </span>
@@ -35,6 +35,12 @@
             </a>
           </div>
         </div>
+        <a v-else class="navbar-item" :href="oauthUrl">
+          <span class="icon">
+            <fai icon="sign-in-alt" />
+          </span>
+          <span>Login</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -43,17 +49,30 @@
 <script>
 export default {
   name: 'navbar',
+  data () {
+    const logged = this.$session.exists()
+    return {
+      logged,
+      avatarUrl: 'https://cdn.discordapp.com/avatars/135152303773712384/38ea62493b1b22541426b99d835b87ba.png?size=2048',
+      oauthUrl: 'https://discordapp.com/oauth2/authorize?client_id=346014632395407362&redirect_uri=http://localhost:8080/loginCallback&response_type=token&scope=guilds%20identify'
+    }
+  },
   methods: {
-    burger: function (event) {
+    burger (event) {
       const $burger = event.target
       const $target = document.getElementById($burger.dataset.target)
       $burger.classList.toggle('is-active')
       $target.classList.toggle('is-active')
     },
-    dropdown: function (event) {
+    dropdown (event) {
       const $dropdown = event.target
       const $target = document.getElementById($dropdown.dataset.target)
       $target.classList.toggle('is-active')
+    },
+
+    logout () {
+      this.$session.destroy()
+      this.logged = false
     }
   }
 }
