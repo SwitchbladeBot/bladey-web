@@ -9,6 +9,7 @@ deploy:
   skip-cleanup: true
   fqdn: "switchblade.xyz"
   github-token: $GITHUB_TOKEN
+  local-dir: "dist/"
   keep-history: true
   on:
     branch: master
