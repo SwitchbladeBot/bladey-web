@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "node"
+
+script: npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  fqdn: "switchblade.xyz"
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
