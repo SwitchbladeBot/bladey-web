@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueSession from 'vue-session'
 import Homepage from '@/components/Homepage'
-import LoginCallback from '@/components/LoginCallback'
+import LoginAuth from '@/components/LoginAuth'
 
 Vue.use(Router)
+Vue.use(VueSession)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -13,10 +16,9 @@ export default new Router({
       component: Homepage
     },
     {
-      path: '/loginCallback/:params',
-      name: 'LoginCallback',
-      component: LoginCallback
+      path: '/auth',
+      name: 'LoginAuth',
+      component: LoginAuth
     }
   ]
 })
-// http://localhost:8080/loginCallback#/access_token=aoc5rreHXHLJDTyq2f2qZJqDJysDGt&token_type=Bearer&expires_in=604800&scope=identify+guilds
