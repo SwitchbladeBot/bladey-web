@@ -15,9 +15,8 @@
 
 **1. Clone your fork**
 ```bash
-git clone https://github.com/<your github username>/switchblade
-cd switchblade
-git checkout dev
+git clone https://github.com/<your github username>/bladey-web
+cd bladey-web
 ```
 
 **2. Install all the dependencies with NPM**
