@@ -65,7 +65,9 @@ export default {
       $target.classList.toggle('is-active')
     },
     dropdown (event) {
+      console.log(event)
       const $dropdown = event.target
+      console.log($dropdown)
       const $target = document.getElementById($dropdown.dataset.target)
       $target.classList.toggle('is-active')
     },
