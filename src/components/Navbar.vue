@@ -14,12 +14,12 @@
       <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
           <div v-if="!!user" class="navbar-item has-dropdown" id="navDropdown">
-            <a class="navbar-link" v-on:click="dropdown" data-target="navDropdown">
+            <div class="navbar-link is-flex" v-on:click="dropdown" data-target="navDropdown">
               <span class="icon user-pic">
                 <img class="round" :src="user.displayAvatarURL" />
               </span>
               <span>{{ user.username }}</span>
-            </a>
+            </div>
             <div class="navbar-dropdown is-boxed">
               <a class="navbar-item">
                 <span class="icon">
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     burger (event) {
-      const $burger = event.target
+      const $burger = event.target.closest('.navbar-burger')
       const $target = document.getElementById($burger.dataset.target)
       $burger.classList.toggle('is-active')
       $target.classList.toggle('is-active')
@@ -92,6 +92,7 @@ export default {
       this.oauth.login(token)
     },
     login () {
+      if (this.loading) return
       const AUTHORIZE_ENDPOINT = 'https://discordapp.com/oauth2/authorize'
       const EXTRA_OPTIONS = '&response_type=token&scope=guilds%20identify'
       const OAUTH_URL = `${AUTHORIZE_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}${EXTRA_OPTIONS}`
