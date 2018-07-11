@@ -115,9 +115,7 @@ export default {
       this.oauth.on('token', (token) => {
         this.$localStorage.set('accessToken', token)
       })
-      this.oauth.updateStatus(this.$localStorage.get('accessToken')).then(res => {
-        console.log(res)
-      })
+      this.oauth.updateStatus(this.$localStorage.get('accessToken'))
     },
     resetProps () {
       this.user = null
