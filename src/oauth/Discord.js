@@ -16,6 +16,7 @@ export default class Discord extends EventEmitter {
     if (this.accessToken) {
       return this.userProfile().then(p => {
         this.emit('login', p)
+        this.user = p
         return p
       }).catch(res => {
         this.logout()
