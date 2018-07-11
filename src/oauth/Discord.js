@@ -1,7 +1,9 @@
+import EventEmitter from 'events'
 import User from './User'
 
-export default class Discord {
+export default class Discord extends EventEmitter {
   constructor (vm) {
+    super()
     this.vm = vm
     this.updateStatus()
   }
@@ -13,8 +15,8 @@ export default class Discord {
 
     if (this.accessToken) {
       return this.userProfile().then(p => {
-        this.vm.user = p
-        this.vm.logged = true
+        this.emit('login', p)
+        return p
       }).catch(res => {
         this.logout()
         return res
@@ -43,8 +45,8 @@ export default class Discord {
   logout () {
     this.vm.$session.destroy()
     this.vm.$router.push('/')
-    this.vm.logged = false
     this.accessToken = null
+    this.emit('logout')
   }
 
   userProfile () {
@@ -55,5 +57,9 @@ export default class Discord {
     }).then(res => {
       return new User(res.body)
     })
+  }
+
+  guilds () {
+
   }
 }

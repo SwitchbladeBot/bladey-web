@@ -13,7 +13,7 @@
       </div>
       <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
-          <div v-if="logged" class="navbar-item has-dropdown" id="navDropdown">
+          <div v-if="!!user" class="navbar-item has-dropdown" id="navDropdown">
             <a class="navbar-link" v-on:click="dropdown" data-target="navDropdown">
               <span class="icon user-pic">
                 <img class="round" :src="user.displayAvatarURL" />
@@ -55,6 +55,11 @@ export default {
   name: 'navbar',
   created () {
     this.oauth = new Discord(this)
+    this.oauth.on('login', (p) => { this.user = p })
+    this.oauth.on('logout', () => { this.user = null })
+  },
+  destroyed () {
+    this.oauth.removeAllListeners()
   },
   mounted () {
     Object.defineProperty(window, '__onLogin__', {
