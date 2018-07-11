@@ -38,7 +38,8 @@
           </div>
           <a v-else class="navbar-item" v-on:click="login">
             <span class="icon">
-              <fai icon="sign-in-alt" />
+              <fai v-if="loading" icon="spinner" spin />
+              <fai v-else icon="sign-in-alt" />
             </span>
             <span>Login</span>
           </a>
@@ -54,9 +55,7 @@ import Discord from '../oauth/Discord'
 export default {
   name: 'navbar',
   created () {
-    this.oauth = new Discord(this)
-    this.oauth.on('login', (p) => { this.user = p })
-    this.oauth.on('logout', () => { this.user = null })
+    this.configureOAuth()
   },
   destroyed () {
     this.oauth.removeAllListeners()
@@ -71,6 +70,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       user: null
     }
   },
@@ -88,6 +88,7 @@ export default {
     },
 
     onLogin (token) {
+      this.loading = true
       this.oauth.login(token)
     },
     login () {
@@ -97,7 +98,28 @@ export default {
       window.open(OAUTH_URL, '_blank', 'directories=0,titlebar=0,toolbar=0,location=false,status=0,menubar=0,scrollbars=no,resizable=no,height=570,width=500')
     },
     logout () {
+      this.loading = true
       this.oauth.logout()
+    },
+
+    configureOAuth () {
+      this.oauth = new Discord()
+      this.oauth.on('login', (p) => { this.user = p; this.loading = false })
+      this.oauth.on('loginError', this.resetProps)
+      this.oauth.on('logout', () => {
+        this.$session.destroy()
+        this.$router.push('/')
+        this.resetProps()
+      })
+      this.oauth.on('token', (token) => {
+        this.$session.start()
+        this.$session.set('accessToken', token)
+      })
+      this.oauth.updateStatus(this.$session.get('accessToken'))
+    },
+    resetProps () {
+      this.user = null
+      this.loading = false
     }
   }
 }
@@ -118,7 +140,7 @@ export default {
   }
 
   .user-pic {
-    margin-right: 0.5rem;
+    margin-right: 0.6rem;
   }
 
   .round {

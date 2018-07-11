@@ -1,19 +1,11 @@
 import EventEmitter from 'events'
 import Guild from './Guild'
 import User from './User'
+import snekfetch from 'snekfetch'
 
 export default class Discord extends EventEmitter {
-  constructor (vm) {
-    super()
-    this.vm = vm
-    this.updateStatus()
-  }
-
-  updateStatus () {
-    if (!this.accessToken && this.vm.$session.exists()) {
-      this.accessToken = this.vm.$session.get('accessToken')
-    }
-
+  updateStatus (token) {
+    this.accessToken = token || this.accessToken
     if (this.accessToken) {
       return this.userProfile().then(p => {
         this.emit('login', p)
@@ -24,35 +16,29 @@ export default class Discord extends EventEmitter {
         return res
       })
     } else {
-      return {
-        then: function (f) {
-          f(new Error('An error occured'))
-        }
-      }
+      const error = new Error('Invalid accessToken')
+      this.emit('loginError', error)
+      return { then: (f) => f(error) }
     }
   }
 
   login (token) {
     return new Promise((resolve, reject) => {
       if (token) {
-        this.accessToken = token
-        this.vm.$session.start()
-        this.vm.$session.set('accessToken', token)
-        return resolve(this.updateStatus())
+        this.emit('token', token)
+        return resolve(this.updateStatus(token))
       }
       return reject(new Error('No token has been provided!'))
     })
   }
 
   logout () {
-    this.vm.$session.destroy()
-    this.vm.$router.push('/')
     this.accessToken = null
     this.emit('logout')
   }
 
   userProfile () {
-    return this.vm.$http.get('https://discordapp.com/api/users/@me', {
+    return snekfetch.get('https://discordapp.com/api/users/@me', {
       headers: {
         'Authorization': `Bearer ${this.accessToken}`
       }
@@ -62,7 +48,7 @@ export default class Discord extends EventEmitter {
   }
 
   guilds () {
-    return this.vm.$http.get('https://discordapp.com/api/users/@me/guilds', {
+    return snekfetch.get('https://discordapp.com/api/users/@me/guilds', {
       headers: {
         'Authorization': `Bearer ${this.accessToken}`
       }
