@@ -71,7 +71,6 @@ export default {
   },
   data () {
     return {
-      logged: false,
       user: null
     }
   },
