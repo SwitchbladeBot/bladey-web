@@ -25,4 +25,7 @@ export default {
 <style lang="scss">
   @import "assets/main";
 
+  html {
+    overflow: auto;
+  }
 </style>
