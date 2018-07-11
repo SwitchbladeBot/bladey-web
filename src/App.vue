@@ -16,8 +16,7 @@ export default {
     titleTemplate: '%s - Switchblade',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'google-site-verification', content: '7I_S14jQZcf8szgJZqT-SS9JW9EqxIQFtERKLcsMdGM' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ]
   }
 }
