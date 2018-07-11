@@ -1,4 +1,5 @@
 import EventEmitter from 'events'
+import Guild from './Guild'
 import User from './User'
 
 export default class Discord extends EventEmitter {
@@ -61,6 +62,12 @@ export default class Discord extends EventEmitter {
   }
 
   guilds () {
-
+    return this.vm.$http.get('https://discordapp.com/api/users/@me/guilds', {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`
+      }
+    }).then(res => {
+      return res.body.map(g => new Guild(g))
+    })
   }
 }
