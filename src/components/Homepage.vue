@@ -6,13 +6,13 @@
           The last bot you'll ever need.
         </h1>
         <div class="buttons is-centered">
-          <a class="button is-large is-link" href="http://support.switchblade.xyz/">
+          <a class="button is-large is-link" href="http://support.switchblade.xyz/" target="_blank">
             <span class="icon">
               <fai class="fab" icon="life-ring" />
             </span>
             <span>Join our support server</span>
           </a>
-          <a class="button is-large" href="http://invite.switchblade.xyz/">
+          <a class="button is-large" href="http://invite.switchblade.xyz/" target="_blank">
             <span class="icon">
               <fai class="fab" icon="envelope" />
             </span>
