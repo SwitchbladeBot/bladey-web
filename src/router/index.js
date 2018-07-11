@@ -10,6 +10,7 @@ Vue.use(VueResource)
 Vue.use(VueSession)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
