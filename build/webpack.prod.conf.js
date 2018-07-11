@@ -79,7 +79,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // split vendor js into its own file
-    new webpack.optimize.CommonsChunkPlugin({
+    new config.optimization.splitChunks{
       name: 'vendor',
       minChunks (module) {
         // any required modules inside node_modules are extracted to vendor
