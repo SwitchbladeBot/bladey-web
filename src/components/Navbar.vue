@@ -16,9 +16,9 @@
           <div v-if="logged" class="navbar-item has-dropdown" id="navDropdown">
             <a class="navbar-link" v-on:click="dropdown" data-target="navDropdown">
               <span class="icon user-pic">
-                <img class="round" :src="avatarUrl" />
+                <img class="round" :src="user.displayAvatarURL" />
               </span>
-              <span>davipatury</span>
+              <span>{{ user.username }}</span>
             </a>
             <div class="navbar-dropdown is-boxed">
               <a class="navbar-item">
@@ -49,12 +49,25 @@
 </template>
 
 <script>
+import Discord from '../oauth/Discord'
+
 export default {
   name: 'navbar',
+  created () {
+    this.oauth = new Discord(this)
+  },
+  mounted () {
+    Object.defineProperty(window, '__onLogin__', {
+      value: this.onLogin.bind(this),
+      writable: false,
+      enumerable: true,
+      configurable: true
+    })
+  },
   data () {
     return {
       logged: false,
-      avatarUrl: 'https://cdn.discordapp.com/avatars/135152303773712384/38ea62493b1b22541426b99d835b87ba.png?size=2048'
+      user: null
     }
   },
   methods: {
@@ -70,21 +83,17 @@ export default {
       $target.classList.toggle('is-active')
     },
 
+    onLogin (token) {
+      this.oauth.login(token)
+    },
     login () {
-      const oauthUrl = 'https://discordapp.com/oauth2/authorize?client_id=346014632395407362&redirect_uri=http://localhost:8080/auth&response_type=token&scope=guilds%20identify'
-
-      const vm = this
-      window.onLogin = function (token) {
-        vm.$session.start()
-        vm.$session.set('jwt', token)
-        vm.logged = true
-      }
-      window.open(oauthUrl, '_blank', 'directories=0,titlebar=0,toolbar=0,location=false,status=0,menubar=0,scrollbars=no,resizable=no,height=570,width=500')
+      const AUTHORIZE_ENDPOINT = 'https://discordapp.com/oauth2/authorize'
+      const EXTRA_OPTIONS = '&response_type=token&scope=guilds%20identify'
+      const OAUTH_URL = `${AUTHORIZE_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}${EXTRA_OPTIONS}`
+      window.open(OAUTH_URL, '_blank', 'directories=0,titlebar=0,toolbar=0,location=false,status=0,menubar=0,scrollbars=no,resizable=no,height=570,width=500')
     },
     logout () {
-      this.$session.destroy()
-      this.$router.push('/')
-      this.logged = false
+      this.oauth.logout()
     }
   }
 }
