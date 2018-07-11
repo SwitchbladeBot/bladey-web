@@ -27,33 +27,33 @@
           <article class="tile is-child box">
             <p class="title">
               <span>
-                <fai icon="code" />
+                <fai :icon="['fab', 'github']" />
               </span>
               <span>Open Source</span>
             </p>
-            <p class="subtitle">Bla</p>
+            <p class="subtitle">Open Source</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
             <p class="title">
               <span>
-                <fai icon="code" />
+                <fai icon="cogs" />
               </span>
-              <span>Open Source</span>
+              <span>Configurable</span>
             </p>
-            <p class="subtitle">Bla</p>
+            <p class="subtitle">Configurable</p>
           </article>
         </div>
         <div class="tile is-parent">
           <article class="tile is-child box">
             <p class="title">
               <span>
-                <fai icon="code" />
+                <fai icon="language" />
               </span>
-              <span>Open Source</span>
+              <span>Multilanguage</span>
             </p>
-            <p class="subtitle">Bla</p>
+            <p class="subtitle">Multilanguage</p>
           </article>
         </div>
       </div>
