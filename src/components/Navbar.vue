@@ -108,15 +108,16 @@ export default {
       this.oauth.on('login', (p) => { this.user = p; this.loading = false })
       this.oauth.on('loginError', this.resetProps)
       this.oauth.on('logout', () => {
-        this.$session.destroy()
+        this.$localStorage.remove('accessToken')
         this.$router.push('/')
         this.resetProps()
       })
       this.oauth.on('token', (token) => {
-        this.$session.start()
-        this.$session.set('accessToken', token)
+        this.$localStorage.set('accessToken', token)
       })
-      this.oauth.updateStatus(this.$session.get('accessToken'))
+      this.oauth.updateStatus(this.$localStorage.get('accessToken')).then(res => {
+        console.log(res)
+      })
     },
     resetProps () {
       this.user = null

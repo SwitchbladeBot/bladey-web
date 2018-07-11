@@ -12,6 +12,7 @@ export default class Discord extends EventEmitter {
         this.user = p
         return p
       }).catch(res => {
+        this.emit('loginError', res)
         this.logout()
         return res
       })

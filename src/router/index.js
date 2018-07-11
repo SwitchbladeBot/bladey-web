@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import VueSession from 'vue-session'
+import VueLocalStorage from 'vue-localstorage'
 import Homepage from '@/components/Homepage'
 import LoginAuth from '@/components/LoginAuth'
 
 Vue.use(Router)
-Vue.use(VueSession)
+Vue.use(VueLocalStorage)
 
 export default new Router({
   mode: 'history',
