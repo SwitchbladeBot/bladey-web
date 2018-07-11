@@ -7,6 +7,8 @@
     <br>
     <a href="https://support.switchblade.xyz/"><img src="https://img.shields.io/badge/dynamic/json.svg?label=chat%20on%20Discord&colorB=7289DA&url=https%3A%2F%2Fdiscordapp.com%2Fapi%2Fservers%2F445203868624748555%2Fembed.json&query=%24.members.length&suffix=%20online" alt="Discord Server"/></a>
     <a href="https://travis-ci.org/SwitchbladeBot/bladey-web"><img src="https://api.travis-ci.org/SwitchbladeBot/bladey-web.svg"/></a>
+    <a href="https://david-dm.org/SwitchbladeBot/bladey-web"><img src="https://david-dm.org/SwitchbladeBot/bladey-web/status.svg"/></a>
+    <a href="https://david-dm.org/SwitchbladeBot/bladey-web?type=dev"><img src="https://david-dm.org/SwitchbladeBot/bladey-web/dev-status.svg"/></a>
   </p>
 </div>
 
