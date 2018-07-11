@@ -2,9 +2,9 @@
   <nav class="navbar is-transparent is-unselectable" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item" href="#">
+        <router-link to="/" class="navbar-item">
           SWITCHBLADE
-        </a>
+        </router-link>
         <a class="navbar-burger" v-on:click="burger" data-target="navMenu" role="button" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
