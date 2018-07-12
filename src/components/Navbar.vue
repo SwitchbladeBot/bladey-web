@@ -37,11 +37,18 @@
             </div>
           </div>
           <a v-else class="navbar-item" v-on:click="login">
-            <span class="icon">
-              <fai v-if="loading" icon="spinner" spin />
-              <fai v-else icon="sign-in-alt" />
-            </span>
-            <span>Login</span>
+            <div v-if="loading">
+              <span class="icon">
+                <fai icon="spinner" spin />
+              </span>
+              <span>Logging in...</span>
+            </div>
+            <div v-else>
+              <span class="icon">
+                <fai icon="sign-in-alt" />
+              </span>
+              <span>Login</span>
+            </div>
           </a>
         </div>
       </div>

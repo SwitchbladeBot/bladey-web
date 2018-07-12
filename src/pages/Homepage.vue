@@ -32,17 +32,17 @@
 </template>
 
 <script>
-import Card from "../components/Card.vue";
+import Card from '../components/Card.vue'
 
 export default {
-  name: "Homepage",
+  name: 'Homepage',
   metaInfo: {
-    title: "Homepage"
+    title: 'Homepage'
   },
   components: {
     'Card': Card
   }
-};
+}
 </script>
 
 <style scoped>

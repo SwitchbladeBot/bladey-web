@@ -14,10 +14,10 @@
 
 <script>
 export default {
-  props: ["title", "description", "prefix", "icon"],
-  name: "Card",
-  data() {
-    return {};
+  props: ['title', 'description', 'prefix', 'icon'],
+  name: 'Card',
+  data () {
+    return {}
   }
-};
+}
 </script>
