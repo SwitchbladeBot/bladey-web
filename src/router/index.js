@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import LocalStorage from 'vue-localstorage'
 import Meta from 'vue-meta'
-import Homepage from '@/components/Homepage'
+import Homepage from '@/pages/Homepage'
 import NotFound from '@/components/NotFound'
 import LoginAuth from '@/components/LoginAuth'
 
