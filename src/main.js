@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Buefy from 'buefy'
 import App from './App'
 import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -10,6 +11,7 @@ library.add(faCogs, faEnvelope, faGithub, faLanguage, faLifeRing, faSignInAlt, f
 
 Vue.component('fai', FontAwesomeIcon)
 Vue.config.productionTip = false
+Vue.use(Buefy)
 
 /* eslint-disable no-new */
 new Vue({

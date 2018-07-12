@@ -1,5 +1,5 @@
 <template>
-  <a>Hey!</a>
+  <p>Nobody ever sees this page haaa</p>
 </template>
 
 <script>

@@ -1,16 +1,20 @@
 <template>
   <div id="app">
     <Navbar/>
-    <router-view/>
+    <section class="hero is-fullheight">
+      <router-view/>
+      <Footer/>
+    </section>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 export default {
   name: 'App',
-  components: { Navbar },
+  components: { Navbar, Footer },
   metaInfo: {
     title: 'Homepage',
     titleTemplate: '%s - Switchblade',
@@ -30,5 +34,15 @@ export default {
 
   html {
     overflow: auto;
+  }
+
+  app {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .page {
+    flex: 1;
   }
 </style>
