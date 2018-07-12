@@ -14,7 +14,12 @@
 
 <script>
 export default {
-  props: ['title', 'description', 'prefix', 'icon'],
+  props: {
+    title: String,
+    description: String,
+    prefix: String,
+    icon: String
+  },
   name: 'Card',
   data () {
     return {}
