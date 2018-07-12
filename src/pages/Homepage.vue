@@ -29,7 +29,6 @@
       </div>
     </section>
   </div>
-  aaaa
 </template>
 
 <script>
