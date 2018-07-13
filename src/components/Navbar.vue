@@ -149,8 +149,4 @@ export default {
   .user-pic {
     margin-right: 0.6rem;
   }
-
-  .round {
-    border-radius: 100%;
-  }
 </style>

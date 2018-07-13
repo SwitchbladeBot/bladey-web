@@ -36,6 +36,10 @@ $navbar-divider-background-color: $dark-but-not-black;
 
 $footer-background-color: $dark-but-not-black;
 
+.round {
+  border-radius: 100%;
+}
+
 @import "~bulma/bulma";
 @import "~buefy/src/scss/buefy";
 
