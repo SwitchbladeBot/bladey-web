@@ -16,6 +16,11 @@ export default {
   name: 'ServerSelector',
   metaInfo: {
     title: 'Select a server'
+  },
+  data () {
+    return {
+      requiresAuth: true
+    }
   }
 }
 </script>
