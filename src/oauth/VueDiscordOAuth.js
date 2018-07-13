@@ -44,13 +44,10 @@ export default {
 
         if (this.requiresAuth) {
           if (!this.$discord.logged && !this.$discord.logging) {
-            this.onFailed()
-          } else {
-            if (!this.$discord.logged) {
-              this.$discord.state.$on('login', () => this.onLogin())
-            } else {
-              this.onLogin()
-            }
+            this.onFailed && this.onFailed()
+          } else if (this.onLogin) {
+            if (this.$discord.logged) this.onLogin()
+            else this.$discord.state.$on('login', () => this.onLogin())
           }
         }
       }
@@ -177,13 +174,13 @@ class VueDiscordOAuth extends EventEmitter {
     return this.fetchUser(token)
       .then(user => {
         this._state.accessToken = token
+        this._state.logging = false
         this.emit('login')
         return user
       })
-      .catch(e => Promise.reject(e || new Error('Invalid request')))
-      .then(res => {
+      .catch(e => {
         this._state.logging = false
-        return res
+        return Promise.reject(e || new Error('Invalid request'))
       })
   }
 
