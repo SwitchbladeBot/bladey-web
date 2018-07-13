@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <Navbar/>
     <section class="hero is-fullheight">
+      <section class="hero-head">
+        <Navbar/>
+      </section>
       <router-view/>
-      <Footer/>
+      <section class="hero-foot">
+        <Footer/>
+      </section>
     </section>
   </div>
 </template>
@@ -34,15 +38,5 @@ export default {
 
   html {
     overflow: auto;
-  }
-
-  app {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-
-  .page {
-    flex: 1;
   }
 </style>

@@ -5,7 +5,7 @@
         {{ items.category }}
       </p>
       <ul :key="i">
-        <li v-for="page in items.pages" :key="page.name">
+        <li v-for="page in items" :key="page.name">
           <router-link v-if="page.name" :to="page.path">
             <span class="sidebar-menu-text">{{ page.name }}</span>
           </router-link>
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      data: Array
-    }
+export default {
+  props: {
+    data: Array
   }
+}
 </script>
