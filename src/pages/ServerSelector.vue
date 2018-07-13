@@ -21,6 +21,11 @@ export default {
     return {
       requiresAuth: true
     }
+  },
+  methods: {
+    onFailed () {
+      this.$router.push('/')
+    }
   }
 }
 </script>
