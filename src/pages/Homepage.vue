@@ -5,13 +5,13 @@
         <img src="../assets/logo.svg" class="logo" width="128" height="128">
         <h1 class="title is-centered has-text-white">The last bot you'll ever need.</h1>
         <div class="buttons is-centered">
-          <a class="button is-large is-link is-rounded" href="http://support.switchblade.xyz/" target="_blank">
+          <a class="button is-large is-rounded" href="http://support.switchblade.xyz/" target="_blank">
             <span class="icon">
               <fai class="fab" icon="life-ring" />
             </span>
             <span>Join our support server</span>
           </a>
-          <a class="button is-large is-rounded" href="http://invite.switchblade.xyz/" target="_blank">
+          <a class="button is-large is-primary is-rounded" href="http://invite.switchblade.xyz/" target="_blank">
             <span class="icon">
               <fai class="fab" icon="envelope" />
             </span>
