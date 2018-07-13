@@ -21,8 +21,7 @@
 <script>
 export default {
   props: {
-    guild: Object,
-    user: Object
+    guild: Object
   }
 }
 </script>

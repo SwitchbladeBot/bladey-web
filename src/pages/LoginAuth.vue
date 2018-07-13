@@ -19,7 +19,7 @@ export default {
           o[key] = value || true
           return o
         }, {})
-        opener.__onLogin__(keys.access_token)
+        opener[this.$discord.loginCallback](keys.access_token)
         window.close()
       } else {
         this.$router.push('/')

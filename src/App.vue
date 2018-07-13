@@ -29,6 +29,25 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ]
+  },
+
+  created () {
+    this.$discord.on('login', () => {
+      this.$localStorage.set('accessToken', this.$discord.accessToken)
+      this.$discord.fetchGuilds().then(() => this.$discord.state.$emit('login')).catch(console.error)
+    })
+    this.$discord.on('logout', () => {
+      this.$localStorage.remove('accessToken')
+      this.$router.push('/')
+    })
+
+    const token = this.$localStorage.get('accessToken')
+    if (token) {
+      this.$discord.login(token).catch(e => this.$localStorage.remove('accessToken'))
+    }
+  },
+  destroyed () {
+    this.$discord.removeAllListeners()
   }
 }
 </script>

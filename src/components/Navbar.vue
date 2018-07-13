@@ -13,12 +13,12 @@
       </div>
       <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
-          <div v-if="!!user" class="navbar-item has-dropdown" id="navDropdown">
+          <div v-if="!!discord.user" class="navbar-item has-dropdown" id="navDropdown">
             <div class="navbar-link is-flex" v-on:click="dropdown" data-target="navDropdown">
               <span class="icon user-pic">
-                <img class="round" :src="user.displayAvatarURL" />
+                <img class="round" :src="discord.user.displayAvatarURL" />
               </span>
-              <span>{{ user.username }}</span>
+              <span>{{ discord.user.username }}</span>
             </div>
             <div class="navbar-dropdown is-boxed">
               <router-link to="/dashboard" class="navbar-item">
@@ -37,7 +37,7 @@
             </div>
           </div>
           <a v-else class="navbar-item" v-on:click="login">
-            <template v-if="loading">
+            <template v-if="discord.logging">
               <span class="icon">
                 <fai icon="spinner" spin />
               </span>
@@ -57,28 +57,11 @@
 </template>
 
 <script>
-import Discord from '../oauth/Discord'
-
 export default {
   name: 'navbar',
-  created () {
-    this.configureOAuth()
-  },
-  destroyed () {
-    this.oauth.removeAllListeners()
-  },
-  mounted () {
-    Object.defineProperty(window, '__onLogin__', {
-      value: this.onLogin.bind(this),
-      writable: false,
-      enumerable: true,
-      configurable: true
-    })
-  },
   data () {
     return {
-      loading: true,
-      user: null
+      discord: this.$discord.state
     }
   },
   methods: {
@@ -94,39 +77,11 @@ export default {
       $target.classList.toggle('is-active')
     },
 
-    onLogin (token) {
-      this.loading = true
-      this.oauth.login(token)
-    },
     login () {
-      if (this.loading) return
-      const AUTHORIZE_ENDPOINT = 'https://discordapp.com/oauth2/authorize'
-      const EXTRA_OPTIONS = '&response_type=token&scope=guilds%20identify'
-      const OAUTH_URL = `${AUTHORIZE_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}${EXTRA_OPTIONS}`
-      window.open(OAUTH_URL, '_blank', 'directories=0,titlebar=0,toolbar=0,location=false,status=0,menubar=0,scrollbars=no,resizable=no,height=570,width=500')
+      this.$discord.loginPopup(process.env.CLIENT_ID, process.env.REDIRECT_URI)
     },
     logout () {
-      this.loading = true
-      this.oauth.logout()
-    },
-
-    configureOAuth () {
-      this.oauth = new Discord()
-      this.oauth.on('login', (p) => { this.user = p; this.loading = false })
-      this.oauth.on('loginError', this.resetProps)
-      this.oauth.on('logout', () => {
-        this.$localStorage.remove('accessToken')
-        this.$router.push('/')
-        this.resetProps()
-      })
-      this.oauth.on('token', (token) => {
-        this.$localStorage.set('accessToken', token)
-      })
-      this.oauth.updateStatus(this.$localStorage.get('accessToken'))
-    },
-    resetProps () {
-      this.user = null
-      this.loading = false
+      this.$discord.logout()
     }
   }
 }
