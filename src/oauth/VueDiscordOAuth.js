@@ -195,14 +195,14 @@ class VueDiscordOAuth extends EventEmitter {
   fetchUser (token = this.accessToken) {
     return this._request('/users/@me', token).then(user => {
       this._state.user = new User(user)
-      return this._user
+      return this.user
     }).catch(e => Promise.reject(e || new Error('Invalid request')))
   }
 
   fetchGuilds (token = this.accessToken) {
     return this._request('/users/@me/guilds', token).then(guilds => {
       this._state.guilds = guilds.map(g => new Guild(g))
-      return this._guilds
+      return this.guilds
     }).catch(e => Promise.reject(e || new Error('Invalid request')))
   }
 
