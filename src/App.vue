@@ -1,16 +1,24 @@
 <template>
   <div id="app">
-    <Navbar/>
-    <router-view/>
+    <section class="hero is-fullheight">
+      <section class="hero-head">
+        <Navbar/>
+      </section>
+      <router-view/>
+      <section class="hero-foot">
+        <Footer/>
+      </section>
+    </section>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 export default {
   name: 'App',
-  components: { Navbar },
+  components: { Navbar, Footer },
   metaInfo: {
     title: 'Homepage',
     titleTemplate: '%s - Switchblade',

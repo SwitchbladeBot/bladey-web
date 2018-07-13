@@ -21,12 +21,12 @@
               <span>{{ user.username }}</span>
             </div>
             <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item">
+              <router-link to="/dashboard" class="navbar-item">
                 <span class="icon">
                   <fai icon="tachometer-alt" />
                 </span>
                 <span>Dashboard</span>
-              </a>
+              </router-link>
               <hr class="navbar-divider">
               <a class="navbar-item" v-on:click="logout">
                 <span class="icon">
@@ -148,9 +148,5 @@ export default {
 
   .user-pic {
     margin-right: 0.6rem;
-  }
-
-  .round {
-    border-radius: 100%;
   }
 </style>

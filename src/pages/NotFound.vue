@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <section class="hero is-fullheight is-vcentered info">
+    <section class="hero is-vcentered info">
       <div class="container is-centered">
         <h1 class="title">
           404
