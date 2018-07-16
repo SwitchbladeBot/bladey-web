@@ -85,7 +85,6 @@ export default {
 
 <style scoped>
   .navbar-brand > .navbar-item, .navbar-burger {
-    font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-style: italic;
     color: white;

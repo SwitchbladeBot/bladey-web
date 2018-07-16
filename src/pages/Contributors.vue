@@ -57,12 +57,7 @@ export default {
 </script>
 
 <style scoped>
-.contributors {
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-}
-
-.contributors .title {
+.contributors, .contributors .title {
   color: white;
 }
 
