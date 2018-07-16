@@ -138,8 +138,6 @@ export default {
 </script>
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,900,900i');
-
   .navbar-brand > .navbar-item, .navbar-burger {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
