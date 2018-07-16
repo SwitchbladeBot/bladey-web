@@ -4,6 +4,8 @@ import LocalStorage from 'vue-localstorage'
 import Meta from 'vue-meta'
 import Buefy from 'buefy'
 
+import DiscordOAuth from '../oauth/VueDiscordOAuth'
+
 import Homepage from '../pages/Homepage'
 import Dashboard from '../pages/Dashboard'
 import LoginAuth from '../pages/LoginAuth'
@@ -12,9 +14,10 @@ import ServerSelector from '../pages/ServerSelector'
 import NotFound from '../pages/NotFound'
 
 Vue.use(Buefy)
-Vue.use(Router)
+Vue.use(DiscordOAuth)
 Vue.use(LocalStorage)
 Vue.use(Meta)
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
