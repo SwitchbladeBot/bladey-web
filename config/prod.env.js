@@ -3,5 +3,6 @@ module.exports = {
   NODE_ENV: '"production"',
   ROOT_HOST: '"switchblade.xyz"',
   CLIENT_ID: '"445277324175474689"',
-  REDIRECT_URI: '"https://switchblade.xyz/auth"'
+  REDIRECT_URI: '"https://switchblade.xyz/auth"',
+  BLADEY_API_ROOT: '"http://bladey-api.herokuapp.com"'
 }
