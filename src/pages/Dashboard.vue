@@ -1,5 +1,8 @@
 <template>
-  <ServerHero v-if="guild" :guild="guild" />
+  <div>
+    <ServerHero v-if="guild" :guild="guild" />
+    <b-loading :active="!guild" />
+  </div>
 </template>
 
 <script>

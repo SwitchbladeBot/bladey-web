@@ -9,6 +9,7 @@ import DiscordOAuth from '../oauth/VueDiscordOAuth'
 import Homepage from '../pages/Homepage'
 import Dashboard from '../pages/Dashboard'
 import LoginAuth from '../pages/LoginAuth'
+import Contributors from '../pages/Contributors'
 import ServerSelector from '../pages/ServerSelector'
 import NotFound from '../pages/NotFound'
 
@@ -45,6 +46,11 @@ export default new Router({
       path: '/dashboard/:id',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/contributors',
+      name: 'Contributors',
+      component: Contributors
     }
   ]
 })
