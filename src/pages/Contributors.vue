@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="contributors">
     <section class="hero is-primary" v-if="response">
       <div class="hero-body">
         <div class="container text-container">
@@ -16,10 +16,10 @@
           <h1 class="title is-spaced">{{role.roleName}}</h1>
           <div class="columns is-multiline is-centered">
             <div class="column is-2 has-text-centered" v-for="contributor in role.people" v-bind:key="contributor.user.id">
-              <figure>
-                <img :src="`https://cdn.discordapp.com/avatars/${contributor.user.id}/${contributor.user.avatar}.jpg`" class="round is-unselectable">
+              <figure class="image is-128x128 contributor-avatar">
+                <img :src="contributor.user.displayAvatarURL" class="round is-unselectable">
               </figure>
-              <span class="contributor-name">{{contributor.user.username}}#{{contributor.user.discriminator}}</span>
+              <span class="contributor-name">{{contributor.user.tag}}</span>
             </div>
           </div>
         </section>
@@ -31,6 +31,7 @@
 
 <script>
 import snekfetch from 'snekfetch'
+import User from '../oauth/User'
 
 export default {
   name: 'Contributors',
@@ -44,31 +45,45 @@ export default {
   },
   mounted: function () {
     snekfetch.get(`${process.env.BLADEY_API_ROOT}/contributors`).then(({body}) => {
-      this.response = body
+      this.response = body.map(r => {
+        r.people = r.people.map(c => {
+          c.user = new User(c.user)
+          return c
+        })
+        return r
+      })
     })
   }
 }
 </script>
 
 <style scoped>
-.hero-body > .container > .title {
+.contributors {
   font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+
+.contributors .title {
+  color: white;
+}
+
+.hero-body > .container > .title {
   font-weight: 900;
   font-style: italic;
   font-size: 50px;
-  color: white;
 }
 
 .role-section .title {
-  font-family: 'Montserrat', sans-serif;
   font-size: 40px;
-  color: white;
 }
 
 .contributor-name {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  color: white;
+  font-weight: 500;
   word-wrap: break-word;
+}
+
+.contributor-avatar {
+  margin: auto;
+  margin-bottom: 0.5rem;
 }
 </style>

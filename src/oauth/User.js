@@ -16,8 +16,12 @@ export default class User {
     this.mfaEnabled = data.mfa_enabled
   }
 
+  get tag () {
+    return `${this.username}#${this.discriminator}`
+  }
+
   get avatarURL () {
-    return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}.png?size=2048` : null
+    return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}${this.avatar.startsWith('a_') ? '.gif' : '.png?size=2048'}` : null
   }
 
   get defaultAvatarURL () {

@@ -5,53 +5,45 @@
         <router-link to="/" class="navbar-item">
           SWITCHBLADE
         </router-link>
-        <a class="navbar-burger" v-on:click="burger" data-target="navMenu" role="button" aria-label="menu" aria-expanded="false">
+        <a class="navbar-burger" v-on:click="burger" role="button" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div class="navbar-menu" id="navMenu">
+      <div class="navbar-menu" ref="navMenu">
         <div class="navbar-start">
           <router-link to="/contributors" class="navbar-item">
             <span>Contributors</span>
           </router-link>
         </div>
         <div class="navbar-end">
-          <div v-if="!!discord.user" class="navbar-item has-dropdown" id="navDropdown">
-            <div class="navbar-link is-flex" v-on:click="dropdown" data-target="navDropdown">
-              <span class="icon user-pic">
+          <div v-if="!!discord.user" class="navbar-item has-dropdown" ref="navDropdown">
+            <div class="navbar-link is-flex" v-on:click="dropdown">
+              <figure class="image is-24x24 user-pic">
                 <img class="round" :src="discord.user.displayAvatarURL" />
-              </span>
+              </figure>
               <span>{{ discord.user.username }}</span>
             </div>
             <div class="navbar-dropdown is-boxed">
               <router-link to="/dashboard" class="navbar-item">
-                <span class="icon">
-                  <fai icon="tachometer-alt" />
-                </span>
+                <b-icon icon="view-dashboard" custom-size="mdi-18px" />
                 <span>Dashboard</span>
               </router-link>
               <hr class="navbar-divider">
               <a class="navbar-item" v-on:click="logout">
-                <span class="icon">
-                  <fai icon="sign-out-alt" />
-                </span>
+                <b-icon icon="logout-variant" custom-size="mdi-18px" />
                 <span>Logout</span>
               </a>
             </div>
           </div>
-          <a v-else class="navbar-item is-flex" v-on:click="login">
+          <a v-else class="navbar-item" v-on:click="login">
             <template v-if="discord.logging">
-              <span class="icon">
-                <fai icon="spinner" spin />
-              </span>
+              <b-icon icon="loading" custom-size="mdi-18px" />
               <span>Logging in...</span>
             </template>
             <template v-else>
-              <span class="icon">
-                <fai icon="sign-in-alt" />
-              </span>
+              <b-icon icon="login-variant" custom-size="mdi-18px" />
               <span>Login</span>
             </template>
           </a>
@@ -72,13 +64,12 @@ export default {
   methods: {
     burger (event) {
       const $burger = event.target.closest('.navbar-burger')
-      const $target = document.getElementById($burger.dataset.target)
+      const $target = this.$refs.navMenu
       $burger.classList.toggle('is-active')
       $target.classList.toggle('is-active')
     },
-    dropdown (event) {
-      const $dropdown = event.target.closest('.navbar-link')
-      const $target = document.getElementById($dropdown.dataset.target)
+    dropdown () {
+      const $target = this.$refs.navDropdown
       $target.classList.toggle('is-active')
     },
 
@@ -106,9 +97,5 @@ export default {
 
   .user-pic {
     margin-right: 0.6rem;
-  }
-
-  .navbar-start {
-    font-size: 15px;
   }
 </style>
