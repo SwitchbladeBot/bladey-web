@@ -27,7 +27,11 @@ export default {
     ],
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { property: 'og:title', content: 'Switchblade' },
+      { property: 'og:url', content: 'https://switchblade.xyz'},
+      { property: 'og:description', content: 'Multi purpose Discord Bot made using discord.js, focused on quality, organization and enjoyability.'},
+      { property: 'og:image', content: 'https://i.imgur.com/bBVHhWT.png'}
     ]
   },
 
@@ -38,9 +42,7 @@ export default {
     })
     this.$discord.on('logout', () => {
       this.$localStorage.remove('accessToken')
-      if (this.$route.meta.requiresAuth) {
-        this.$router.push('/')
-      }
+      this.$router.push('/')
     })
 
     const token = this.$localStorage.get('accessToken')
