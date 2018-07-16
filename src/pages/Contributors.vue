@@ -32,6 +32,9 @@ import snekfetch from 'snekfetch'
 
 export default {
   name: 'Contributors',
+  metaInfo: {
+    title: 'Contributors'
+  },
   data: () => {
     return {
       response: null
