@@ -12,6 +12,11 @@
         </a>
       </div>
       <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+          <router-link to="/contributors" class="navbar-item">
+            <span>Contributors</span>
+          </router-link>
+        </div>
         <div class="navbar-end">
           <div v-if="!!user" class="navbar-item has-dropdown" id="navDropdown">
             <div class="navbar-link is-flex" v-on:click="dropdown" data-target="navDropdown">
@@ -148,5 +153,9 @@ export default {
 
   .user-pic {
     margin-right: 0.6rem;
+  }
+
+  .navbar-start {
+    font-size: 15px;
   }
 </style>
