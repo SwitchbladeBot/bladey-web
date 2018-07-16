@@ -208,9 +208,6 @@ class VueDiscordOAuth extends EventEmitter {
   _request (endpoint, token) {
     return fetch(`${this._apiURL}${endpoint}`, {
       headers: { 'Authorization': `Bearer ${token}` }
-    }).then(res => {
-      if (res.ok) return res.json()
-      else return Promise.reject(res)
-    })
+    }).then(res => res.ok ? res.json() : Promise.reject(res))
   }
 }

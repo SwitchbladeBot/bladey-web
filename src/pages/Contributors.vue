@@ -11,8 +11,8 @@
       </div>
     </section>
     <section class="section role-section">
-      <div class="container" v-if="roles">
-        <section v-for="role in roles" v-bind:key="role.roleId" class="section has-text-centered">
+      <div class="container">
+        <section v-if="roles" v-for="role in roles" v-bind:key="role.roleId" class="section has-text-centered">
           <h1 class="title is-spaced">{{role.name}}</h1>
           <div class="columns is-multiline is-centered">
             <div class="column is-2 has-text-centered" v-for="contributor in role.members" v-bind:key="contributor.id">
@@ -23,9 +23,9 @@
             </div>
           </div>
         </section>
+        <b-loading :active="!roles" />
       </div>
     </section>
-    <b-loading :active="!roles" />
   </div>
 </template>
 
@@ -43,15 +43,14 @@ export default {
     }
   },
   mounted: function () {
-    fetch(`${process.env.BLADEY_API_ROOT}/contributors`).then(async res => {
-      if (res.ok) {
-        const json = await res.json()
-        this.roles = json.roles.map(r => {
+    fetch(`${process.env.BLADEY_API_ROOT}/contributors`)
+      .then(res => res.ok ? res.json() : Promise.reject(res))
+      .then(res => {
+        this.roles = res.roles.map(r => {
           r.members = r.members.map(c => new User(c))
           return r
         })
-      }
-    })
+      })
   }
 }
 </script>
