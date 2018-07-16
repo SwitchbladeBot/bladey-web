@@ -38,19 +38,21 @@ export default new Router({
       component: LoginAuth
     },
     {
+      path: '/contributors',
+      name: 'Contributors',
+      component: Contributors
+    },
+    {
       path: '/dashboard',
       name: 'Select a server',
-      component: ServerSelector
+      component: ServerSelector,
+      meta: { requiresAuth: true }
     },
     {
       path: '/dashboard/:id',
       name: 'Dashboard',
-      component: Dashboard
-    },
-    {
-      path: '/contributors',
-      name: 'Contributors',
-      component: Contributors
+      component: Dashboard,
+      meta: { requiresAuth: true }
     }
   ]
 })

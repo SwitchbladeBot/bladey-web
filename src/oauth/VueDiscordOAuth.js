@@ -41,7 +41,7 @@ export default {
           })
         }
 
-        if (this.requiresAuth) {
+        if (this.$route.meta.requiresAuth) {
           if (!this.$discord.logged && !this.$discord.logging) {
             this.onFailed && this.onFailed()
           } else if (this.onLogin) {

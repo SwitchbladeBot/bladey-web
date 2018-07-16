@@ -16,7 +16,6 @@ export default {
   components: { ServerHero },
   data () {
     return {
-      requiresAuth: true,
       guild: null
     }
   },
@@ -25,6 +24,7 @@ export default {
       this.$router.push('/')
     },
     onLogin () {
+      console.log(this.$router)
       this.guild = this.$discord.guilds.find(g => g.id === this.$route.params.id)
     }
   }

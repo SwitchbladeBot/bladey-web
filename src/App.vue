@@ -38,7 +38,9 @@ export default {
     })
     this.$discord.on('logout', () => {
       this.$localStorage.remove('accessToken')
-      this.$router.push('/')
+      if (this.$route.meta.requiresAuth) {
+        this.$router.push('/')
+      }
     })
 
     const token = this.$localStorage.get('accessToken')

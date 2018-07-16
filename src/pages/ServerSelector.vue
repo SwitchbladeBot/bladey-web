@@ -19,11 +19,6 @@ export default {
   metaInfo: {
     title: 'Select a server'
   },
-  data () {
-    return {
-      requiresAuth: true
-    }
-  },
   methods: {
     onFailed () {
       this.$router.push('/')
