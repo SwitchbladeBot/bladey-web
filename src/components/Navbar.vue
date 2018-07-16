@@ -14,6 +14,7 @@
       <div class="navbar-menu" ref="navMenu">
         <div class="navbar-start">
           <router-link to="/contributors" class="navbar-item">
+            <b-icon icon="account-group" custom-size="mdi-18px" class="is-hidden-desktop" />
             <span>Contributors</span>
           </router-link>
         </div>
@@ -84,17 +85,17 @@ export default {
 </script>
 
 <style scoped>
-  .navbar-brand > .navbar-item, .navbar-burger {
-    font-weight: 900;
-    font-style: italic;
-    color: white;
-  }
+.navbar-brand > .navbar-item, .navbar-burger {
+  font-weight: 900;
+  font-style: italic;
+  color: white;
+}
 
-  .navbar-brand > .navbar-item:hover, .navbar-burger:hover {
-    color: white;
-  }
+.navbar-brand > .navbar-item:hover, .navbar-burger:hover {
+  color: white;
+}
 
-  .user-pic {
-    margin-right: 0.6rem;
-  }
+.user-pic {
+  margin-right: 0.6rem;
+}
 </style>

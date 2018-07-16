@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section class="hero is-vcentered info">
-      <div class="container is-centered">
+      <div class="container has-text-centered">
         <h1 class="title">
           Not yet.
         </h1>
@@ -31,18 +31,14 @@ export default {
 </script>
 
 <style scoped>
-  .is-centered {
-    text-align: center;
-  }
+.is-vcentered {
+  justify-content: center;
+}
 
-  .is-vcentered {
-    justify-content: center;
-  }
-
-  .info .container > .title {
-    font-weight: 900;
-    font-style: italic;
-    font-size: 50px;
-    color: white;
-  }
+.info .container > .title {
+  font-weight: 900;
+  font-style: italic;
+  font-size: 50px;
+  color: white;
+}
 </style>
