@@ -1,7 +1,7 @@
 <template>
   <div>
     <ServerHero v-if="guild" :guild="guild" :user="user"/>
-    <b-loading :active="isLoading"></b-loading>
+    <b-loading :active="!guild"></b-loading>
   </div>
 </template>
 
@@ -19,8 +19,7 @@ export default {
     return {
       id: this.$route.params.id,
       guild: null,
-      user: null,
-      isLoading: true
+      user: null
     }
   },
   beforeCreate: function () {
@@ -37,7 +36,6 @@ export default {
       this.oauth.on('login', p => {
         this.user = p
         this.oauth.guilds().then(gs => {
-          this.isLoading = false
           this.guild = gs.find(g => g.id === this.id)
           if (!this.guild) this.$router.push('/dashboard')
         })

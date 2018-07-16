@@ -2,7 +2,7 @@
   <footer class="footer has-text-white">
     <div class="content has-text-centered">
       <p>
-        Made with love by <a href="https://github.com/SwitchbladeBot/switchblade/graphs/contributors">a lot of people</a>.
+        Made with love by <router-link to="/contributors">a lot of people</router-link>.
       </p>
     </div>
   </footer>

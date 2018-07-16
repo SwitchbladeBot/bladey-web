@@ -10,20 +10,22 @@
         </div>
       </div>
     </section>
-    <div class="container" v-if="response">
-      <section v-for="role in response" v-bind:key="role.roleId" class="role-section has-text-centered">
-        <h1>{{role.roleName}}</h1>
-        <div class="columns is-multiline">
-          <div class="column is-2 has-text-centered" v-for="contributor in role.people" v-bind:key="contributor.user.id">
-            <figure>
-              <img :src="`https://cdn.discordapp.com/avatars/${contributor.user.id}/${contributor.user.avatar}.jpg`" alt="" class="round is-">
-            </figure>
-            <p class="contributor-name">{{contributor.user.username}}#{{contributor.user.discriminator}}</p>
+    <section class="section role-section">
+      <div class="container" v-if="response">
+        <section v-for="role in response" v-bind:key="role.roleId" class="section has-text-centered">
+          <h1 class="title is-spaced">{{role.roleName}}</h1>
+          <div class="columns is-multiline is-centered">
+            <div class="column is-2 has-text-centered" v-for="contributor in role.people" v-bind:key="contributor.user.id">
+              <figure>
+                <img :src="`https://cdn.discordapp.com/avatars/${contributor.user.id}/${contributor.user.avatar}.jpg`" class="round is-unselectable">
+              </figure>
+              <span class="contributor-name">{{contributor.user.username}}#{{contributor.user.discriminator}}</span>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
-    <b-loading is-full-page="false" :active="!response"></b-loading>
+        </section>
+      </div>
+    </section>
+    <b-loading :active="!response" />
   </div>
 </template>
 
@@ -41,8 +43,6 @@ export default {
     }
   },
   mounted: function () {
-    console.log('Antes do request:')
-    console.log(this)
     snekfetch.get(`${process.env.BLADEY_API_ROOT}/contributors`).then(({body}) => {
       this.response = body
     })
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style scoped>
-.hero-body > .container > h1 {
+.hero-body > .container > .title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   font-style: italic;
@@ -59,7 +59,7 @@ export default {
   color: white;
 }
 
-.role-section > h1 {
+.role-section .title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   font-style: italic;
@@ -71,5 +71,6 @@ export default {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   color: white;
+  word-wrap: break-word;
 }
 </style>
