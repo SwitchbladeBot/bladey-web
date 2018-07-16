@@ -21,7 +21,7 @@ export default class User {
   }
 
   get avatarURL () {
-    return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}${this.avatar.startsWith('a_') ? '.gif' : '.png?size=2048'}` : null
+    return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}${this.avatar.startsWith('a_') ? '.gif' : '.webp?size=2048'}` : null
   }
 
   get defaultAvatarURL () {
