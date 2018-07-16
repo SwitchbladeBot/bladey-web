@@ -16,6 +16,10 @@ $not-quite-black-invert: findColorInvert($not-quite-black);
 $primary: $blurple;
 $primary-invert: $blurple-invert;
 
+// Links
+$link: $blurple;
+$link-hover: $white;
+
 // Setup $colors to use as bulma classes (e.g. 'is-dark')
 $colors: (
     "white": ($white, $black),
@@ -50,10 +54,6 @@ $navbar-divider-background-color: $dark-but-not-black;
 
 // Footer
 $footer-background-color: $dark-but-not-black;
-
-// Links
-$link: $blurple;
-$link-hover: $white;
 
 // Global styles
 .round {
