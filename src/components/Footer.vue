@@ -15,7 +15,6 @@ export default {
 </script>
 
 <style scoped>
-.heart:hover {
-  color: #ff3860;
-}
+.heart { transition: color 0.25s ease; }
+.heart:hover { color: #ff3860; }
 </style>
