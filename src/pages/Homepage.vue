@@ -12,7 +12,6 @@
           <b-icon icon="email" />
           <span>Invite to your server</span>
         </a>
-        // test
       </div>
     </div>
   </section>
