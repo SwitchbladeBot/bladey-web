@@ -4,11 +4,11 @@
       <img src="../assets/logo.svg" class="logo" width="128" height="128">
       <h1 class="title has-text-white">The last bot you'll ever need.</h1>
       <div class="buttons is-centered">
-        <a class="button is-large is-rounded" href="http://support.switchblade.xyz/" target="_blank">
+        <a class="button is-large is-rounded is-white" href="http://support.switchblade.xyz/" target="_blank">
           <b-icon icon="lifebuoy" />
           <span>Join our support server</span>
         </a>
-        <a class="button is-large is-primary is-rounded" href="http://invite.switchblade.xyz/" target="_blank">
+        <a class="button is-large is-rounded is-primary" href="http://invite.switchblade.xyz/" target="_blank">
           <b-icon icon="email" />
           <span>Invite to your server</span>
         </a>
