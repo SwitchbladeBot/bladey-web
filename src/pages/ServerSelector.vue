@@ -5,7 +5,9 @@
         <h1 class="title">
           Not yet.
         </h1>
-        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&controls=0&showinfo=0&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="video-container">
+          <iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&controls=0&showinfo=0&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
       </div>
     </section>
   </div>
@@ -33,6 +35,21 @@ export default {
 <style scoped>
 .is-vcentered {
   justify-content: center;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  margin-bottom: 25px;
+}
+
+.video-container > iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .info .container > .title {
