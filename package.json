@@ -11,13 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.0",
-    "@fortawesome/free-brands-svg-icons": "^5.1.0",
-    "@fortawesome/free-solid-svg-icons": "^5.1.0",
-    "@fortawesome/vue-fontawesome": "^0.1.0",
     "buefy": "^0.6.6",
-    "bulma": "^0.7.1",
-    "snekfetch": "^4.0.4",
     "vue": "^2.5.2",
     "vue-localstorage": "^0.6.2",
     "vue-meta": "^1.5.2",

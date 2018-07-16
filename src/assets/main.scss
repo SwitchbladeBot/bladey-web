@@ -1,29 +1,42 @@
-@import "~bulma/sass/utilities/initial-variables";
-@import "~bulma/sass/utilities/functions";
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
 
+// Customization
+
+// Colors
 $blurple: #7289DA;
 $blurple-invert: findColorInvert($blurple);
-
 $greyple: #99AAB5;
 $greyple-invert: findColorInvert($greyple);
-
 $dark-but-not-black: #2C2F33;
 $dark-but-not-black-invert: findColorInvert($dark-but-not-black);
-
 $not-quite-black: #23272A;
 $not-quite-black-invert: findColorInvert($not-quite-black);
 
-$family-sans-serif: "Montserrat", sans-serif;
-
 $primary: $blurple;
 $primary-invert: $blurple-invert;
+
+// Setup $colors to use as bulma classes (e.g. 'is-dark')
+$colors: (
+    "white": ($white, $black),
+    "black": ($black, $white),
+    "light": ($light, $light-invert),
+    "dark": ($dark, $dark-invert),
+    "primary": ($primary, $primary-invert),
+    "info": ($info, $info-invert),
+    "success": ($success, $success-invert),
+    "warning": ($warning, $warning-invert),
+    "danger": ($danger, $danger-invert)
+);
+
+// Fonts
+$family-sans-serif: "Montserrat", sans-serif;
 $family-primary: $family-sans-serif;
 
+// Body
 $body-background-color: #18191c;
 
-$link: $blurple;
-$link-hover: $white;
-
+// Navbar
 $navbar-background-color: $not-quite-black;
 $navbar-item-hover-background-color: $not-quite-black;
 $navbar-item-active-background-color: $not-quite-black;
@@ -35,14 +48,20 @@ $navbar-dropdown-item-hover-color: $link;
 $navbar-dropdown-item-color: $white;
 $navbar-divider-background-color: $dark-but-not-black;
 
+// Footer
 $footer-background-color: $dark-but-not-black;
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,900,900i');
+// Links
+$link: $blurple;
+$link-hover: $white;
 
+// Global styles
 .round {
   border-radius: 100%;
 }
 
-@import "~bulma/bulma";
+// Import Bulma and Buefy styles and custom font
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,900,900i');
+@import url('https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css');
+@import "~bulma";
 @import "~buefy/src/scss/buefy";
-

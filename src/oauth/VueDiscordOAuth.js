@@ -1,5 +1,4 @@
 import EventEmitter from 'events'
-import snekfetch from 'snekfetch'
 
 import Guild from './Guild'
 import User from './User'
@@ -207,8 +206,11 @@ class VueDiscordOAuth extends EventEmitter {
   }
 
   _request (endpoint, token) {
-    return snekfetch.get(`${this._apiURL}${endpoint}`, {
+    return fetch(`${this._apiURL}${endpoint}`, {
       headers: { 'Authorization': `Bearer ${token}` }
-    }).then(res => res.body)
+    }).then(res => {
+      if (res.ok) return res.json()
+      else return Promise.reject(res)
+    })
   }
 }

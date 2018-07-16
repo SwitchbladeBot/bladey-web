@@ -35,7 +35,6 @@ export default {
   }
 
   .info .container > .title {
-    font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-style: italic;
     font-size: 150px;

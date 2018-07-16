@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <section class="hero is-primary" v-if="response">
+  <div class="contributors">
+    <section class="hero is-primary" v-if="roles">
       <div class="hero-body">
         <div class="container text-container">
           <h1 class="title">
@@ -11,26 +11,26 @@
       </div>
     </section>
     <section class="section role-section">
-      <div class="container" v-if="response">
-        <section v-for="role in response" v-bind:key="role.roleId" class="section has-text-centered">
-          <h1 class="title is-spaced">{{role.roleName}}</h1>
+      <div class="container" v-if="roles">
+        <section v-for="role in roles" v-bind:key="role.roleId" class="section has-text-centered">
+          <h1 class="title is-spaced">{{role.name}}</h1>
           <div class="columns is-multiline is-centered">
-            <div class="column is-2 has-text-centered" v-for="contributor in role.people" v-bind:key="contributor.user.id">
-              <figure>
-                <img :src="`https://cdn.discordapp.com/avatars/${contributor.user.id}/${contributor.user.avatar}.jpg`" class="round is-unselectable">
+            <div class="column is-2 has-text-centered" v-for="contributor in role.members" v-bind:key="contributor.id">
+              <figure class="image is-128x128 contributor-avatar">
+                <img :src="contributor.displayAvatarURL" class="round is-unselectable">
               </figure>
-              <span class="contributor-name">{{contributor.user.username}}#{{contributor.user.discriminator}}</span>
+              <span class="contributor-name">{{contributor.tag}}</span>
             </div>
           </div>
         </section>
       </div>
     </section>
-    <b-loading :active="!response" />
+    <b-loading :active="!roles" />
   </div>
 </template>
 
 <script>
-import snekfetch from 'snekfetch'
+import User from '../oauth/User'
 
 export default {
   name: 'Contributors',
@@ -39,36 +39,45 @@ export default {
   },
   data: () => {
     return {
-      response: null
+      roles: null
     }
   },
   mounted: function () {
-    snekfetch.get(`${process.env.BLADEY_API_ROOT}/contributors`).then(({body}) => {
-      this.response = body
+    fetch(`${process.env.BLADEY_API_ROOT}/contributors`).then(async res => {
+      if (res.ok) {
+        const json = await res.json()
+        this.roles = json.roles.map(r => {
+          r.members = r.members.map(c => new User(c))
+          return r
+        })
+      }
     })
   }
 }
 </script>
 
 <style scoped>
+.contributors, .contributors .title {
+  color: white;
+}
+
 .hero-body > .container > .title {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   font-style: italic;
   font-size: 50px;
-  color: white;
 }
 
 .role-section .title {
-  font-family: 'Montserrat', sans-serif;
   font-size: 40px;
-  color: white;
 }
 
 .contributor-name {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  color: white;
+  font-weight: 500;
   word-wrap: break-word;
+}
+
+.contributor-avatar {
+  margin: auto;
+  margin-bottom: 0.5rem;
 }
 </style>
