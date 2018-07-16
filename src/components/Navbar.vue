@@ -36,7 +36,7 @@
               </a>
             </div>
           </div>
-          <a v-else class="navbar-item" v-on:click="login">
+          <a v-else class="navbar-item is-flex" v-on:click="login">
             <template v-if="discord.logging">
               <span class="icon">
                 <fai icon="spinner" spin />
