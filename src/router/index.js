@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LocalStorage from 'vue-localstorage'
-import Meta from 'vue-meta'
+import Head from 'vue-head'
 import Buefy from 'buefy'
 
 import DiscordOAuth from '../oauth/VueDiscordOAuth'
@@ -16,7 +16,7 @@ import NotFound from '../pages/NotFound'
 Vue.use(Buefy)
 Vue.use(DiscordOAuth)
 Vue.use(LocalStorage)
-Vue.use(Meta)
+Vue.use(Head)
 Vue.use(Router)
 
 export default new Router({

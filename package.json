@@ -13,6 +13,7 @@
   "dependencies": {
     "buefy": "^0.6.6",
     "vue": "^2.5.2",
+    "vue-head": "^2.0.12",
     "vue-localstorage": "^0.6.2",
     "vue-meta": "^1.5.2",
     "vue-router": "^3.0.1"
