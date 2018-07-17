@@ -22,8 +22,8 @@ import Card from '../components/Card.vue'
 
 export default {
   name: 'Homepage',
-  metaInfo: {
-    title: 'Homepage'
+  head: {
+    title: { inner: 'Homepage' }
   },
   components: {
     'Card': Card

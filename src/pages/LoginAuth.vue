@@ -5,8 +5,8 @@
 <script>
 export default {
   name: 'LoginAuth',
-  metaInfo: {
-    title: 'Authentication'
+  head: {
+    title: { inner: 'Authentication' }
   },
   mounted () {
     this.login()

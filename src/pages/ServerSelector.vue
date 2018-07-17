@@ -16,8 +16,8 @@
 <script>
 export default {
   name: 'ServerSelector',
-  metaInfo: {
-    title: 'Select a server'
+  head: {
+    title: { inner: 'Select a server' }
   },
   methods: {
     onFailed () {

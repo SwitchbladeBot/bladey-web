@@ -34,8 +34,8 @@ import User from '../oauth/User'
 
 export default {
   name: 'Contributors',
-  metaInfo: {
-    title: 'Contributors'
+  head: {
+    title: { inner: 'Contributors' }
   },
   data: () => {
     return {

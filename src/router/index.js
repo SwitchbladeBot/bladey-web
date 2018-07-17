@@ -16,7 +16,7 @@ import NotFound from '../pages/NotFound'
 Vue.use(Buefy)
 Vue.use(DiscordOAuth)
 Vue.use(LocalStorage)
-Vue.use(Head)
+Vue.use(Head, { separator: '-', complement: 'Switchblade' })
 Vue.use(Router)
 
 export default new Router({

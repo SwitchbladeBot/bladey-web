@@ -10,8 +10,8 @@ import ServerHero from '../components/ServerHero.vue'
 
 export default {
   name: 'Dashboard',
-  metaInfo: {
-    title: 'Dashboard'
+  head: {
+    title: { inner: 'Dashboard' }
   },
   components: { ServerHero },
   data () {

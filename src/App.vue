@@ -20,22 +20,12 @@ export default {
   name: 'App',
   components: { Navbar, Footer },
   head: {
-    title: {
-      inner: 'Homepage',
-      separator: '-',
-      complement: 'Switchblade'
-    },
     link: [
       { r: 'shortcut icon', t: 'image/png', h: '/static/favicon.png' }
     ],
     meta: [
       { ch: 'utf-8' },
-      { n: 'viewport', c: 'width=device-width, initial-scale=1' },
-      { p: 'og:type', c: 'website' },
-      { p: 'og:title', c: 'Switchblade' },
-      { p: 'og:url', c: 'https://switchblade.xyz' },
-      { p: 'og:description', c: 'Multi purpose Discord Bot made using discord.js, focused on quality, organization and enjoyability.' },
-      { p: 'og:image', c: 'https://i.imgur.com/bBVHhWT.png' }
+      { n: 'viewport', c: 'width=device-width, initial-scale=1' }
     ]
   },
 
@@ -46,7 +36,9 @@ export default {
     })
     this.$discord.on('logout', () => {
       this.$localStorage.remove('accessToken')
-      this.$router.push('/')
+      if (this.$route.meta.requiresAuth) {
+        this.$router.push('/')
+      }
     })
 
     const token = this.$localStorage.get('accessToken')
