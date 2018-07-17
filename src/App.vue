@@ -19,15 +19,23 @@ import Footer from './components/Footer'
 export default {
   name: 'App',
   components: { Navbar, Footer },
-  metaInfo: {
-    title: 'Homepage',
-    titleTemplate: '%s - Switchblade',
+  head: {
+    title: {
+      inner: 'Homepage',
+      separator: '-',
+      complement: 'Switchblade'
+    },
     link: [
-      { rel: 'shortcut icon', type: 'image/png', href: '/static/favicon.png' }
+      { r: 'shortcut icon', t: 'image/png', h: '/static/favicon.png' }
     ],
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { ch: 'utf-8' },
+      { n: 'viewport', c: 'width=device-width, initial-scale=1' },
+      { p: 'og:type', c: 'website' },
+      { p: 'og:title', c: 'Switchblade' },
+      { p: 'og:url', c: 'https://switchblade.xyz' },
+      { p: 'og:description', c: 'Multi purpose Discord Bot made using discord.js, focused on quality, organization and enjoyability.' },
+      { p: 'og:image', c: 'https://i.imgur.com/bBVHhWT.png' }
     ]
   },
 
