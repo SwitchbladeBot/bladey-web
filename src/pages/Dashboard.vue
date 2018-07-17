@@ -24,7 +24,6 @@ export default {
       this.$router.push('/')
     },
     onLogin () {
-      console.log(this.$router)
       this.guild = this.$discord.guilds.find(g => g.id === this.$route.params.id)
     }
   }
