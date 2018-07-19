@@ -25,6 +25,7 @@ export default {
 <style scoped>
 .is-vcentered {
   justify-content: center;
+  align-items: center;
 }
 
 .info {

@@ -2,9 +2,7 @@
   <section class="hero is-primary">
     <div class="hero-body">
       <div class="container is-flex">
-        <div class="container image-container">
-          <img class="round" :src="guild.iconURL">
-        </div>
+        <GuildIcon :guild="guild" :tooltip="false" :size="128" />
         <div class="container text-container">
           <h1 class="title">
             {{ guild.name }}
@@ -19,20 +17,19 @@
 </template>
 
 <script>
+import GuildIcon from '../components/GuildIcon'
+
 export default {
   props: {
     guild: Object
-  }
+  },
+  components: { GuildIcon }
 }
 </script>
 
 <style scoped>
-.image-container {
+.guild-icon {
   max-width: 128px;
   margin-right: 1rem;
-}
-
-.image-container > img {
-  box-shadow: 0px 0px 10px black;
 }
 </style>

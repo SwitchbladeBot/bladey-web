@@ -1,3 +1,9 @@
+function supportWebP () {
+  const canvas = typeof document === 'object' ? document.createElement('canvas') : {}
+  canvas.width = canvas.height = 1
+  return canvas.toDataURL ? canvas.toDataURL('image/webp').indexOf('image/webp') === 5 : false
+}
+
 export default class Guild {
   constructor (data) {
     this.id = data.id
@@ -8,7 +14,12 @@ export default class Guild {
   }
 
   get iconURL () {
-    return this.icon ? `https://cdn.discordapp.com/icons/${this.id}/${this.icon}.jpg` : null
+    const imageExt = `${supportWebP() ? '.webp' : '.png'}?size=2048`
+    return this.icon ? `https://cdn.discordapp.com/icons/${this.id}/${this.icon}${imageExt}` : null
+  }
+
+  get nameAcronym () {
+    return this.name.replace(/\w+/g, name => name[0]).replace(/\s/g, '')
   }
 
   hasPermission (permission) {
