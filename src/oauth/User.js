@@ -6,6 +6,12 @@ const DefaultAvatars = {
   RED: '1cbd08c76f8af6dddce02c5138971129'
 }
 
+function supportWebP () {
+  const canvas = typeof document === 'object' ? document.createElement('canvas') : {}
+  canvas.width = canvas.height = 1
+  return canvas.toDataURL ? canvas.toDataURL('image/webp').indexOf('image/webp') === 5 : false
+}
+
 export default class User {
   constructor (data) {
     this.id = data.id
@@ -21,7 +27,8 @@ export default class User {
   }
 
   get avatarURL () {
-    return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}${this.avatar.startsWith('a_') ? '.gif' : '.webp?size=2048'}` : null
+    const imageExt = this.avatar.startsWith('a_') ? '.gif' : supportWebP() ? '.webp?size=2048' : '.png?size=2048'
+    return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}${imageExt}` : null
   }
 
   get defaultAvatarURL () {
