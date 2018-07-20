@@ -13,7 +13,7 @@ import Contributors from '../pages/Contributors'
 import ServerSelector from '../pages/ServerSelector'
 import NotFound from '../pages/NotFound'
 
-Vue.use(Buefy)
+Vue.use(Buefy, { defaultTooltipAnimated: true })
 Vue.use(DiscordOAuth)
 Vue.use(LocalStorage)
 Vue.use(Head, { separator: '-', complement: 'Switchblade' })
