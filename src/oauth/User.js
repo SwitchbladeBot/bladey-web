@@ -14,6 +14,7 @@ export default class User {
     this.username = data.username
     this.discriminator = data.discriminator
     this.avatar = data.avatar
+    this.status = data.status
     this.locale = data.locale
     this.mfaEnabled = data.mfa_enabled
   }
