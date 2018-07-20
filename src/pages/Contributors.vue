@@ -92,7 +92,7 @@ export default {
   position: relative;
   bottom: 32px;
   left: calc(100% - 32px);
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
 }
 </style>
