@@ -40,7 +40,7 @@
           </div>
           <a v-else class="navbar-item" v-on:click="login">
             <template v-if="discord.logging">
-              <b-icon icon="loading" custom-size="mdi-18px" />
+              <b-icon icon="loading" custom-size="mdi-18px" class="loading-spinner" />
               <span>Logging in...</span>
             </template>
             <template v-else>
@@ -98,4 +98,13 @@ export default {
 .user-pic {
   margin-right: 0.6rem;
 }
+
+.loading-spinner {
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 </style>
