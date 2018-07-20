@@ -16,7 +16,6 @@ export default {
   components: { ServerHero },
   data () {
     return {
-      activeTab: 0,
       guild: null
     }
   },
@@ -30,7 +29,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.config-tabs, .tabs a { color: white; }
-</style>
