@@ -90,9 +90,9 @@ export default {
 .contributor-avatar .status {
   box-shadow: 0 0 0 3pt #18191c;
   position: relative;
-  bottom: 38px;
-  left: calc(100% - 38px);
-  width: 38px;
-  height: 38px;
+  bottom: 32px;
+  left: calc(100% - 32px);
+  width: 32px;
+  height: 32px;
 }
 </style>
