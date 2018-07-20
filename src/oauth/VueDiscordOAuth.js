@@ -43,7 +43,15 @@ export default {
 
         if (this.$route.meta.requiresAuth) {
           if (!this.$discord.logged && !this.$discord.logging) {
-            this.onFailed && this.onFailed()
+            if (this.onFailed) this.onFailed()
+            else {
+              this.$router.push('/')
+              this.$toast.open({
+                duration: 3000,
+                message: 'Authentication is required!',
+                type: 'is-danger'
+              })
+            }
           } else if (this.onLogin) {
             if (this.$discord.logged) this.onLogin()
             else this.$discord.state.$on('login', () => this.onLogin())

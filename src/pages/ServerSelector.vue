@@ -26,11 +26,8 @@ export default {
     }
   },
   methods: {
-    onFailed () {
-      this.$router.push('/')
-    },
     onLogin () {
-      this.guilds = this.$discord.guilds
+      this.guilds = this.$discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD'))
     }
   }
 }

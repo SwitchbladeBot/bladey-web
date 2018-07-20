@@ -1,10 +1,10 @@
 <template>
   <router-link :to="`/dashboard/${guild.id}`" class="guild-icon">
-    <b-tooltip :label="guild.name" position="is-bottom">
+    <b-tooltip :label="tooltip ? guild.name : ''" position="is-bottom">
       <figure v-if="guild.icon" :class="`image is-${size}x${size} guild-image`">
         <img :src="guild.iconURL" class="round is-unselectable">
       </figure>
-      <div v-else class="guild-placeholder round is-flex is-vcentered">
+      <div v-else :style="placeholderStyle" class="guild-placeholder round is-flex is-vcentered">
         {{guild.nameAcronym}}
       </div>
     </b-tooltip>
@@ -16,7 +16,13 @@ export default {
   props: {
     guild: Object,
     tooltip: { type: Boolean, default: true },
-    size: { type: Number, default: 96 }
+    size: { type: Number, default: 96 },
+    fontSize: { type: String, default: null }
+  },
+  data () {
+    return {
+      placeholderStyle: `width: ${this.size}px; height: ${this.size}px; font-size: ${this.fontSize || Math.floor(this.size * 0.2)}px`
+    }
   }
 }
 </script>
@@ -33,11 +39,8 @@ export default {
   margin-bottom: 0.5rem;
 }
 .guild-icon .guild-placeholder {
-  width: 96px;
-  height: 96px;
   background-color: #2C2F33;
   font-weight: 500;
-  font-size: 20px;
   word-wrap: break-word;
 }
 </style>
