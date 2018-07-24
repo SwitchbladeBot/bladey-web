@@ -32,6 +32,12 @@ export default {
   justify-content: center;
   align-items: center;
 }
+.round {
+  transition: all 0.2s ease-in-out;
+}
+.round:hover {
+  border-radius: 20px;
+}
 
 .guild-icon { color: white; }
 .guild-icon .guild-image {
