@@ -1,11 +1,12 @@
 <template>
   <section class="section guild-section is-centered">
-      <GuildIcon :guild="guild" :tooltip="false" :size="512" />
-      <div class="container text-container">
+      <GuildIcon :guild="guild" class="img-border" :tooltip="false" :size="512" />
+      <div class="">
         <h1 class="title">
           {{ guild.name }}
         </h1>
         <h2 class="subtitle">
+          <i class="mdi mdi-account"></i>
           <IOdometer
             class="iOdometer"
             :value="num"
@@ -51,6 +52,15 @@ export default {
 </script>
 
 <style scoped>
+.guild-section div {
+  background-color: white;
+  max-width:fit-content;
+  margin: 0 auto;
+  padding: 70px;
+  border-radius: 20px;
+  margin-top: -70px;
+}
+
 .is-centered {
   text-align: center;
 }
