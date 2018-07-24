@@ -12,6 +12,7 @@ import LoginAuth from '../pages/LoginAuth'
 import Contributors from '../pages/Contributors'
 import ServerSelector from '../pages/ServerSelector'
 import NotFound from '../pages/NotFound'
+import Members from '../pages/Members'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true })
 Vue.use(DiscordOAuth)
@@ -53,6 +54,11 @@ export default new Router({
       name: 'Dashboard',
       component: Dashboard,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/members/:id',
+      name: 'Members',
+      component: Members
     }
   ]
 })
