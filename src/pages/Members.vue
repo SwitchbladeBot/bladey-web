@@ -64,6 +64,24 @@ export default {
 .is-centered {
   text-align: center;
 }
+.subtitle {
+  font-size: 80px;
+  color: #23272A;
+}
+.iOdometer  {
+  margin-top: -12px !important;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .subtitle {
+    font-size: 50px;
+  }
+  .guild-section div {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 
 .logo {
   padding-bottom: 10px;
