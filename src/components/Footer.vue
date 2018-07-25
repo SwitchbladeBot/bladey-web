@@ -15,9 +15,7 @@ export default {
 </script>
 
 <style scoped>
-  footer {
-    padding: 3rem !important;
-  }
+.footer { padding: 3rem; }
 .heart { transition: color 0.25s ease; }
 .heart:hover { color: #ff3860; }
 </style>
