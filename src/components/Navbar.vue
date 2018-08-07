@@ -22,7 +22,7 @@
           <div v-if="!!discord.user" class="navbar-item has-dropdown" ref="navDropdown">
             <div class="navbar-link is-flex" v-on:click="dropdown">
               <figure class="image is-24x24 user-pic">
-                <img class="round" :src="discord.user.displayAvatarURL" />
+                <img class="round" :src="discord.user.avatar" />
               </figure>
               <span>{{ discord.user.username }}</span>
             </div>
