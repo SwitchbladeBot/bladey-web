@@ -22,9 +22,10 @@ export default class User {
   get tag () {
     return `${this.username}#${this.discriminator}`
   }
-  /**
+
   get avatarURL () {
-    return this.avatar
+    const imageExt = this.avatar.startsWith('a_') ? '.gif' : `${BrowserUtils.supportWebP() ? '.webp' : '.png'}?size=2048`	    return this.avatar
+    return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}${imageExt}` : null
   }
 
   get defaultAvatarURL () {
@@ -32,8 +33,8 @@ export default class User {
     const avatar = avatars[this.discriminator % avatars.length]
     return `https://discordapp.com/assets/${DefaultAvatars[avatar]}.png`
   }
-  **/
+  
   get displayAvatarURL () {
-    return this.avatar
+    return this.avatarURL || this.defaultAvatarURL
   }
 }
