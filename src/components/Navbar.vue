@@ -17,6 +17,9 @@
             <b-icon icon="account-group" custom-size="mdi-18px" class="is-hidden-desktop" />
             <span>Contributors</span>
           </router-link>
+          <a class="navbar-item" href="https://github.com/switchbladebot/" target="_blank">
+            <span>GitHub</span>
+          </a>
         </div>
         <div class="navbar-end">
           <div v-if="!!discord.user" class="navbar-item has-dropdown" ref="navDropdown">
@@ -40,7 +43,7 @@
           </div>
           <a v-else class="navbar-item" v-on:click="login">
             <template v-if="discord.logging">
-              <b-icon icon="loading" custom-size="mdi-18px" class="loading-spinner" />
+              <b-icon icon="loading" custom-size="mdi-18px" />
               <span>Logging in...</span>
             </template>
             <template v-else>
@@ -98,13 +101,4 @@ export default {
 .user-pic {
   margin-right: 0.6rem;
 }
-
-.loading-spinner {
-  -webkit-animation: spin 1s linear infinite;
-  -moz-animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
-}
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 </style>
