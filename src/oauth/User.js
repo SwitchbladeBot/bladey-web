@@ -33,7 +33,7 @@ export default class User {
     const avatar = avatars[this.discriminator % avatars.length]
     return `https://discordapp.com/assets/${DefaultAvatars[avatar]}.png`
   }
-  
+
   get displayAvatarURL () {
     return this.avatarURL || this.defaultAvatarURL
   }
