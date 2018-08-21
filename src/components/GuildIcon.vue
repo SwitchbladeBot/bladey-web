@@ -2,7 +2,7 @@
   <router-link :to="`/dashboard/${guild.id}`" class="guild-icon">
     <b-tooltip :label="tooltip ? guild.name : ''" position="is-bottom">
       <figure v-if="guild.icon" :class="`image is-${size}x${size} guild-image`">
-        <img :src="guild.iconURL" class="round is-unselectable">
+        <img draggable="false" :src="guild.iconURL" class="round is-unselectable">
       </figure>
       <div v-else :style="placeholderStyle" class="guild-placeholder round is-flex is-vcentered">
         {{guild.nameAcronym}}
@@ -33,13 +33,15 @@ export default {
   align-items: center;
 }
 
-.guild-icon { color: white; }
+.guild-icon {
+  color: white;
+}
 .guild-icon .guild-image {
   margin: auto;
   margin-bottom: 0.5rem;
 }
 .guild-icon .guild-placeholder {
-  background-color: #2C2F33;
+  background-color: #2c2f33;
   font-weight: 500;
   word-wrap: break-word;
 }
