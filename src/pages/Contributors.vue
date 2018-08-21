@@ -17,8 +17,8 @@
           <div class="columns is-multiline is-centered">
             <div class="column is-2 has-text-centered" v-for="contributor in role.members" v-bind:key="contributor.id">
               <figure class="image is-128x128 contributor-avatar">
-                <img :src="contributor.displayAvatarURL" class="round is-unselectable">
-                <img :src="`static/img/status-${contributor.status}.png`" class="round is-unselectable status">
+                <img draggable="false" :src="contributor.displayAvatarURL" class="round is-unselectable">
+                <img draggable="false" :src="`static/img/status-${contributor.status}.png`" class="round is-unselectable status">
               </figure>
               <span class="contributor-name">{{contributor.tag}}</span>
             </div>
@@ -57,7 +57,8 @@ export default {
 </script>
 
 <style scoped>
-.contributors, .contributors .title {
+.contributors,
+.contributors .title {
   color: white;
 }
 
@@ -81,7 +82,8 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-.contributor-avatar, .contributor-avatar img:not(.status) {
+.contributor-avatar,
+.contributor-avatar img:not(.status) {
   position: relative;
   top: 0;
   left: 0;

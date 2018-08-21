@@ -25,7 +25,7 @@
           <div v-if="!!discord.user" class="navbar-item has-dropdown" ref="navDropdown">
             <div class="navbar-link is-flex" v-on:click="dropdown">
               <figure class="image is-24x24 user-pic">
-                <img class="round" :src="discord.user.displayAvatarURL" />
+                <img draggable="false" class="round" :src="discord.user.displayAvatarURL" />
               </figure>
               <span>{{ discord.user.username }}</span>
             </div>
@@ -88,14 +88,23 @@ export default {
 </script>
 
 <style scoped>
-.navbar-brand > .navbar-item, .navbar-burger {
+.navbar-brand > .navbar-item,
+.navbar-burger {
   font-weight: 900;
   font-style: italic;
   color: white;
 }
 
-.navbar-brand > .navbar-item:hover, .navbar-burger:hover {
+.navbar-brand > .navbar-item:hover,
+.navbar-burger:hover {
   color: white;
+}
+
+.navbar-link,
+a.navbar-item {
+  -webkit-transition: 0.25s color ease-out;
+  -moz-transition: 0.25s color ease-out;
+  transition: 0.25s color ease-out;
 }
 
 .user-pic {
@@ -107,7 +116,20 @@ export default {
   -moz-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
 }
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 </style>
