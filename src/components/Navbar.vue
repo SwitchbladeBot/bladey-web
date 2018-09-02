@@ -18,6 +18,7 @@
             <span>Contributors</span>
           </router-link>
           <a class="navbar-item" href="https://github.com/switchbladebot/" target="_blank">
+            <b-icon icon="github-circle" custom-size="mdi-18px" class="is-hidden-desktop" />
             <span>GitHub</span>
           </a>
         </div>
