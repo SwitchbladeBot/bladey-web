@@ -31,3 +31,20 @@ npm install
 ```
 npm run start
 ```
+
+*But...* You need to run API Too, it's easy just:
+
+**4. Clone your fork of bladey-api**
+```bash
+git clone https://github.com/<your github username>/bladey-api
+```
+**5. Install Dependencies**
+```bash
+npm install
+``` 
+
+**6. Run**
+```
+npm run start-dev
+```
+Then, turn on the API at the same time as the site.
