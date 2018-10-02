@@ -48,4 +48,4 @@ npm install
 ```
 npm run start-dev
 ```
-After this, just start the API instance and you're done!
+After this, just start the website instance and you're done!
