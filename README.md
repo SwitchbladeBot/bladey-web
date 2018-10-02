@@ -32,12 +32,13 @@ npm install
 npm run start
 ```
 
-*But...* You need to run API Too, it's easy just:
+*But...* You also need to run an API server. It's easy! Just do the following:
 
-**4. Clone your fork of bladey-api**
+**4. Clone your fork of the bladey-api ([which you can find here](https://github.com/SwitchbladeBot/bladey-api))**
 ```bash
 git clone https://github.com/<your github username>/bladey-api
 ```
+
 **5. Install Dependencies**
 ```bash
 npm install
@@ -47,4 +48,4 @@ npm install
 ```
 npm run start-dev
 ```
-Then, turn on the API at the same time as the site.
+After this, just start the website instance and you're done!
