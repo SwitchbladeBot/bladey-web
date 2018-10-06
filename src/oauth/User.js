@@ -24,7 +24,7 @@ export default class User {
   }
 
   get avatarURL () {
-    const imageExt = this.avatar.startsWith('a_') ? '.gif' : `${BrowserUtils.supportWebP() ? '.webp' : '.png'}?size=2048`
+    const imageExt = this.avatar && this.avatar.startsWith('a_') ? '.gif' : `${BrowserUtils.supportWebP() ? '.webp' : '.png'}?size=2048`
     return this.avatar ? `https://cdn.discordapp.com/avatars/${this.id}/${this.avatar}${imageExt}` : null
   }
 
