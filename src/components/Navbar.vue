@@ -65,7 +65,6 @@ export default {
   data () {
     return {
       discord: this.$discord.state,
-      languages: ['en_US', 'pt_BR']
     }
   },
   methods: {
