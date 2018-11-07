@@ -28,7 +28,7 @@
                         <div class="media-content">
                             <p class="title is-4">{{ background.displayName }}</p>
                             <p class="subtitle is-6">{{ background.description }}</p>
-                            <p class="subtitle is-5">Price: {{ background.price }}</p>
+                            <p class="subtitle is-5">Price: {{ background.price }} Switchcoins</p>
                             <button class="button is-primary">
                                 <b-icon icon="cart"></b-icon>
                                 <span>Buy</span>
