@@ -1,5 +1,5 @@
 <template>
-        <div class="tile is-parent">
+        <div class="tile is-parent is-row">
           <article class="tile is-child box">
             <p class="title">
               <span>
@@ -26,3 +26,6 @@ export default {
   }
 }
 </script>
+<style>
+
+</style>

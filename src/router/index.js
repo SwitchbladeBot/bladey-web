@@ -11,6 +11,7 @@ import Dashboard from '../pages/Dashboard'
 import LoginAuth from '../pages/LoginAuth'
 import Contributors from '../pages/Contributors'
 import ServerSelector from '../pages/ServerSelector'
+import BackgroundShop from '../pages/BackgroundShop'
 import NotFound from '../pages/NotFound'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true })
@@ -52,6 +53,12 @@ export default new Router({
       path: '/dashboard/:id',
       name: 'Dashboard',
       component: Dashboard,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/backgroundShop',
+      name: 'BackgroundShop',
+      component: BackgroundShop,
       meta: { requiresAuth: true }
     }
   ]

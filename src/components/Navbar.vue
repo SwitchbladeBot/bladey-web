@@ -5,7 +5,7 @@
         <router-link to="/" class="navbar-item">
           SWITCHBLADE
         </router-link>
-        <a class="navbar-burger" v-on:click="burger" role="button" aria-label="menu" aria-expanded="false">
+        <a class="nav bar-burger" v-on:click="burger" role="button" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -59,11 +59,13 @@
 </template>
 
 <script>
+
 export default {
   name: 'navbar',
   data () {
     return {
-      discord: this.$discord.state
+      discord: this.$discord.state,
+      languages: ['en_US', 'pt_BR']
     }
   },
   methods: {
