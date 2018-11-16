@@ -12,6 +12,7 @@ import LoginAuth from '../pages/LoginAuth'
 import Contributors from '../pages/Contributors'
 import ServerSelector from '../pages/ServerSelector'
 import NotFound from '../pages/NotFound'
+import TranslationGuide from '../pages/TranslationGuide'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true })
 Vue.use(DiscordOAuth)
@@ -41,6 +42,11 @@ export default new Router({
       path: '/contributors',
       name: 'Contributors',
       component: Contributors
+    },
+    {
+      path: '/translationguide',
+      name: 'TranslationGuide',
+      component: TranslationGuide
     },
     {
       path: '/dashboard',
