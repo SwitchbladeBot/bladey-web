@@ -11,7 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "buefy": "^0.7.0",
+    "buefy": "^1.0.0",
     "vue": "^2.5.17",
     "vue-head": "^2.0.12",
     "vue-localstorage": "^0.6.2",
