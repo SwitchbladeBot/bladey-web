@@ -8,6 +8,7 @@ import DiscordOAuth from '../oauth/VueDiscordOAuth'
 
 import Homepage from '../pages/Homepage'
 import Dashboard from '../pages/Dashboard'
+import LutoPr from '../pages/LutoPr'
 import LoginAuth from '../pages/LoginAuth'
 import Contributors from '../pages/Contributors'
 import ServerSelector from '../pages/ServerSelector'
@@ -53,6 +54,11 @@ export default new Router({
       name: 'Dashboard',
       component: Dashboard,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/lutopr',
+      name: 'LutoPR',
+      component: LutoPr
     }
   ]
 })
