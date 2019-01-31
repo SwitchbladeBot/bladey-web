@@ -1,10 +1,9 @@
 <template>
   <footer class="footer has-text-white">
   <div class="content has-text-centered">
-    <p>
-    Made with <b-icon class="heart" icon="heart" custom-size="mdi-18px" /> by <router-link class="colorFade" to="/contributors">a lot of people</router-link>.
-    Powered by <router-link class="colorFade" to="https://www.vultr.com/">Vultr</router-link> and <router-link class="colorFade" to="https://vuejs.org/">Vue.js</router-link>
-    "Discord", "DiscordApp" and any associated logos are registered trademarks of Discord Inc. (former Hammer and Chisel Inc.)
+    <p>Made with <b-icon class="heart" icon="heart" custom-size="mdi-18px" /> by <router-link class="colorFade" to="/contributors">a lot of people</router-link>.</p>
+    <p>Powered by <router-link class="colorFade" to="https://www.vultr.com/">Vultr</router-link> and <router-link class="colorFade" to="https://vuejs.org/">Vue.js</router-link>.</p>
+    <p>"Discord", "DiscordApp" and any associated logos are registered trademarks of Discord Inc.</p>
     </p>
   </div>
   </footer>
