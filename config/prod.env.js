@@ -4,5 +4,5 @@ module.exports = {
   ROOT_HOST: '"switchblade.xyz"',
   CLIENT_ID: '"445277324175474689"',
   REDIRECT_URI: '"https://switchblade.xyz/auth"',
-  BLADEY_API_ROOT: '"https://http-server.switchblade.xyz/api"'
+  BLADEY_API_ROOT: '"https://dev.switchblade.xyz/api"'
 }
