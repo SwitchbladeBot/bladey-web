@@ -22,7 +22,11 @@ export default {
     }
 
     const name = options.name || 'discord'
-    const vueDiscordOAuth = new VueDiscordOAuth()
+    const vueDiscordOAuth = new VueDiscordOAuth({
+      clientId: options.clientId,
+      redirectUri: options.redirectUri
+    })
+
     vueDiscordOAuth._state = new Vue({ data: {
       accessToken: null,
       user: null,
@@ -32,29 +36,19 @@ export default {
 
     Vue.mixin({
       mounted () {
-        if (!window[vueDiscordOAuth._loginCallback]) {
-          Object.defineProperty(window, vueDiscordOAuth._loginCallback, {
-            value: vueDiscordOAuth.login.bind(vueDiscordOAuth),
-            writable: false,
-            enumerable: false,
-            configurable: false
-          })
-        }
-
         if (this.$route.meta.requiresAuth) {
           if (!this.$discord.logged && !this.$discord.logging) {
-            if (this.onFailed) this.onFailed()
-            else {
-              this.$router.push('/')
-              this.$toast.open({
-                duration: 3000,
-                message: 'Authentication is required!',
-                type: 'is-danger'
-              })
-            }
-          } else if (this.onLogin) {
-            if (this.$discord.logged) this.onLogin()
-            else this.$discord.state.$on('login', () => this.onLogin())
+            this.$router.push('/')
+            return this.$toast.open({
+              duration: 3000,
+              message: 'Authentication is required!',
+              type: 'is-danger'
+            })
+          }
+
+          if (typeof this.logged === 'function') {
+            if (!this.$discord.logged) return this.$discord.on('login', () => this.logged())
+            this.logged()
           }
         }
       }
@@ -69,7 +63,7 @@ class VueDiscordOAuth extends EventEmitter {
   /**
    * VueDiscordOAuth constructor
    */
-  constructor () {
+  constructor (options = {}) {
     super()
     this._popupOptions = {
       directories: 0,
@@ -84,17 +78,9 @@ class VueDiscordOAuth extends EventEmitter {
       width: 500
     }
 
+    this._clientId = options.clientId
+    this._redirectUri = options.redirectUri
     this._apiURL = 'https://discordapp.com/api'
-    this._loginCallback = '__DISCORD_LOGIN__'
-  }
-
-  /**
-   * LoginCallback getter.
-   *
-   * @returns {string}
-   */
-  get loginCallback () {
-    return this._loginCallback
   }
 
   /**
@@ -143,6 +129,15 @@ class VueDiscordOAuth extends EventEmitter {
   }
 
   /**
+   * Logged getter.
+   *
+   * @returns {boolean}
+   */
+  get logged () {
+    return this.accessToken
+  }
+
+  /**
    * PopupOptions getter.
    *
    * @returns {Object}
@@ -160,20 +155,16 @@ class VueDiscordOAuth extends EventEmitter {
     this._popupOptions = value || {}
   }
 
-  /**
-   * Logged getter.
-   *
-   * @returns {boolean}
-   */
-  get logged () {
-    return !!this.accessToken
-  }
-
   loginPopup (clientID, redirectURI, scope = ['guilds', 'identify']) {
     const eScope = scope.join('%20')
-    const oauthURL = `https://discordapp.com/oauth2/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=token&scope=${eScope}`
+    const oauthURL = `https://discordapp.com/oauth2/authorize?client_id=${this._clientId}&redirect_uri=${this._redirectUri}&response_type=token&scope=${eScope}`
     const options = Object.keys(this.popupOptions).map(k => `${k}=${this.popupOptions[k]}`).join(',')
     window.open(oauthURL, '_blank', options)
+  }
+
+  handleMessage ({ origin, data }) {
+    if (origin !== window.location.origin || !data.access_token) return
+    return this.login(data.access_token)
   }
 
   login (token) {
@@ -182,7 +173,7 @@ class VueDiscordOAuth extends EventEmitter {
       .then(user => {
         this._state.accessToken = token
         this._state.logging = false
-        this.emit('login')
+        this.emit('_login')
         return user
       })
       .catch(e => {
@@ -196,7 +187,7 @@ class VueDiscordOAuth extends EventEmitter {
     this._state.user = null
     this._state.guilds = null
     this._state.logging = false
-    this.emit('logout')
+    this.emit('_logout')
   }
 
   fetchUser (token = this.accessToken) {

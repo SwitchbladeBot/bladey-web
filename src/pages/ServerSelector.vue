@@ -16,17 +16,11 @@ import GuildIcon from '../components/GuildIcon'
 
 export default {
   name: 'ServerSelector',
-  head: {
-    title: { inner: 'Select a server' }
-  },
+  head: { title: { inner: 'Select a server' } },
   components: { GuildIcon },
-  data: () => {
-    return {
-      guilds: null
-    }
-  },
+  data: () => ({ guilds: null }),
   methods: {
-    onLogin () {
+    logged () {
       this.guilds = this.$discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD'))
     }
   }

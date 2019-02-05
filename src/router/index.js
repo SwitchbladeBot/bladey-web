@@ -14,7 +14,7 @@ import ServerSelector from '../pages/ServerSelector'
 import NotFound from '../pages/NotFound'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true })
-Vue.use(DiscordOAuth)
+Vue.use(DiscordOAuth, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
 Vue.use(LocalStorage)
 Vue.use(Head, { separator: '-', complement: 'Switchblade' })
 Vue.use(Router)

@@ -30,23 +30,30 @@ export default {
   },
 
   created () {
-    this.$discord.on('login', () => {
-      this.$localStorage.set('accessToken', this.$discord.accessToken)
-      this.$discord.fetchGuilds().then(() => this.$discord.state.$emit('login')).catch(console.error)
-    })
-    this.$discord.on('logout', () => {
+    if (process.browser) window.addEventListener('message', this.$discord.handleMessage.bind(this.$discord))
+
+    const logout = (e) => {
+      if (e) console.error(e)
+
       this.$localStorage.remove('accessToken')
       if (this.$route.meta.requiresAuth) {
         this.$router.push('/')
       }
+    }
+
+    this.$discord.on('_login', () => {
+      this.$localStorage.set('accessToken', this.$discord.accessToken)
+      this.$discord.fetchGuilds().then(() => this.$discord.emit('login')).catch(logout)
     })
+    this.$discord.on('_logout', logout)
 
     const token = this.$localStorage.get('accessToken')
     if (token) {
-      this.$discord.login(token).catch(e => this.$localStorage.remove('accessToken'))
+      this.$discord.login(token).catch(logout)
     }
   },
   destroyed () {
+    if (process.browser) window.removeEventListener('message', this.$discord.handleMessage.bind(this.$discord))
     this.$discord.removeAllListeners()
   }
 }

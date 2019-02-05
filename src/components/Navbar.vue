@@ -60,12 +60,8 @@
 
 <script>
 export default {
-  name: 'navbar',
-  data () {
-    return {
-      discord: this.$discord.state
-    }
-  },
+  name: 'Navbar',
+  data () { return { discord: this.$discord.state } },
   methods: {
     burger (event) {
       const $burger = event.target.closest('.navbar-burger')
@@ -78,12 +74,8 @@ export default {
       $target.classList.toggle('is-active')
     },
 
-    login () {
-      this.$discord.loginPopup(process.env.CLIENT_ID, process.env.REDIRECT_URI)
-    },
-    logout () {
-      this.$discord.logout()
-    }
+    login () { this.$discord.loginPopup() },
+    logout () { this.$discord.logout() }
   }
 }
 </script>
