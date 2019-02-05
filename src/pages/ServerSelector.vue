@@ -8,6 +8,7 @@
         </div>
       </div>
     </div>
+    <b-loading :active="!guilds" />
   </section>
 </template>
 
@@ -18,9 +19,9 @@ export default {
   name: 'ServerSelector',
   head: { title: { inner: 'Select a server' } },
   components: { GuildIcon },
-  data: () => ({ guilds: null }),
-  methods: {
-    logged () { this.guilds = this.$discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD')) }
+  data () { return { discord: this.$api.state } },
+  computed: {
+    guilds () { return this.discord.guilds ? this.discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD')) : null }
   }
 }
 </script>

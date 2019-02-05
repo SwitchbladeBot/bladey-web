@@ -12,11 +12,13 @@ export default {
   name: 'Dashboard',
   head: { title: { inner: 'Dashboard' } },
   components: { ServerHero },
-  data: () => ({ guild: null }),
-  methods: {
-    logged () {
-      this.guild = this.$discord.guilds.find(g => g.id === this.$route.params.id)
-      if (!this.guild || !this.guild.permissions.has('MANAGE_SERVER')) this.$router.push('/dashboard')
+  data () { return { discord: this.$api.state } },
+  computed: {
+    guild () {
+      if (!this.discord.guilds) return
+      const guild = this.discord.guilds.find(g => g.id === this.$route.params.id)
+      if (!guild || !guild.permissions.has('MANAGE_SERVER')) return
+      return guild
     }
   }
 }

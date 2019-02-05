@@ -16,18 +16,11 @@
 <script>
 export default {
   name: 'NotFound',
-  head: {
-    title: { inner: '404' }
-  }
+  head: { title: { inner: '404' } }
 }
 </script>
 
 <style scoped>
-.is-vcentered {
-  justify-content: center;
-  align-items: center;
-}
-
 .info {
   margin-top: -52px;
 }

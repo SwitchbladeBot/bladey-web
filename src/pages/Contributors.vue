@@ -35,14 +35,8 @@ import User from '../oauth/User'
 
 export default {
   name: 'Contributors',
-  head: {
-    title: { inner: 'Contributors' }
-  },
-  data: () => {
-    return {
-      roles: null
-    }
-  },
+  head: { title: { inner: 'Contributors' } },
+  data: () => ({ roles: null }),
   mounted: function () {
     fetch(`${process.env.BLADEY_API_ROOT}/contributors`)
       .then(res => res.ok ? res.json() : Promise.reject(res))

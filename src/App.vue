@@ -30,31 +30,14 @@ export default {
   },
 
   created () {
-    if (process.browser) window.addEventListener('message', this.$discord.handleMessage.bind(this.$discord))
-
-    const logout = (e) => {
-      if (e) console.error(e)
-
-      this.$localStorage.remove('accessToken')
-      if (this.$route.meta.requiresAuth) {
-        this.$router.push('/')
-      }
-    }
-
-    this.$discord.on('_login', () => {
-      this.$localStorage.set('accessToken', this.$discord.accessToken)
-      this.$discord.fetchGuilds().then(() => this.$discord.emit('login')).catch(logout)
-    })
-    this.$discord.on('_logout', logout)
-
-    const token = this.$localStorage.get('accessToken')
+    const token = this.$localStorage.get('token')
     if (token) {
-      this.$discord.login(token).catch(logout)
+      this.$api.loginWithToken(token).catch(e => {
+        console.error(e)
+        this.$api.logout()
+        this.$localStorage.remove('token')
+      })
     }
-  },
-  destroyed () {
-    if (process.browser) window.removeEventListener('message', this.$discord.handleMessage.bind(this.$discord))
-    this.$discord.removeAllListeners()
   }
 }
 </script>
