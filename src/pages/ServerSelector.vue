@@ -20,9 +20,7 @@ export default {
   components: { GuildIcon },
   data: () => ({ guilds: null }),
   methods: {
-    logged () {
-      this.guilds = this.$discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD'))
-    }
+    logged () { this.guilds = this.$discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD')) }
   }
 }
 </script>

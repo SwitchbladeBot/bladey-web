@@ -19,8 +19,6 @@ export default {
           o[key] = value || true
           return o
         }, {})
-        window.localStorage['zap'] = true
-        keys.zop = 'zup'
         opener.postMessage(keys)
       }
       window.close()
