@@ -11,8 +11,8 @@
       </div>
     </section>
     <section class="section role-section">
-      <div class="container">
-        <section v-if="roles" v-for="role in roles" v-bind:key="role.roleId" class="section has-text-centered">
+      <div v-if="roles" class="container">
+        <section v-for="role in roles" v-bind:key="role.roleId" class="section has-text-centered">
           <h1 class="title is-spaced">{{role.name}}</h1>
           <div class="columns is-multiline is-centered">
             <div class="column is-2 has-text-centered" v-for="contributor in role.members" v-bind:key="contributor.id">
