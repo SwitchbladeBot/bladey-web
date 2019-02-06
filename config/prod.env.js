@@ -1,6 +1,13 @@
 'use strict'
+
+console.log(process.env.HEAD)
+
+function getVar (variable) {
+  return process.env[`${process.env.HEAD.toUpperCase()}_${variable}`] || process.env[variable]
+}
+
 module.exports = {
-  CLIENT_ID: '"445277324175474689"',
-  REDIRECT_URI: '"https://switchblade.xyz/auth"',
-  BLADEY_API_ROOT: '"https://dev.switchblade.xyz/api"'
+  CLIENT_ID: `"${getVar('CLIENT_ID')}"`,
+  REDIRECT_URI: `"${getVar('REDIRECT_URI')}"`,
+  BLADEY_API_ROOT: `"${getVar('BLADEY_API_ROOT')}"`
 }
