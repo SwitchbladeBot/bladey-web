@@ -8,7 +8,6 @@ import SwitchbladeApi from '../api/VueSwitchbladeApi'
 
 import Homepage from '../pages/Homepage'
 import Dashboard from '../pages/Dashboard'
-import LutoPr from '../pages/LutoPr'
 import LoginAuth from '../pages/LoginAuth'
 import Contributors from '../pages/Contributors'
 import ServerSelector from '../pages/ServerSelector'
