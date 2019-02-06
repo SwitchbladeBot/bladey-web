@@ -4,7 +4,7 @@ import LocalStorage from 'vue-localstorage'
 import Head from 'vue-head'
 import Buefy from 'buefy'
 
-import DiscordOAuth from '../oauth/VueDiscordOAuth'
+import SwitchbladeApi from '../api/VueSwitchbladeApi'
 
 import Homepage from '../pages/Homepage'
 import Dashboard from '../pages/Dashboard'
@@ -15,7 +15,7 @@ import ServerSelector from '../pages/ServerSelector'
 import NotFound from '../pages/NotFound'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true })
-Vue.use(DiscordOAuth)
+Vue.use(SwitchbladeApi, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
 Vue.use(LocalStorage)
 Vue.use(Head, { separator: '-', complement: 'Switchblade' })
 Vue.use(Router)

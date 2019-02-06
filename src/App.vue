@@ -30,24 +30,13 @@ export default {
   },
 
   created () {
-    this.$discord.on('login', () => {
-      this.$localStorage.set('accessToken', this.$discord.accessToken)
-      this.$discord.fetchGuilds().then(() => this.$discord.state.$emit('login')).catch(console.error)
-    })
-    this.$discord.on('logout', () => {
-      this.$localStorage.remove('accessToken')
-      if (this.$route.meta.requiresAuth) {
-        this.$router.push('/')
-      }
-    })
-
-    const token = this.$localStorage.get('accessToken')
+    const token = this.$localStorage.get('token')
     if (token) {
-      this.$discord.login(token).catch(e => this.$localStorage.remove('accessToken'))
+      this.$api.loginWithToken(token).catch(e => {
+        console.error(e)
+        this.$localStorage.remove('token')
+      })
     }
-  },
-  destroyed () {
-    this.$discord.removeAllListeners()
   }
 }
 </script>

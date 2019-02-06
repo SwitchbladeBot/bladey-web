@@ -10,21 +10,15 @@ import ServerHero from '../components/ServerHero.vue'
 
 export default {
   name: 'Dashboard',
-  head: {
-    title: { inner: 'Dashboard' }
-  },
+  head: { title: { inner: 'Dashboard' } },
   components: { ServerHero },
-  data () {
-    return {
-      guild: null
-    }
-  },
-  methods: {
-    onLogin () {
-      this.guild = this.$discord.guilds.find(g => g.id === this.$route.params.id)
-      if (!this.guild.permissions.has('MANAGE_SERVER')) {
-        this.$router.push('/dashboard')
-      }
+  data () { return { discord: this.$api.state } },
+  computed: {
+    guild () {
+      if (!this.discord.guilds) return
+      const guild = this.discord.guilds.find(g => g.id === this.$route.params.id)
+      if (!guild || !guild.permissions.has('MANAGE_SERVER')) return
+      return guild
     }
   }
 }

@@ -8,6 +8,7 @@
         </div>
       </div>
     </div>
+    <b-loading :active="!guilds" />
   </section>
 </template>
 
@@ -16,19 +17,11 @@ import GuildIcon from '../components/GuildIcon'
 
 export default {
   name: 'ServerSelector',
-  head: {
-    title: { inner: 'Select a server' }
-  },
+  head: { title: { inner: 'Select a server' } },
   components: { GuildIcon },
-  data: () => {
-    return {
-      guilds: null
-    }
-  },
-  methods: {
-    onLogin () {
-      this.guilds = this.$discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD'))
-    }
+  data () { return { discord: this.$api.state } },
+  computed: {
+    guilds () { return this.discord.guilds ? this.discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD')) : null }
   }
 }
 </script>
