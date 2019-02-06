@@ -1,7 +1,5 @@
 'use strict'
 
-console.log(process.env.HEAD)
-
 function getVar (variable) {
   return process.env[`${process.env.HEAD.toUpperCase()}_${variable}`] || process.env[variable]
 }
