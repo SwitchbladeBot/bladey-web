@@ -61,6 +61,11 @@ class VueSwitchbladeApi {
     this._apiURL = process.env.BLADEY_API_ROOT
   }
 
+  // Economy
+  balance () {
+    return this._request('/users/@me/money')
+  }
+
   // Authorization
   loginPopup () {
     window.open(
