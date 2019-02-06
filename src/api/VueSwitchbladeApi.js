@@ -75,7 +75,6 @@ class VueSwitchbladeApi {
     try {
       const { token } = await this._tokenRequest(code)
       this.token = token
-      await this.retrieveProfile()
       return token
     } catch (e) {
       console.error(e)
@@ -87,7 +86,7 @@ class VueSwitchbladeApi {
     this.state.logging = true
     try {
       this.token = token
-      await this.retrieveProfile(true)
+      await this.retrieveProfile()
       return token
     } catch (e) {
       console.error(e)
@@ -95,9 +94,9 @@ class VueSwitchbladeApi {
     }
   }
 
-  async retrieveProfile (guilds) {
+  async retrieveProfile () {
     this.state.logging = true
-    return this._request('/web/@me', { query: { guilds } }).then(({ user, guilds }) => {
+    return this._request('/web/@me').then(({ user, guilds }) => {
       this.state.logged = true
       this.state.logging = false
       this.state.user = new User(user)
@@ -118,7 +117,7 @@ class VueSwitchbladeApi {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': this.token
+        'Authorization': `User ${this.token}`
       },
       body: body ? JSON.stringify(body) : undefined,
       method
