@@ -68,6 +68,7 @@ class VueSwitchbladeApi {
 
   // Authorization
   loginPopup () {
+    if (this.state.logging) return
     window.open(
       this._buildOAuthURL(this.clientId, this.redirectUri, this.scope.join('%20'), 'code'),
       '_blank',
@@ -99,14 +100,14 @@ class VueSwitchbladeApi {
     }
   }
 
-  async retrieveProfile () {
+  retrieveProfile () {
     this.state.logging = true
     return this._request('/web/@me').then(({ user, guilds }) => {
       this.state.logged = true
       this.state.logging = false
       this.state.user = new User(user)
       if (guilds) this.state.guilds = guilds.map(g => new Guild(g))
-    }).catch(e => this.logout())
+    })
   }
 
   logout () {
