@@ -14,8 +14,10 @@ export default {
   methods: {
     async login () {
       if (this.$route.query.code) {
-        await this.$api.login(this.$route.query.code).then(token => this.$localStorage.set('token', token)).catch(console.error)
-        opener.location.reload()
+        await this.$api.login(this.$route.query.code).then(token => {
+          this.$localStorage.set('token', token)
+        }).catch(e => opener && opener.window && opener.window.console.error(e))
+        if (opener) opener.location.reload()
       }
       window.close()
     }
