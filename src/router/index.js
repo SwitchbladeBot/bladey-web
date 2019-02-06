@@ -54,11 +54,6 @@ export default new Router({
       name: 'Dashboard',
       component: Dashboard,
       meta: { requiresAuth: true }
-    },
-    {
-      path: '/lutopr',
-      name: 'LutoPR',
-      component: LutoPr
     }
   ]
 })
