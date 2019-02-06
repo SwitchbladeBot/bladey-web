@@ -83,8 +83,8 @@ class VueSwitchbladeApi {
       this.token = token
       return token
     } catch (e) {
-      console.error(e)
       this.logout()
+      throw e
     }
   }
 
@@ -95,8 +95,8 @@ class VueSwitchbladeApi {
       await this.retrieveProfile()
       return token
     } catch (e) {
-      console.error(e)
       this.logout()
+      throw e
     }
   }
 

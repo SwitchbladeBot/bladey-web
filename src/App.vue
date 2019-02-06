@@ -34,7 +34,6 @@ export default {
     if (token) {
       this.$api.loginWithToken(token).catch(e => {
         console.error(e)
-        this.$api.logout()
         this.$localStorage.remove('token')
       })
     }
