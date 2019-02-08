@@ -61,6 +61,14 @@ class VueSwitchbladeApi {
     this._apiURL = process.env.BLADEY_API_ROOT
   }
 
+  // Misc
+  contributors () {
+    return this._request('/contributors').then(({ roles }) => roles.map(r => {
+      r.members = r.members.map(c => new User(c))
+      return r
+    }))
+  }
+
   // Economy
   balance () {
     return this._request('/users/@me/money')

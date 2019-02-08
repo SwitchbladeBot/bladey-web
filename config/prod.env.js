@@ -1,7 +1,7 @@
 'use strict'
 
 function getVar (variable) {
-  return process.env[`${process.env.HEAD.toUpperCase()}_${variable}`] || process.env[variable]
+  return process.env.HEAD && process.env[`${process.env.HEAD.toUpperCase()}_${variable}`] || process.env[variable]
 }
 
 module.exports = {

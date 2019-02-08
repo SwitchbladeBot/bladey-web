@@ -31,21 +31,12 @@
 </template>
 
 <script>
-import User from '../oauth/User'
-
 export default {
   name: 'Contributors',
   head: { title: { inner: 'Contributors' } },
   data: () => ({ roles: null }),
-  mounted: function () {
-    fetch(`${process.env.BLADEY_API_ROOT}/contributors`)
-      .then(res => res.ok ? res.json() : Promise.reject(res))
-      .then(res => {
-        this.roles = res.roles.map(r => {
-          r.members = r.members.map(c => new User(c))
-          return r
-        })
-      })
+  mounted: async function () {
+    this.roles = await this.$api.contributors()
   }
 }
 </script>
