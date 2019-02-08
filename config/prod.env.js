@@ -1,8 +1,7 @@
 'use strict'
 
-function getVar (variable) {
-  return process.env.HEAD && process.env[`${process.env.HEAD.toUpperCase()}_${variable}`] || process.env[variable]
-}
+const varKey = (v) => process.env.HEAD ? `${process.env.HEAD.toUpperCase()}_${v}` : v
+const getVar = (v) => process.env[varKey(v)] || process.env[v]
 
 module.exports = {
   CLIENT_ID: `"${getVar('CLIENT_ID')}"`,
