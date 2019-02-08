@@ -24,9 +24,9 @@
             </div>
           </div>
         </section>
-        <b-loading :active="!roles" />
       </div>
     </section>
+    <b-loading :active="!roles" />
   </div>
 </template>
 
