@@ -43,7 +43,7 @@ export default {
         message: 'You have unsaved changes!',
         position: 'is-top',
         actionText: 'Save',
-        indefinite: true,
+        duration: true,
         onAction: () => this.save()
       })
     },
