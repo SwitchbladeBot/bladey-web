@@ -14,7 +14,7 @@ import NotFound from '../pages/NotFound'
 import Profile from '../pages/Profile'
 import ServerSelector from '../pages/ServerSelector'
 
-Vue.use(Buefy, { defaultTooltipAnimated: true })
+Vue.use(Buefy, { defaultTooltipAnimated: true, defaultToastDuration: 3000 })
 
 Vue.use(SwitchbladeApi, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
 Vue.use(LocalStorage)

@@ -1,27 +1,23 @@
 <template>
   <div class="profile-container">
-    <UserHero :user="discord.user" />
-    <div class="section container profile-horizontal">
-      <aside class="menu sidebar">
-        <p class="menu-label">
-          Profile
-        </p>
-        <ul class="menu-list">
-          <li><a>Social</a></li>
-          <li><a>Connections</a></li>
-        </ul>
-      </aside>
-      <section class="profile-main">
-        <h1 class="title is-spaced has-text-centered">Social</h1>
-        <section>
-          <b-field horizontal label="Personal text">
-            <b-input v-model="personalText" type="textarea" maxlength="150"></b-input>
-          </b-field>
-          <b-field horizontal label="Favorite color">
-            <swatches v-model="favColor" :exceptions="['']" show-fallback></swatches>
-          </b-field>
+    <div v-if="discord.user">
+      <UserHero :user="discord.user" />
+      <div class="section container profile-horizontal">
+        <aside class="menu sidebar">
+          <p class="menu-label">
+            Profile
+          </p>
+          <ul class="menu-list">
+            <li v-for="cat in categories" v-bind:key="cat" v-on:click="currentCat = cat">
+              <a v-bind:class="[{ 'is-active': currentCat === cat }]">{{ cat }}</a>
+            </li>
+          </ul>
+        </aside>
+        <section class="profile-main">
+          <h1 class="title is-spaced has-text-centered">{{ currentCat }}</h1>
+          <component v-bind:is="currentCategoryComponent" />
         </section>
-      </section>
+      </div>
     </div>
     <b-loading :active="discord.logging" />
   </div>
@@ -29,18 +25,22 @@
 
 <script>
 import UserHero from '../components/UserHero'
-import Swatches from 'vue-swatches'
+import ProfileSocial from '../components/ProfileSocial'
+import ProfileConnections from '../components/ProfileConnections'
 
 export default {
   name: 'Profile',
   head: { title: { inner: 'Profile' } },
-  components: { Swatches, UserHero },
+  components: { ProfileSocial, ProfileConnections, UserHero },
   data () {
     return {
       discord: this.$api.state,
-      personalText: 'vem de zap bebe',
-      favColor: '#fff'
+      categories: [ 'Social', 'Connections' ],
+      currentCat: 'Social'
     }
+  },
+  computed: {
+    currentCategoryComponent () { return `Profile${this.currentCat}` }
   }
 }
 </script>

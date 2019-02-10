@@ -21,10 +21,9 @@ export default {
 
     Vue.mixin({
       mounted () {
-        if (this.$route.meta.requiresAuth && !this.$api.state.logged && !this.$api.state.logging) {
+        if (this.$route && this.$route.meta.requiresAuth && !this.$api.state.logged && !this.$api.state.logging) {
           this.$router.push('/')
           return this.$toast.open({
-            duration: 3000,
             message: 'Authentication is required!',
             type: 'is-danger'
           })
@@ -72,6 +71,15 @@ class VueSwitchbladeApi {
   // Economy
   balance () {
     return this._request('/users/@me/money')
+  }
+
+  // Profile
+  profile () {
+    return this._request('/users/@me/profile')
+  }
+
+  saveProfile (entity) {
+    return this._request('/users/@me/profile', { method: 'PATCH', body: entity })
   }
 
   // Authorization
