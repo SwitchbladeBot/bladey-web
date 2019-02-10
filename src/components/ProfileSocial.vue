@@ -1,12 +1,15 @@
 <template>
-  <section v-if="personalText && favColor">
-    <b-field horizontal label="Personal text">
-      <b-input v-model="personalText" @input='saveSnackbar()' type="textarea" maxlength="260"></b-input>
-    </b-field>
-    <b-field horizontal label="Favorite color">
-      <swatches v-model="favColor" @input='saveSnackbar()' :exceptions="['']" show-fallback></swatches>
-    </b-field>
-  </section>
+  <div>
+    <section v-if="personalText && favColor">
+      <b-field horizontal label="Personal text">
+        <b-input v-model="personalText" @input='saveSnackbar' type="textarea" maxlength="260" />
+      </b-field>
+      <b-field horizontal label="Favorite color">
+        <swatches v-model="favColor" @input='saveSnackbar' :exceptions="['']" show-fallback />
+      </b-field>
+    </section>
+    <b-loading :active="!(personalText && favColor)" />
+  </div>
 </template>
 
 <script>
