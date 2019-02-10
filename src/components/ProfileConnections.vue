@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-field label="LastFM" horizontal addons>
+    <b-field label="last.fm" horizontal addons>
       <b-input v-model="lastfm" icon="account-check" expanded disabled />
       <p class="control">
         <button class="button is-danger">Disconnect</button>

@@ -47,12 +47,14 @@ export default {
           message: 'Profile saved!',
           type: 'is-success'
         })
-      }, e => {
+      })
+      .catch(e => {
         this.$toast.open({
           message: 'An error occured!',
           type: 'is-danger'
         })
-      }).then(() => {
+      })
+      .finally(() => {
         this.snackbar = false
       })
     }
