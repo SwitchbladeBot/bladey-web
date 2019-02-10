@@ -42,21 +42,21 @@ export default {
     },
     save () {
       const { personalText, favColor } = this
-      this.$api.saveProfile({ personalText, favColor }).then(() => {
-        this.$toast.open({
-          message: 'Profile saved!',
-          type: 'is-success'
+      this.$api.saveProfile({ personalText, favColor })
+        .then(() => {
+          this.$toast.open({
+            message: 'Profile saved!',
+            type: 'is-success'
+          })
+        }).catch(e => {
+          this.$toast.open({
+            message: 'An error occured!',
+            type: 'is-danger'
+          })
         })
-      })
-      .catch(e => {
-        this.$toast.open({
-          message: 'An error occured!',
-          type: 'is-danger'
+        .finally(() => {
+          this.snackbar = false
         })
-      })
-      .finally(() => {
-        this.snackbar = false
-      })
     }
   }
 }
