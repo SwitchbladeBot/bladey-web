@@ -31,6 +31,5 @@ export default {
   font-weight: 900;
   font-style: italic;
   font-size: 50px;
-  color: white;
 }
 </style>

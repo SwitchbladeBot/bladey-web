@@ -6,14 +6,16 @@ import Buefy from 'buefy'
 
 import SwitchbladeApi from '../api/VueSwitchbladeApi'
 
-import Homepage from '../pages/Homepage'
-import Dashboard from '../pages/Dashboard'
-import LoginAuth from '../pages/LoginAuth'
 import Contributors from '../pages/Contributors'
-import ServerSelector from '../pages/ServerSelector'
+import Dashboard from '../pages/Dashboard'
+import Homepage from '../pages/Homepage'
+import LoginAuth from '../pages/LoginAuth'
 import NotFound from '../pages/NotFound'
+import Profile from '../pages/Profile'
+import ServerSelector from '../pages/ServerSelector'
 
-Vue.use(Buefy, { defaultTooltipAnimated: true })
+Vue.use(Buefy, { defaultTooltipAnimated: true, defaultToastDuration: 3000 })
+
 Vue.use(SwitchbladeApi, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
 Vue.use(LocalStorage)
 Vue.use(Head, { separator: '-', complement: 'Switchblade' })
@@ -52,6 +54,12 @@ export default new Router({
       path: '/dashboard/:id',
       name: 'Dashboard',
       component: Dashboard,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
       meta: { requiresAuth: true }
     }
   ]

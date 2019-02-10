@@ -42,11 +42,6 @@ export default {
 </script>
 
 <style scoped>
-.contributors,
-.contributors .title {
-  color: white;
-}
-
 .hero-body > .container > .title {
   font-weight: 900;
   font-style: italic;

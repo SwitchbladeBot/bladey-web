@@ -15,7 +15,8 @@
     "vue": "^2.6.2",
     "vue-head": "^2.1.1",
     "vue-localstorage": "^0.6.2",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vue-swatches": "^1.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

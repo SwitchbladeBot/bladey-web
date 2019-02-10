@@ -1,13 +1,9 @@
 <template>
   <div id="app">
-    <section class="hero is-fullheight">
-      <section class="hero-head">
-        <Navbar/>
-      </section>
+    <section class="main-container">
+      <Navbar/>
       <router-view/>
-      <section class="hero-foot">
-        <Footer/>
-      </section>
+      <Footer/>
     </section>
   </div>
 </template>
@@ -43,8 +39,16 @@ export default {
 
 <style lang="scss">
   @import "assets/main";
+  @import "vue-swatches/dist/vue-swatches.min.css";
 
   html {
     overflow: auto;
+  }
+
+  .main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 </style>

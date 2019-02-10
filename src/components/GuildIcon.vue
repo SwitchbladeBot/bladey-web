@@ -33,9 +33,6 @@ export default {
   align-items: center;
 }
 
-.guild-icon {
-  color: white;
-}
 .guild-icon .guild-image {
   margin: auto;
   margin-bottom: 0.5rem;
