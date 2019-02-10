@@ -29,11 +29,9 @@ export default {
   font-weight: 900;
   font-style: italic;
   font-size: 150px;
-  color: white;
 }
 
 .info .container > .subtitle {
   font-size: 50px;
-  color: white;
 }
 </style>

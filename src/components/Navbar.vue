@@ -31,6 +31,10 @@
               <span>{{ discord.user.username }}</span>
             </div>
             <div class="navbar-dropdown is-boxed">
+              <router-link to="/profile" class="navbar-item">
+                <b-icon icon="account-box" custom-size="mdi-18px" />
+                <span>Profile</span>
+              </router-link>
               <router-link to="/dashboard" class="navbar-item">
                 <b-icon icon="view-dashboard" custom-size="mdi-18px" />
                 <span>Dashboard</span>
@@ -88,12 +92,6 @@ export default {
 .navbar-burger {
   font-weight: 900;
   font-style: italic;
-  color: white;
-}
-
-.navbar-brand > .navbar-item:hover,
-.navbar-burger:hover {
-  color: white;
 }
 
 .navbar-link,

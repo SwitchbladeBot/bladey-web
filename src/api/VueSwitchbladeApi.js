@@ -1,5 +1,5 @@
-import User from '../oauth/User'
-import Guild from '../oauth/Guild'
+import User from './User'
+import Guild from './Guild'
 
 export default {
   install: (Vue, options = {}) => {

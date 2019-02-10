@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dashboard-container">
     <ServerHero v-if="guild" :guild="guild" />
     <b-loading :active="!guild" />
   </div>
@@ -23,3 +23,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+</style>
