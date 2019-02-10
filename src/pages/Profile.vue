@@ -3,7 +3,7 @@
     <div v-if="discord.user">
       <UserHero :user="discord.user" />
       <div class="section container profile-horizontal">
-        <aside class="menu sidebar">
+        <aside class="menu profile-sidebar">
           <p class="menu-label">
             Profile
           </p>
@@ -14,7 +14,7 @@
           </ul>
         </aside>
         <section class="profile-main">
-          <h1 class="title is-spaced has-text-centered">{{ currentCat }}</h1>
+          <h1 class="title is-spaced">{{ currentCat }}</h1>
           <component v-bind:is="currentCategoryComponent" />
         </section>
       </div>
@@ -25,8 +25,8 @@
 
 <script>
 import UserHero from '../components/UserHero'
-import ProfileSocial from '../components/ProfileSocial'
-import ProfileConnections from '../components/ProfileConnections'
+import ProfileSocial from '../components/profile/ProfileSocial'
+import ProfileConnections from '../components/profile/ProfileConnections'
 
 export default {
   name: 'Profile',
@@ -58,11 +58,12 @@ export default {
   flex: 1;
 }
 
-.sidebar {
+.profile-sidebar {
   flex-shrink: 0;
 }
 
 .profile-main {
+  padding: 0 3rem 0 3rem;
   display: flex;
   flex-direction: column;
   width: 100%;

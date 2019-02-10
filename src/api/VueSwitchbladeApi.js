@@ -82,6 +82,15 @@ class VueSwitchbladeApi {
     return this._request('/users/@me/profile', { method: 'PATCH', body: entity })
   }
 
+  // Guild configuration
+  guildConfiguration (id) {
+    return this._request(`/guilds/${id}/config`)
+  }
+
+  saveGuildConfiguration (id, entity) {
+    return this._request(`/guilds/${id}/config`, { method: 'PATCH', body: entity })
+  }
+
   // Authorization
   loginPopup () {
     if (this.state.logging) return
@@ -134,6 +143,7 @@ class VueSwitchbladeApi {
     this.token = null
   }
 
+  // Internal
   _request (endpoint, { method = 'GET', query, body } = {}) {
     return fetch(`${this._apiURL}${endpoint}?${this._buildQuery(query)}`, {
       headers: {

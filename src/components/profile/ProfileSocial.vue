@@ -1,11 +1,11 @@
 <template>
   <div>
     <section v-if="loaded">
-      <b-field horizontal label="Personal text">
-        <b-input v-model="personalText" @input='saveSnackbar' type="textarea" maxlength="260" />
+      <b-field label="Personal text">
+        <b-input v-model="personalText" @input="saveSnackbar" type="textarea" maxlength="260" />
       </b-field>
-      <b-field horizontal label="Favorite color">
-        <swatches v-model="favColor" @input='saveSnackbar' :exceptions="['']" show-fallback />
+      <b-field label="Favorite color">
+        <swatches v-model="favColor" @input="saveSnackbar" :exceptions="['']" show-fallback />
       </b-field>
     </section>
     <b-loading :active="!loaded" />
