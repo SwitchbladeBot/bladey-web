@@ -12,7 +12,7 @@
 <script>
 export default {
   name: 'ProfileConnections',
-  data: () => ({ lastfm: 'Connected with blbalbal' }),
+  data: () => ({ lastfm: 'Connected with WIP' }),
   async mounted () {},
   methods: {}
 }

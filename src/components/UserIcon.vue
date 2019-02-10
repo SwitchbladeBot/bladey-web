@@ -10,14 +10,7 @@
 export default {
   props: {
     user: Object,
-    tooltip: { type: Boolean, default: true },
-    size: { type: Number, default: 96 },
-    fontSize: { type: String, default: null }
-  },
-  data () {
-    return {
-      placeholderStyle: `width: ${this.size}px; height: ${this.size}px; font-size: ${this.fontSize || Math.floor(this.size * 0.2)}px`
-    }
+    size: { type: Number, default: 96 }
   }
 }
 </script>
