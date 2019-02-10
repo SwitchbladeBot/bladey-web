@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-if="personalText && favColor">
+    <section v-if="loaded">
       <b-field horizontal label="Personal text">
         <b-input v-model="personalText" @input='saveSnackbar' type="textarea" maxlength="260" />
       </b-field>
@@ -8,7 +8,7 @@
         <swatches v-model="favColor" @input='saveSnackbar' :exceptions="['']" show-fallback />
       </b-field>
     </section>
-    <b-loading :active="!(personalText && favColor)" />
+    <b-loading :active="!loaded" />
   </div>
 </template>
 
@@ -19,14 +19,21 @@ export default {
   name: 'ProfileSocial',
   components: { Swatches },
   data: () => ({
+    loaded: false,
     personalText: null,
     favColor: null,
     snackbar: false
   }),
-  async mounted () {
-    const { personalText, favColor } = await this.$api.profile()
-    this.personalText = personalText
-    this.favColor = favColor || '#7289da'
+  mounted () {
+    this.$api.profile()
+      .then(({ personalText, favColor }) => {
+        this.personalText = personalText
+        this.favColor = favColor || '#7289da'
+      })
+      .catch(e => this.errorToast())
+      .finally(() => {
+        this.loaded = true
+      })
   },
   methods: {
     saveSnackbar () {
@@ -48,15 +55,17 @@ export default {
             message: 'Profile saved!',
             type: 'is-success'
           })
-        }).catch(e => {
-          this.$toast.open({
-            message: 'An error occured!',
-            type: 'is-danger'
-          })
         })
+        .catch(e => this.errorToast())
         .finally(() => {
           this.snackbar = false
         })
+    },
+    errorToast () {
+      this.$toast.open({
+        message: 'An error occured!',
+        type: 'is-danger'
+      })
     }
   }
 }
