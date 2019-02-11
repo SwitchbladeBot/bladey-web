@@ -16,10 +16,10 @@ import ServerSelector from '../pages/ServerSelector'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true, defaultToastDuration: 3000 })
 
-Vue.use(SwitchbladeApi, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
 Vue.use(LocalStorage)
 Vue.use(Head, { separator: '-', complement: 'Switchblade' })
 Vue.use(Router)
+Vue.use(SwitchbladeApi, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
 
 export default new Router({
   mode: 'history',

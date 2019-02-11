@@ -1,12 +1,18 @@
 <template>
   <div>
     <section v-if="loaded">
-      <b-field label="Personal text">
-        <b-input v-model="personalText" @input="saveSnackbar" type="textarea" maxlength="260" />
-      </b-field>
-      <b-field label="Favorite color">
-        <swatches v-model="favColor" @input="saveSnackbar" :exceptions="['']" show-fallback />
-      </b-field>
+      <div class="columns">
+        <div class="column">
+          <b-field label="Personal text">
+            <b-input v-model="personalText" @input="saveSnackbar" type="textarea" maxlength="260" />
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Favorite color">
+            <swatches v-model="favColor" @input="saveSnackbar" :exceptions="['']" show-fallback />
+          </b-field>
+        </div>
+      </div>
     </section>
     <b-loading :active="!loaded" />
   </div>

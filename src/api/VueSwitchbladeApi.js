@@ -19,6 +19,14 @@ export default {
       redirectUri: options.redirectUri
     })
 
+    const token = Vue.localStorage && Vue.localStorage.get('token')
+    if (token) {
+      vueApi.loginWithToken(token).catch(e => {
+        console.error(e)
+        Vue.localStorage.remove('token')
+      })
+    }
+
     Vue.mixin({
       mounted () {
         if (this.$route && this.$route.meta.requiresAuth && !this.$api.state.logged && !this.$api.state.logging) {
@@ -89,6 +97,11 @@ class VueSwitchbladeApi {
 
   saveGuildConfiguration (id, entity) {
     return this._request(`/guilds/${id}/config`, { method: 'PATCH', body: entity })
+  }
+
+  // Locales
+  locales (language = 'en-US') {
+    return this._request('/locales', { query: { language } })
   }
 
   // Authorization

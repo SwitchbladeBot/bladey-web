@@ -2,21 +2,25 @@
   <div class="profile-container">
     <div v-if="discord.user">
       <UserHero :user="discord.user" />
-      <div class="section container profile-horizontal">
-        <aside class="menu profile-sidebar">
-          <p class="menu-label">
-            Profile
-          </p>
-          <ul class="menu-list">
-            <li v-for="cat in categories" v-bind:key="cat" v-on:click="currentCat = cat">
-              <a v-bind:class="[{ 'is-active': currentCat === cat }]">{{ cat }}</a>
-            </li>
-          </ul>
-        </aside>
-        <section class="profile-main">
-          <h1 class="title is-spaced">{{ currentCat }}</h1>
+      <div class="section container">
+        <div class="columns">
+          <div class="column">
+            <aside class="menu">
+              <p class="menu-label">
+                Profile
+              </p>
+              <ul class="menu-list">
+                <li v-for="cat in categories" v-bind:key="cat" v-on:click="currentCat = cat">
+                  <a v-bind:class="[{ 'is-active': currentCat === cat }]">{{ cat }}</a>
+                </li>
+              </ul>
+            </aside>
+          </div>
+          <div class="column is-full">
+            <h1 class="title is-spaced">{{ currentCat }}</h1>
           <component v-bind:is="currentCategoryComponent" />
-        </section>
+          </div>
+        </div>
       </div>
     </div>
     <b-loading :active="discord.logging" />
@@ -50,22 +54,5 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-
-.profile-horizontal {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-}
-
-.profile-sidebar {
-  flex-shrink: 0;
-}
-
-.profile-main {
-  padding: 0 3rem 0 3rem;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
 }
 </style>

@@ -1,17 +1,26 @@
 <template>
   <div>
     <section v-if="loaded">
-      <b-field label="Prefix">
-        <b-input v-model="prefix" @input="saveSnackbar" maxlength="50" />
-      </b-field>
-      <b-field label="Language">
-        <b-autocomplete
-          v-model="languageText"
-          :data="filteredDataObj"
-          @select="setLanguage">
-          <template slot="empty">No results found</template>
-        </b-autocomplete>
-      </b-field>
+      <div class="columns">
+        <div class="column is-narrow">
+          <b-field label="Prefix">
+            <b-input v-model="prefix" @input="saveSnackbar" maxlength="50" />
+          </b-field>
+        </div>
+        <div class="column is-narrow">
+          <b-field label="Language">
+            <b-select v-model="language" @input="saveSnackbar">
+              <option
+                v-for="lang in languages"
+                :value="lang.key"
+                :key="lang.key"
+                class="dashboard-option">
+                {{ lang.displayName }}
+              </option>
+            </b-select>
+          </b-field>
+        </div>
+      </div>
     </section>
     <b-loading :active="!loaded" />
   </div>
@@ -23,40 +32,41 @@ export default {
   props: [ 'guild' ],
   data: () => ({
     loaded: false,
+    snackbar: false,
     language: null,
     languages: null,
-    languageText: null,
-    prefix: null,
-    snackbar: false
+    prefix: null
   }),
-  computed: {
-    filteredDataObj () {
-      return this.languages ? this.languages.filter(o => o.toString().toLowerCase().indexOf(this.languageText) >= 0) : []
-    }
-  },
   mounted () {
-    this.$api.guildConfiguration(this.guild.id)
-      .then(({ language, prefix, availableLanguages }) => {
+    Promise.all([
+      this.$api.locales(navigator.language || navigator.userLanguage).then(({ languages }) => {
+        this.languages = languages
+      }),
+      this.$api.guildConfiguration(this.guild.id).then(({ language, prefix }) => {
         this.language = this.languageText = language
         this.prefix = prefix
-        this.languages = availableLanguages
       })
-      .catch(e => this.errorToast())
-      .finally(() => {
-        this.loaded = true
-      })
+    ]).catch(e => this.errorToast())
+      .then(() => { this.loaded = true })
   },
   methods: {
     saveSnackbar () {
       if (this.snackbar) return
       this.snackbar = true
-      this.$snackbar.open({
+      const snackbar = this.$snackbar.open({
         message: 'You have unsaved changes!',
         position: 'is-top',
         actionText: 'Save',
         duration: 10000,
         onAction: () => this.save()
       })
+
+      const self = this
+      snackbar.realClose = snackbar.close
+      snackbar.close = function (...args) {
+        self.snackbar = false
+        this.realClose(...args)
+      }
     },
     save () {
       const { language, prefix } = this
@@ -68,9 +78,6 @@ export default {
           })
         })
         .catch(e => this.errorToast())
-        .finally(() => {
-          this.snackbar = false
-        })
     },
     errorToast () {
       this.$toast.open({
@@ -79,10 +86,16 @@ export default {
       })
     },
     setLanguage (option) {
-      console.log('a')
       this.language = option
       this.saveSnackbar()
     }
   }
 }
 </script>
+
+<style scoped>
+.dashboard-option {
+  color: #fff;
+  background-color: #484B52;
+}
+</style>

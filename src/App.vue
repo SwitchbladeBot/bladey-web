@@ -23,16 +23,6 @@ export default {
       { ch: 'utf-8' },
       { n: 'viewport', c: 'width=device-width, initial-scale=1' }
     ]
-  },
-
-  created () {
-    const token = this.$localStorage.get('token')
-    if (token) {
-      this.$api.loginWithToken(token).catch(e => {
-        console.error(e)
-        this.$localStorage.remove('token')
-      })
-    }
   }
 }
 </script>

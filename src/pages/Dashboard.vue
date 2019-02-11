@@ -2,21 +2,25 @@
   <div class="dashboard-container">
     <div v-if="guild">
       <ServerHero :guild="guild" />
-      <div class="section container dashboard-horizontal">
-        <aside class="menu dashboard-sidebar">
-          <p class="menu-label">
-            Dashboard
-          </p>
-          <ul class="menu-list">
-            <li v-for="cat in categories" v-bind:key="cat" v-on:click="currentCat = cat">
-              <a v-bind:class="[{ 'is-active': currentCat === cat }]">{{ cat }}</a>
-            </li>
-          </ul>
-        </aside>
-        <section class="dashboard-main">
-          <h1 class="title is-spaced">{{ currentCat }}</h1>
-          <component :guild="guild" v-bind:is="currentCategoryComponent" />
-        </section>
+      <div class="section container">
+        <div class="columns">
+          <div class="column">
+            <aside class="menu">
+              <p class="menu-label">
+                Dashboard
+              </p>
+              <ul class="menu-list">
+                <li v-for="cat in categories" v-bind:key="cat" v-on:click="currentCat = cat">
+                  <a v-bind:class="[{ 'is-active': currentCat === cat }]">{{ cat }}</a>
+                </li>
+              </ul>
+            </aside>
+          </div>
+          <div class="column is-full">
+            <h1 class="title is-spaced">{{ currentCat }}</h1>
+            <component :guild="guild" v-bind:is="currentCategoryComponent" />
+          </div>
+        </div>
       </div>
     </div>
     <b-loading :active="!guild" />
@@ -55,22 +59,5 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-
-.dashboard-horizontal {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-}
-
-.dashboard-sidebar {
-  flex-shrink: 0;
-}
-
-.dashboard-main {
-  padding: 0 3rem 0 3rem;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
 }
 </style>
