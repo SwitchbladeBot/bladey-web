@@ -21,7 +21,11 @@ export default {
   components: { GuildIcon },
   data () { return { discord: this.$api.state } },
   computed: {
-    guilds () { return this.discord.guilds ? this.discord.guilds.filter(g => g.permissions.has('MANAGE_GUILD')) : null }
+    guilds () {
+      return this.discord.guilds
+        ? this.discord.guilds.filter(guild => guild.common && guild.permissions.has('MANAGE_GUILD'))
+        : null
+    }
   }
 }
 </script>
