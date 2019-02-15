@@ -1,10 +1,10 @@
 <template>
   <section>
-    <b-field label="last.fm" horizontal addons>
-      <b-input v-model="lastfm" icon="account-check" expanded disabled />
-      <p class="control">
+    <b-field horizontal label="last.fm">
+      <b-input v-model="lastfm" icon="account-check" disabled />
+      <a class="control">
         <button class="button is-danger">Disconnect</button>
-      </p>
+      </a>
     </b-field>
   </section>
 </template>
