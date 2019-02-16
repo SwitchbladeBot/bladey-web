@@ -73,7 +73,7 @@ export default {
       this.$api.saveGuildConfiguration(this.guild.id, { language, prefix })
         .then(() => {
           this.$toast.open({
-            message: 'Guild configuration saved!',
+            message: 'Server configuration saved!',
             type: 'is-success'
           })
         })
