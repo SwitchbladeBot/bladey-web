@@ -1,5 +1,5 @@
 <template>
-  <section class="section servers-section">
+  <section class="section">
     <div class="container has-text-centered">
       <h1 class="title is-spaced">Servers</h1>
       <div class="columns is-multiline is-centered">
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style scoped>
-.servers-section .title {
+.title {
   font-weight: 900;
   font-style: italic;
   font-size: 50px;
