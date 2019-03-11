@@ -115,7 +115,7 @@ class VueSwitchbladeApi {
 
   async openConnectionPopup (service) {
     window.open(
-      await this.getLoginURL(service),
+      this.getLoginURL(service),
       '_blank',
       this._buildQuery(this.popupOptions, ',')
     )

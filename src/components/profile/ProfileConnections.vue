@@ -2,8 +2,12 @@
   <div>
     <section v-if="loaded">
       <div class="connections">
-        <component v-for="connection in connections" v-bind:key="connection" v-bind:is="getConnectionComponent(connection.name)" v-bind:data="connection" />
+        <div class="columns" v-for="connection in connections" :key="connection">
+          <div class="column is-half">
+            <component :is="getConnectionComponent(connection.name)" :data="connection" />
+          </div>
         <!--{{ getConnectionComponent(connection.name) }}-->
+        </div>
       </div>
     </section>
     <b-loading :active="!loaded" />
@@ -24,9 +28,6 @@ export default {
     this.updateConnections()
   },
   methods: {
-    openConnectWindow (service) {
-      this.$api.openConnectionPopup(service)
-    },
     async updateConnections () {
       this.$api.connections().then(connections => {
         this.connections = connections

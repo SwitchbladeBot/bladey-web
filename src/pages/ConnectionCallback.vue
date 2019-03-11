@@ -14,14 +14,12 @@ export default {
   name: 'ConnectionCallback',
   head: { title: { inner: 'Connecting' } },
   mounted () {
-    this.setService()
     this.connect()
   },
-  data: () => ({ service: null }),
+  data: () => {
+    return { service: this.$route.params.connection }
+  },
   methods: {
-    setService () {
-      this.service = this.$route.params.connection
-    },
     async connect () {
       const { success } = this.$api.connectConnection(this.service, this.$route.query)
       if (opener) opener.update(success)
