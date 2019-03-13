@@ -16,10 +16,9 @@
 
 <script>
 import LastfmConnection from './connections/LastfmConnection'
-import SpotifyConnection from './connections/SpotifyConnection'
 export default {
   name: 'ProfileConnections',
-  components: { LastfmConnection, SpotifyConnection },
+  components: { LastfmConnection },
   data: () => ({
     loaded: false,
     connections: null
