@@ -109,13 +109,14 @@ class VueSwitchbladeApi {
     return this._request('/users/@me/connections')
   }
 
-  getLoginURL (service) {
-    return `${this._apiURL}/connections/${service}/authURL`
+  getLoginURL (connection) {
+    return `${this._apiURL}/connections/${connection}/authURL`
   }
 
-  async openConnectionPopup (service) {
-    window.open(
-      this.getLoginURL(service),
+  async openConnectionPopup (connection) {
+    return window.open(
+      this.getLoginURL(connection),
+      // `http://localhost:8080/connections/${connection}/callback`,
       '_blank',
       this._buildQuery(this.popupOptions, ',')
     )

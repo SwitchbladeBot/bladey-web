@@ -7,7 +7,7 @@
       :data="data"
     >
       Scrobbling
-      <b-switch class="switch is-pulled-right"></b-switch>
+      <b-switch class="switch is-pulled-right" v-model="data.configuration.scrobbling" ></b-switch>
     </ConnectionBox>
   </div>
 </template>

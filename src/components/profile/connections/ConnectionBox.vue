@@ -8,7 +8,7 @@
     <span v-if="data.connected" class="connection-name">{{ displayName }}</span>
   </div>
   <!-- TODO: Fix button to the right -->
-  <button v-if="!data.connected" class="button is-pulled-right" @click="openConnectWindow(data.name)">CONNECT</button>
+  <button v-if="!data.connected" class="button is-pulled-right" @click="openConnectWindow(data)">CONNECT</button>
 </div>
     <div v-if="data.connected" class="content">
       <slot class="config"></slot>
@@ -21,8 +21,8 @@ export default {
   name: 'ConnectionBox',
   props: ['color', 'displayName', 'connected', 'icon', 'data'],
   methods: {
-    openConnectWindow (connection) {
-      this.$api.openConnectionPopup(connection)
+    openConnectWindow (data) {
+      this.$parent.$parent.openConnectWindow(data)
     }
   }
 }

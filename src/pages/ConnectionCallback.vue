@@ -16,13 +16,18 @@ export default {
   mounted () {
     this.connect()
   },
-  data: () => {
+  data () {
     return { service: this.$route.params.connection }
   },
   methods: {
     async connect () {
-      const { success } = this.$api.connectConnection(this.service, this.$route.query)
-      if (opener) opener.update(success)
+      const { success } = await this.$api.connectConnection(this.service, this.$route.query)
+      console.log(success)
+      const payload = {
+        event: 'update',
+        success
+      }
+      if (opener) opener.postMessage(payload)
       window.close()
       // if (this.$route.query.code) {
       //   await this.$api.login(this.$route.query.code).then(token => {

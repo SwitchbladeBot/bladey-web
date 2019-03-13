@@ -2,11 +2,10 @@
   <div>
     <section v-if="loaded">
       <div class="connections">
-        <div class="columns" v-for="connection in connections" :key="connection">
-          <div class="column is-half">
-            <component :is="getConnectionComponent(connection.name)" :data="connection" />
+        <div class="columns" v-for="connection in connections" :key="connection.name">
+          <div class="column is-four-fifths">
+            <component :is="getConnectionComponent(connection.name)" :data="connection"/>
           </div>
-        <!--{{ getConnectionComponent(connection.name) }}-->
         </div>
       </div>
     </section>
@@ -16,15 +15,17 @@
 
 <script>
 import LastfmConnection from './connections/LastfmConnection'
+import SpotifyConnection from './connections/SpotifyConnection'
 export default {
   name: 'ProfileConnections',
-  components: { LastfmConnection },
+  components: { LastfmConnection, SpotifyConnection },
   data: () => ({
     loaded: false,
     connections: null
   }),
   async mounted () {
     this.updateConnections()
+    this.createListener()
   },
   methods: {
     async updateConnections () {
@@ -37,11 +38,23 @@ export default {
         })
     },
     getConnectionComponent (connection) {
-      console.log(connection.charAt(0).toUpperCase() + connection.slice(1) + 'Connection')
       return connection.charAt(0).toUpperCase() + connection.slice(1) + 'Connection'
     },
-    update (success) {
-      console.log('updated: ', success)
+    openConnectWindow ({ name }) {
+      this.$api.openConnectionPopup(name)
+    },
+    createListener () {
+      window.addEventListener('message', ({ data }) => {
+        if (data.event === 'update') {
+          if (data.success) {
+            this.loaded = false
+            this.updateConnections()
+          } else {
+            this.errorToast()
+            console.error(data)
+          }
+        }
+      }, false)
     },
     errorToast () {
       this.$toast.open({
