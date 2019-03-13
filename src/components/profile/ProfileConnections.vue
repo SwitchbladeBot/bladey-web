@@ -43,6 +43,12 @@ export default {
     },
     update (success) {
       console.log('updated: ', success)
+    },
+    errorToast () {
+      this.$toast.open({
+        message: 'An error occured!',
+        type: 'is-danger'
+      })
     }
   }
 }

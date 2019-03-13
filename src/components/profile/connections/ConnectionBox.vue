@@ -1,10 +1,15 @@
 <template>
   <div class="connection-box" :style="{ 'background-color': color }">
-    <div class="header">
-      <img draggable="false" class="account-profile" :src="data.connected ? data.account.avatar : icon" />
-      <span class="account-name">{{ data.connected ? data.account.user : displayName }}</span>
-      <button v-if="!data.connected" class="button is-pulled-right" @click="openConnectWindow(data.name)">CONNECT</button>
-    </div>
+<div class="header">
+  <img draggable="false" class="account-profile" :src="data.connected ? data.account.avatar : icon" />
+  <div class="account-info">
+    <span class="account-name">{{ data.connected ? data.account.user : displayName }}</span>
+    <br>
+    <span v-if="data.connected" class="connection-name">{{ displayName }}</span>
+  </div>
+  <!-- TODO: Fix button to the right -->
+  <button v-if="!data.connected" class="button is-pulled-right" @click="openConnectWindow(data.name)">CONNECT</button>
+</div>
     <div v-if="data.connected" class="content">
       <slot class="config"></slot>
     </div>
@@ -28,25 +33,34 @@ export default {
     border-radius: 5px;
   }
   .connection-box > .header {
-    background: rgba(0, 0, 0, .15);
+    background: rgba(0, 0, 0, .1);
     border-radius: 5px 5px 0px 0px;
     padding: 16px;
-    border-bottom: .8px solid rgba(0, 0, 0, .27);
+    border-bottom: .6px solid rgba(63, 63, 63, .27);
     align-items: center;
-    font-size: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
   .connection-box > .header > .account-profile {
     width: 64px;
     height: 64px;
     border-radius: 128px;
   }
-  .connection-box > .header > .account-name {
+  .connection-box > .header > .account-info {
+    padding-left: 20px;
+    line-height: 19px;
+  }
+  .connection-box > .header > .account-info > .account-name {
     font-size: 20px;
     font-weight: 600;
-    position: absolute;
-    padding: 17px;
+  }
+  .connection-box > .header > .account-info > .connection-name {
+    font-size: 14px;
+    color: rgba(255, 255, 255, .6);
   }
   .connection-box > .header > .button {
+    font-weight: 600;
     margin: 14px;
     color: white;
     background: rgba(0, 0, 0, .15);
