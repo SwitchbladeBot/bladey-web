@@ -3,11 +3,11 @@
     <ConnectionBox
       displayName="Last.fm"
       color="#B90000"
-      icon="../../../../assets/lastfm.svg"
+      icon="lastfm.svg"
       :data="data"
     >
       Scrobbling
-      <b-switch class="switch is-pulled-right" v-model="data.configuration.scrobbling" ></b-switch>
+      <b-switch v-if="data.connected" class="switch is-pulled-right" v-model="data.configuration.scrobbling" ></b-switch>
     </ConnectionBox>
   </div>
 </template>

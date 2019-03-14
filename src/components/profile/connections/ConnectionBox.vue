@@ -1,7 +1,7 @@
 <template>
   <div class="connection-box" :style="{ 'background-color': color }">
 <div class="header">
-  <img draggable="false" class="account-profile" :src="data.connected ? data.account.avatar : icon" />
+  <img draggable="false" :class="{ 'account-profile': true, round: data.connected }" :src="data.connected ? data.account.avatar : getIcon(icon)" />
   <div class="account-info">
     <span class="account-name">{{ data.connected ? data.account.user : displayName }}</span>
     <br>
@@ -23,6 +23,9 @@ export default {
   methods: {
     openConnectWindow (data) {
       this.$parent.$parent.openConnectWindow(data)
+    },
+    getIcon (icon) {
+      return require(`../../../assets/logos/${icon}`)
     }
   }
 }
@@ -45,6 +48,8 @@ export default {
   .connection-box > .header > .account-profile {
     width: 64px;
     height: 64px;
+  }
+  .connection-box > .header > .round {
     border-radius: 128px;
   }
   .connection-box > .header > .account-info {
