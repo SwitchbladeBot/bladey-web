@@ -126,6 +126,10 @@ class VueSwitchbladeApi {
     return this._request(`/users/@me/connections/${conn}/callback`, { query })
   }
 
+  async saveConnectionConfig (conn, config) {
+    return this._request(`/users/@me/connections/${conn}/`, { method: 'PATCH', body: config })
+  }
+
   // Authorization
   loginPopup () {
     if (this.state.logging) return

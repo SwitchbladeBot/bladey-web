@@ -21,7 +21,8 @@ export default {
   components: { LastfmConnection, SpotifyConnection },
   data: () => ({
     loaded: false,
-    connections: null
+    connections: null,
+    snackbar: false
   }),
   async mounted () {
     this.updateConnections()
@@ -55,6 +56,35 @@ export default {
           }
         }
       }, false)
+    },
+    saveSnackbar () {
+      if (this.snackbar) return
+      this.snackbar = true
+      this.$snackbar.open({
+        message: 'You have unsaved changes!',
+        position: 'is-top',
+        actionText: 'Save',
+        indefinite: true,
+        onAction: () => this.save()
+      })
+    },
+    save () {
+      const { connections } = this
+      let success = []
+      console.log(connections)
+      connections.forEach(async ({ name, configuration }) => {
+        await this.$api.saveConnectionConfig(name, configuration)
+          .then(() => success.push(true))
+          .catch(() => success.push(false))
+      })
+      if (!success.includes(false)) {
+        this.$toast.open({
+          message: 'All connections configuration successfully saved!',
+          type: 'is-success'
+        })
+      } else this.errorToast()
+      this.snackbar = false
+      console.log(success)
     },
     errorToast () {
       this.$toast.open({

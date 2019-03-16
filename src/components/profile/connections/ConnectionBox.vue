@@ -77,8 +77,6 @@ export default {
   }
   .connection-box > .content {
     padding: 13px;
-  }
-  .connection-box > .content > .config > .switch {
-    background: rgba(0, 0, 0, .10);
+    padding-bottom: 0px;
   }
 </style>
