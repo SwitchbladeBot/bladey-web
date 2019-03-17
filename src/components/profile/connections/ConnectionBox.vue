@@ -1,7 +1,11 @@
 <template>
   <div class="connection-box" :style="{ 'background-color': color }">
 <div class="header is-flex">
-  <img alt="Profile icon" draggable="false" :class="{ 'account-profile': true, round: data.connected }" :src="data.connected ? data.account.avatar : getIcon(icon)" />
+  <img
+    alt="Profile icon"
+    draggable="false"
+    :class="{ 'account-profile': true, round: data.connected }"
+    :src="data.connected ? data.account.avatar : `static/icons/logos/${icon}`" />
   <div class="account-info">
     <span class="account-name">{{ data.connected ? data.account.user : displayName }}</span>
     <br>
@@ -26,9 +30,6 @@ export default {
     },
     disconnect (data, displayName) {
       this.$parent.$parent.disconnect({ ...data, displayName })
-    },
-    getIcon (icon) {
-      return require(`../../../assets/logos/${icon}`)
     }
   }
 }
