@@ -15,7 +15,8 @@
           Scrobble percentage
           <vue-slider
             class="is-pulled-right slider"
-            tooltip="always"
+            tooltip="focus"
+            :use-keyboard="true"
             width="30%"
             v-model="data.configuration.percent"
             :min="45"
