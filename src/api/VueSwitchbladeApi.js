@@ -130,6 +130,10 @@ class VueSwitchbladeApi {
     return this._request(`/users/@me/connections/${conn}/`, { method: 'PATCH', body: config })
   }
 
+  async removeConnection (conn) {
+    return this._request(`/users/@me/connections/${conn}/`, { method: 'DELETE' })
+  }
+
   // Authorization
   loginPopup () {
     if (this.state.logging) return

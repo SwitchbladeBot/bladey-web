@@ -2,8 +2,8 @@
   <div>
     <section v-if="loaded">
       <div class="connections">
-        <div class="columns" v-for="connection in connections" :key="connection.name">
-          <div class="column is-four-fifths">
+        <div class="column is-four-fifths" v-for="connection in connections" :key="connection.name">
+          <div class="">
             <component :is="getConnectionComponent(connection.name)" :data="connection"/>
           </div>
         </div>
@@ -44,6 +44,25 @@ export default {
     openConnectWindow ({ name }) {
       this.$api.openConnectionPopup(name)
     },
+    disconnect ({ name, displayName }) {
+      this.$dialog.confirm({
+        title: 'Disconnecting account',
+        message: `Are you sure you want disconnect your <b>${displayName}</b> account? This action cannot be undone.`,
+        confirmText: 'Disconnect account',
+        type: 'is-danger is-outlined',
+        onConfirm: () => this.disconnectAccount({ name, displayName })
+      })
+    },
+    async disconnectAccount ({ name, displayName }) {
+      await this.$api.removeConnection(name)
+        .then(() => this.$toast.open({
+          message: `Your ${displayName} account was successfully disconnected`,
+          type: 'is-success'
+        }))
+        .catch(() => this.errorToast())
+      this.loaded = false
+      this.updateConnections()
+    },
     createListener () {
       window.addEventListener('message', ({ data }) => {
         if (data.event === 'update') {
@@ -52,7 +71,6 @@ export default {
             this.updateConnections()
           } else {
             this.errorToast()
-            console.error(data)
           }
         }
       }, false)
@@ -71,7 +89,6 @@ export default {
     save () {
       const { connections } = this
       let success = []
-      console.log(connections)
       connections.forEach(async ({ name, configuration }) => {
         await this.$api.saveConnectionConfig(name, configuration)
           .then(() => success.push(true))
@@ -84,7 +101,6 @@ export default {
         })
       } else this.errorToast()
       this.snackbar = false
-      console.log(success)
     },
     errorToast () {
       this.$toast.open({

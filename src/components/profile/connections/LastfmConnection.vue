@@ -6,32 +6,28 @@
       icon="lastfm.svg"
       :data="data"
     >
-      <div class="config-element">
-        Scrobbling
-        <b-switch v-if="data.connected" @input="saveSnackbar" class="is-pulled-right" v-model="data.configuration.scrobbling" ></b-switch>
-      </div>
-      <div class="config-element">
-        Scrobble percentage
-        <vue-slider
-          class="is-pulled-right slider"
-          tooltip="always"
-          width="30%"
-          v-model="data.configuration.percent"
-          :min="45"
-          :max="95"
-          :step="1"
-          tooltip-formatter="{value}%"
-          tooltip-placement="bottom"
-          style="padding: 0px 10px 0px 0px;"
-        >
-          <!--:process-style="{ backgroundColor: '#7289DA' }"-->
-          <!--<template #dot="{ value, focus }">-->
-            <!--<div :class="['dot', { focus }]"></div>-->
-          <!--</template>-->
-          <!--<template #tooltip="{ value }">-->
-            <!--<div class="tooltip">{{ value }}</div>-->
-          <!--</template>-->
-        </vue-slider>
+      <div v-if="data.connected">
+        <div class="config-element">
+          Scrobbling
+          <b-switch v-if="data.connected" @input="saveSnackbar" class="is-pulled-right" v-model="data.configuration.scrobbling" ></b-switch>
+        </div>
+        <div class="config-element">
+          Scrobble percentage
+          <vue-slider
+            class="is-pulled-right slider"
+            tooltip="always"
+            width="30%"
+            v-model="data.configuration.percent"
+            :min="45"
+            :max="95"
+            :step="1"
+            tooltip-formatter="{value}%"
+            tooltip-placement="bottom"
+            style="padding: 0px 10px 0px 0px;"
+            @change="saveSnackbar"
+          >
+          </vue-slider>
+        </div>
       </div>
     </ConnectionBox>
   </div>
