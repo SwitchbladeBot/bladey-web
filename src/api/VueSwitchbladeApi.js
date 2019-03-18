@@ -116,7 +116,6 @@ class VueSwitchbladeApi {
   async openConnectionPopup (connection) {
     return window.open(
       this.getLoginURL(connection),
-      // `http://localhost:8080/connections/${connection}/callback`,
       '_blank',
       this._buildQuery(this.popupOptions, ',')
     )
