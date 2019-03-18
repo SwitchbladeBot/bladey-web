@@ -33,7 +33,7 @@ export default {
       this.$api.connections().then(connections => {
         this.connections = connections
       })
-        .catch(e => this.errorToast())
+        .catch(() => this.errorToast())
         .finally(() => {
           this.loaded = true
         })
@@ -111,7 +111,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
