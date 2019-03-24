@@ -7,6 +7,7 @@ import Buefy from 'buefy'
 import SwitchbladeApi from '../api/VueSwitchbladeApi'
 
 import Contributors from '../pages/Contributors'
+import Commands from '../pages/Commands'
 import Dashboard from '../pages/Dashboard'
 import Homepage from '../pages/Homepage'
 import LoginAuth from '../pages/LoginAuth'
@@ -43,6 +44,11 @@ export default new Router({
       path: '/contributors',
       name: 'Contributors',
       component: Contributors
+    },
+    {
+      path: '/commands',
+      name: 'Commands',
+      component: Commands
     },
     {
       path: '/dashboard',

@@ -17,6 +17,10 @@
             <b-icon icon="account-group" custom-size="mdi-18px" class="is-hidden-desktop" />
             <span>Contributors</span>
           </router-link>
+          <router-link to="/commands" class="navbar-item">
+            <b-icon pack="fas" icon="terminal" class="is-hidden-desktop" />
+            <span>Commands</span>
+          </router-link>
           <a class="navbar-item" href="https://github.com/switchbladebot/" target="_blank">
             <b-icon icon="github-circle" custom-size="mdi-18px" class="is-hidden-desktop" />
             <span>GitHub</span>
