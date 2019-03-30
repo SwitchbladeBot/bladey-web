@@ -56,6 +56,7 @@ export default {
       const snackbar = this.$snackbar.open({
         message: 'You have unsaved changes!',
         position: 'is-top',
+        type: 'is-primary',
         actionText: 'Save',
         duration: 10000,
         onAction: () => this.save()
@@ -73,7 +74,7 @@ export default {
       this.$api.saveGuildConfiguration(this.guild.id, { language, prefix })
         .then(() => {
           this.$toast.open({
-            message: 'Guild configuration saved!',
+            message: 'Server configuration saved!',
             type: 'is-success'
           })
         })
