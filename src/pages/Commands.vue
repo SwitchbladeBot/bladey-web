@@ -6,7 +6,7 @@
           <h1 class="title">
             Commands
           </h1>
-          The commands that makes Switchblade special
+          The commands that make Switchblade special.
         </div>
       </div>
     </section>
