@@ -45,9 +45,7 @@
                 <span
                   v-for="aliase in command.aliases"
                   :key="aliase"
-                  class="aliase">
-                  {{aliase}}
-                </span>
+                  class="aliase">{{aliase}}</span>
               </div>
               <vue-markdown>{{command.description}}</vue-markdown>
               <div class="subcommands" v-if="command.subcommands">
@@ -98,8 +96,8 @@ export default {
   methods: {
     getArgType (usage) {
       if (!usage) return []
-      const requiredRegex = /(<[a-zA-Z0-9-|@.,+: ]+>)/g
-      const optionalRegex = /(\[[a-zA-Z0-9-|@.,+: ]+])/g
+      const requiredRegex = /(<.[^<>]+>)/g
+      const optionalRegex = /(\[.[^[\]]+])/g
       const requiredArgs = usage.split(requiredRegex).map(arg => ({ type: 'required', arg }))
       const optionalArgs = usage.split(optionalRegex).map(arg => ({ type: 'optional', arg }))
       return [
