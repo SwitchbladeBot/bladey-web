@@ -2,14 +2,14 @@
   <section class="hero is-primary">
     <div class="hero-body">
       <div class="container is-flex">
-        <GuildIcon :guild="guild" :tooltip="false" :size="128" />
+        <UserIcon :user="user" :size="128" />
         <div class="container text-container">
           <h1 class="title">
-            {{ guild.name }}
+            {{ user.username }}
           </h1>
-          <router-link to="/dashboard" class="button is-small is-dark is-rounded">
-            Change servers
-          </router-link>
+          <h2 class="subtitle">
+            #{{ user.discriminator }}
+          </h2>
         </div>
       </div>
     </div>
@@ -17,18 +17,16 @@
 </template>
 
 <script>
-import GuildIcon from '../components/GuildIcon'
+import UserIcon from '../components/UserIcon'
 
 export default {
-  props: {
-    guild: Object
-  },
-  components: { GuildIcon }
+  props: { user: Object },
+  components: { UserIcon }
 }
 </script>
 
 <style scoped>
-.guild-icon {
+.user-icon {
   max-width: 128px;
   margin-right: 2rem;
 }

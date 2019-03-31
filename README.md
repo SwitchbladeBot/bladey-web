@@ -4,7 +4,7 @@
   <br>
   <p>
     <a href="https://bulma.io"><img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24"></a>
-    <a href="https://netlify.com/"><img src="https://i.imgur.com/oJjg6fA.png" alt="Deploys by Netlify" width="128" height="24"></a>
+    <a href="https://app.netlify.com/sites/switchblade/deploys"><img src="https://api.netlify.com/api/v1/badges/86b74d43-b9d7-4688-8b38-adaf0d294ca0/deploy-status"/></a>
     <br>
     <a href="https://support.switchblade.xyz/"><img src="https://img.shields.io/badge/dynamic/json.svg?style=flat-square&label=chat%20on%20Discord&colorB=7289DA&url=https%3A%2F%2Fdiscordapp.com%2Fapi%2Fservers%2F445203868624748555%2Fembed.json&query=%24.members.length&suffix=%20online" alt="Discord Server"/></a>
     <a href="https://travis-ci.org/SwitchbladeBot/bladey-web"><img src="https://img.shields.io/travis/SwitchbladeBot/bladey-web.svg?style=flat-square"/></a>

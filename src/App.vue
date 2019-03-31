@@ -1,13 +1,9 @@
 <template>
   <div id="app">
-    <section class="hero is-fullheight">
-      <section class="hero-head">
-        <Navbar/>
-      </section>
+    <section class="main-container">
+      <Navbar/>
       <router-view/>
-      <section class="hero-foot">
-        <Footer/>
-      </section>
+      <Footer/>
     </section>
   </div>
 </template>
@@ -27,42 +23,22 @@ export default {
       { ch: 'utf-8' },
       { n: 'viewport', c: 'width=device-width, initial-scale=1' }
     ]
-  },
-
-  created () {
-    if (process.browser) window.addEventListener('message', this.$discord.handleMessage.bind(this.$discord))
-
-    const logout = (e) => {
-      if (e) console.error(e)
-
-      this.$localStorage.remove('accessToken')
-      if (this.$route.meta.requiresAuth) {
-        this.$router.push('/')
-      }
-    }
-
-    this.$discord.on('_login', () => {
-      this.$localStorage.set('accessToken', this.$discord.accessToken)
-      this.$discord.fetchGuilds().then(() => this.$discord.emit('login')).catch(logout)
-    })
-    this.$discord.on('_logout', logout)
-
-    const token = this.$localStorage.get('accessToken')
-    if (token) {
-      this.$discord.login(token).catch(logout)
-    }
-  },
-  destroyed () {
-    if (process.browser) window.removeEventListener('message', this.$discord.handleMessage.bind(this.$discord))
-    this.$discord.removeAllListeners()
   }
 }
 </script>
 
 <style lang="scss">
   @import "assets/main";
+  @import "vue-swatches/dist/vue-swatches.min.css";
 
   html {
     overflow: auto;
+  }
+
+  .main-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 </style>

@@ -4,20 +4,23 @@ import LocalStorage from 'vue-localstorage'
 import Head from 'vue-head'
 import Buefy from 'buefy'
 
-import DiscordOAuth from '../oauth/VueDiscordOAuth'
+import SwitchbladeApi from '../api/VueSwitchbladeApi'
 
-import Homepage from '../pages/Homepage'
-import Dashboard from '../pages/Dashboard'
-import LoginAuth from '../pages/LoginAuth'
 import Contributors from '../pages/Contributors'
-import ServerSelector from '../pages/ServerSelector'
+import Commands from '../pages/Commands'
+import Dashboard from '../pages/Dashboard'
+import Homepage from '../pages/Homepage'
+import LoginAuth from '../pages/LoginAuth'
 import NotFound from '../pages/NotFound'
+import Profile from '../pages/Profile'
+import ServerSelector from '../pages/ServerSelector'
 
-Vue.use(Buefy, { defaultTooltipAnimated: true })
-Vue.use(DiscordOAuth, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
+Vue.use(Buefy, { defaultTooltipAnimated: true, defaultToastDuration: 3000 })
+
 Vue.use(LocalStorage)
 Vue.use(Head, { separator: '-', complement: 'Switchblade' })
 Vue.use(Router)
+Vue.use(SwitchbladeApi, { clientId: process.env.CLIENT_ID, redirectUri: process.env.REDIRECT_URI })
 
 export default new Router({
   mode: 'history',
@@ -43,6 +46,11 @@ export default new Router({
       component: Contributors
     },
     {
+      path: '/commands',
+      name: 'Commands',
+      component: Commands
+    },
+    {
       path: '/dashboard',
       name: 'Select a server',
       component: ServerSelector,
@@ -52,6 +60,12 @@ export default new Router({
       path: '/dashboard/:id',
       name: 'Dashboard',
       component: Dashboard,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
       meta: { requiresAuth: true }
     }
   ]

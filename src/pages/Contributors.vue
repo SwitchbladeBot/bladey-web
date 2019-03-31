@@ -11,8 +11,8 @@
       </div>
     </section>
     <section class="section role-section">
-      <div class="container">
-        <section v-if="roles" v-for="role in roles" v-bind:key="role.roleId" class="section has-text-centered">
+      <div v-if="roles" class="container">
+        <section v-for="role in roles" v-bind:key="role.roleId" class="section has-text-centered">
           <h1 class="title is-spaced">{{role.name}}</h1>
           <div class="columns is-multiline is-centered">
             <div class="column is-2 has-text-centered" v-for="contributor in role.members" v-bind:key="contributor.id">
@@ -24,44 +24,24 @@
             </div>
           </div>
         </section>
-        <b-loading :active="!roles" />
       </div>
     </section>
+    <b-loading :active="!roles" />
   </div>
 </template>
 
 <script>
-import User from '../oauth/User'
-
 export default {
   name: 'Contributors',
-  head: {
-    title: { inner: 'Contributors' }
-  },
-  data: () => {
-    return {
-      roles: null
-    }
-  },
-  mounted: function () {
-    fetch(`${process.env.BLADEY_API_ROOT}/contributors`)
-      .then(res => res.ok ? res.json() : Promise.reject(res))
-      .then(res => {
-        this.roles = res.roles.map(r => {
-          r.members = r.members.map(c => new User(c))
-          return r
-        })
-      })
+  head: { title: { inner: 'Contributors' } },
+  data: () => ({ roles: null }),
+  mounted: async function () {
+    this.roles = await this.$api.contributors()
   }
 }
 </script>
 
 <style scoped>
-.contributors,
-.contributors .title {
-  color: white;
-}
-
 .hero-body > .container > .title {
   font-weight: 900;
   font-style: italic;

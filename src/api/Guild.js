@@ -7,6 +7,7 @@ export default class Guild {
     this.name = data.name
     this.icon = data.icon
     this.owner = data.owner
+    this.common = data.common
     this.permissions = new Permissions(data.permissions)
   }
 

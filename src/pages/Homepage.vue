@@ -18,16 +18,9 @@
 </template>
 
 <script>
-import Card from '../components/Card.vue'
-
 export default {
   name: 'Homepage',
-  head: {
-    title: { inner: 'Homepage' }
-  },
-  components: {
-    'Card': Card
-  }
+  head: { title: { inner: 'Homepage' } }
 }
 </script>
 
