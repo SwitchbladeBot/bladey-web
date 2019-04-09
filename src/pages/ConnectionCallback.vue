@@ -22,7 +22,6 @@ export default {
   methods: {
     async connect () {
       const { success } = await this.$api.connectConnection(this.service, this.$route.query)
-      console.log(success)
       const payload = {
         event: 'update',
         success
