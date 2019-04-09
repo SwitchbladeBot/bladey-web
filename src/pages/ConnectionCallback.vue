@@ -2,7 +2,7 @@
   <section>
     <div class="">
       <p class="title has-text-centered">
-        Connecting your {{service}} account...
+        Connecting to your {{service}} account...
       </p>
     </div>
     <b-loading :active="true" />
