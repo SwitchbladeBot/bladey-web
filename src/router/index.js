@@ -13,6 +13,7 @@ import LoginAuth from '../pages/LoginAuth'
 import NotFound from '../pages/NotFound'
 import Profile from '../pages/Profile'
 import ServerSelector from '../pages/ServerSelector'
+import ConnectionCallback from '../pages/ConnectionCallback'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true, defaultToastDuration: 3000 })
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/auth',
       name: 'LoginAuth',
       component: LoginAuth
+    },
+    {
+      path: '/connections/:connection/callback',
+      name: 'ConnectionCallback',
+      component: ConnectionCallback
     },
     {
       path: '/contributors',

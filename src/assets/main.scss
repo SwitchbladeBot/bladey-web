@@ -69,6 +69,12 @@ $navbar-divider-background-color: $dark-but-not-black;
 // Footer
 $footer-background-color: $dark-but-not-black;
 
+// Buttons
+$button-background-color: $primary;
+$button-color: $primary-invert;
+$button-border-color: $button-background-color;
+$button-hover-border-color: lighten($button-background-color, 10%);
+
 // Input
 $input-background-color: $light-gray-but-not-so-light;
 $input-disabled-background-color: $dark;
@@ -86,6 +92,11 @@ $dropdown-item-hover-background-color: $light-gray-but-not-so-light;
 $dropdown-item-active-color: $primary;
 $dropdown-item-active-background-color: $light-gray-but-not-so-light;
 
+// Modal
+$modal-card-body-background-color: $not-quite-black;
+$modal-card-title-color: $white;
+$modal-card-foot-border-top: $light-gray-but-not-so-light;
+$modal-card-head-border-bottom: $light-gray-but-not-so-light;
 
 // Global styles
 .round {
