@@ -2,7 +2,7 @@
   <section>
     <div class="">
       <p class="title has-text-centered">
-        Connecting your {{service}} account...
+        Connecting to your {{service}} account...
       </p>
     </div>
     <b-loading :active="true" />
@@ -22,7 +22,6 @@ export default {
   methods: {
     async connect () {
       const { success } = await this.$api.connectConnection(this.service, this.$route.query)
-      console.log(success)
       const payload = {
         event: 'update',
         success
