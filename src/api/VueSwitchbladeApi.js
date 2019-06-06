@@ -76,6 +76,10 @@ class VueSwitchbladeApi {
     }))
   }
 
+  commands () {
+    return this._request('/commands')
+  }
+
   // Economy
   balance () {
     return this._request('/users/@me/money')
