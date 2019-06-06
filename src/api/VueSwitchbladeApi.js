@@ -108,6 +108,35 @@ class VueSwitchbladeApi {
     return this._request('/locales', { query: { language } })
   }
 
+  // Connections
+  connections () {
+    return this._request('/users/@me/connections')
+  }
+
+  getLoginURL (connection) {
+    return `${this._apiURL}/connections/${connection}/authURL`
+  }
+
+  async openConnectionPopup (connection) {
+    return window.open(
+      this.getLoginURL(connection),
+      '_blank',
+      this._buildQuery(this.popupOptions, ',')
+    )
+  }
+
+  async connectConnection (conn, query) {
+    return this._request(`/users/@me/connections/${conn}/callback`, { query })
+  }
+
+  async saveConnectionConfig (conn, config) {
+    return this._request(`/users/@me/connections/${conn}/`, { method: 'PATCH', body: config })
+  }
+
+  async removeConnection (conn) {
+    return this._request(`/users/@me/connections/${conn}/`, { method: 'DELETE' })
+  }
+
   // Authorization
   loginPopup () {
     if (this.state.logging) return
