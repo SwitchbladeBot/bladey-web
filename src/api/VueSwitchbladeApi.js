@@ -103,6 +103,14 @@ class VueSwitchbladeApi {
     return this._request(`/guilds/${id}/config`, { method: 'PATCH', body: entity })
   }
 
+  setAutoRoles (id, autoRoles) {
+    return this._request(`/guilds/${id}/autoroles`, { method: 'PATCH', body: autoRoles })
+  }
+
+  guildRoles (id) {
+    return this._request(`/guilds/${id}/roles`)
+  }
+
   // Locales
   locales (language = 'en-US') {
     return this._request('/locales', { query: { language } })

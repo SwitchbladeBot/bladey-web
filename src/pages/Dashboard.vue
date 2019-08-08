@@ -31,15 +31,16 @@
 import ServerHero from '../components/ServerHero.vue'
 import DashboardGeneral from '../components/dashboard/DashboardGeneral'
 import DashboardModeration from '../components/dashboard/DashboardModeration'
+import DashboardAutoRole from '../components/dashboard/DashboardAutoRole'
 
 export default {
   name: 'Dashboard',
   head: { title: { inner: 'Dashboard' } },
-  components: { DashboardGeneral, DashboardModeration, ServerHero },
+  components: { DashboardGeneral, DashboardModeration, DashboardAutoRole, ServerHero },
   data () {
     return {
       discord: this.$api.state,
-      categories: [ 'General' ],
+      categories: [ 'General', 'Auto Role' ],
       currentCat: 'General'
     }
   },
@@ -49,7 +50,7 @@ export default {
       const guild = this.discord.guilds.find(g => g.id === this.$route.params.id)
       return guild && guild.common && guild.permissions.has('MANAGE_SERVER') ? guild : null
     },
-    currentCategoryComponent () { return `Dashboard${this.currentCat}` }
+    currentCategoryComponent () { return `Dashboard${this.currentCat.replace(/ /g, '')}` }
   }
 }
 </script>
