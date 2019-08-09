@@ -103,8 +103,12 @@ class VueSwitchbladeApi {
     return this._request(`/guilds/${id}/config`, { method: 'PATCH', body: entity })
   }
 
+  getAutoRoles (id) {
+    return this._request(`/guilds/${id}/automatic-roles`)
+  }
+
   setAutoRoles (id, autoRoles) {
-    return this._request(`/guilds/${id}/autoroles`, { method: 'PATCH', body: autoRoles })
+    return this._request(`/guilds/${id}/automatic-roles`, { method: 'PATCH', body: autoRoles })
   }
 
   guildRoles (id) {

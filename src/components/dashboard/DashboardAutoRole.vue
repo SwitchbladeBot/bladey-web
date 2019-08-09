@@ -22,6 +22,30 @@
               <span>Add</span>
           </a>
         </div>
+        <div class="column is-narrow">
+          <b-field label="Roles to be applied">
+            <ul>
+              <li
+                v-for="role in rolesToPush"
+                :key="role.id"
+                :value="role.id">
+                  {{ role.name }} {{ role.onlyBots ? '(Bot Only)' : '' }}
+              </li>
+            </ul>
+          </b-field>
+        </div>
+        <div class="column is-narrow">
+          <b-field label="Current automatic roles">
+            <ul>
+              <li
+                v-for="role in automaticRoles"
+                :key="role.id"
+                :value="role.id">
+                  {{ role.name }} {{ role.onlyBots ? '(Bot Only)' : '' }}
+              </li>
+            </ul>
+          </b-field>
+        </div>
       </div>
     </section>
     <b-loading :active="!loaded" />
@@ -45,8 +69,8 @@ export default {
       this.$api.guildRoles(this.guild.id).then(({ roles }) => {
         this.roles = roles
       }),
-      this.$api.guildConfiguration(this.guild.id).then(({ automaticRoles }) => {
-        this.automaticRoles = automaticRoles
+      this.$api.getAutoRoles(this.guild.id).then(({ roles }) => {
+        this.automaticRoles = roles
       })
     ]).catch(e => this.errorToast())
       .then(() => { this.loaded = true })
@@ -54,8 +78,9 @@ export default {
   methods: {
     pushRole () {
       if (!this.role.onlyBots) this.role.onlyBots = false
-      console.log({ id: this.role.id, onlyBots: this.role.onlyBots })
-      this.rolesToPush.push({ id: this.role.id, onlyBots: this.role.onlyBots })
+      const roleName = this.roles.filter(r => r.id === this.role.id)[0].name
+      console.log({ id: this.role.id, name: roleName, onlyBots: this.role.onlyBots })
+      this.rolesToPush.push({ id: this.role.id, name: roleName, onlyBots: this.role.onlyBots })
       this.saveSnackbar()
     },
     saveSnackbar () {
@@ -85,6 +110,8 @@ export default {
             message: 'Server configuration saved!',
             type: 'is-success'
           })
+          this.automaticRoles = this.rolesToPush
+          this.rolesToPush = []
         })
         .catch(e => this.errorToast())
     },
