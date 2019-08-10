@@ -72,7 +72,7 @@ export default {
       this.$api.getAutoRoles(this.guild.id).then(({ roles }) => {
         this.automaticRoles = roles
       })
-    ]).catch(e => this.errorToast())
+    ]).catch(() => this.errorToast())
       .then(() => { this.loaded = true })
   },
   methods: {
@@ -113,7 +113,7 @@ export default {
           this.automaticRoles = this.rolesToPush
           this.rolesToPush = []
         })
-        .catch(e => this.errorToast())
+        .catch(() => this.errorToast())
     },
     errorToast () {
       this.$toast.open({
