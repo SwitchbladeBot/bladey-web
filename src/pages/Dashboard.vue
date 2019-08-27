@@ -39,7 +39,7 @@ export default {
   data () {
     return {
       discord: this.$api.state,
-      categories: [ 'General' ],
+      categories: [ 'General', 'Moderation' ],
       currentCat: 'General'
     }
   },
