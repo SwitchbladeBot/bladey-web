@@ -15,7 +15,7 @@
         <b-tab-item label="Configuration">
           <div class="container dash-flex conf-tab">
             <b-field>
-              <b-input v-model="featureSearch"
+              <b-input v-model="moduleSearch"
                 placeholder="Search..."
                 type="search"
                 icon="magnify">
@@ -23,15 +23,18 @@
             </b-field>
             <div class="conf-cards">
               <div class="columns is-multiline">
-                <div v-for="feature in filteredFeatures" v-bind:key="feature.key" class="column is-half">
+                <div v-if="filteredFeatures.length === 0" class="column is-full">
+                  <p class="has-text-centered sad-face">Nothing found :(</p>
+                </div>
+                <div v-for="module in filteredFeatures" :key="module.name" class="column is-half">
                   <div class="card">
                     <header class="card-header">
                       <p class="card-header-title">
-                        {{ feature.displayName }}
+                        {{ module.displayName }}
                       </p>
-                      <div v-if="feature.toggleable" class="card-header-icon" aria-label="toggle">
+                      <div v-if="module.toggleable" class="card-header-icon" aria-label="toggle">
                         <div class="field">
-                          <b-switch @input="value => toggleFeature(feature.key, value)" v-model="feature.toggled" />
+                          <b-switch @input="value => toggleModule(module.name, value)" v-model="module.active" />
                         </div>
                       </div>
                     </header>
@@ -40,12 +43,12 @@
                         <div class="cards">
                           <div class="columns">
                             <div class="column">
-                              {{ feature.description }}
+                              {{ module.description || 'Lorem ipsum dolor sit amet.' }}
                             </div>
-                            <div v-if="feature.configurable" class="column is-narrow conf-column">
+                            <div class="column is-narrow conf-column">
                               <b-field>
                                 <p class="control">
-                                  <button @click="configurationModal(feature.key)" class="button is-primary is-fullwidth">
+                                  <button @click="configurationModal(module.name)" class="button is-primary is-fullwidth">
                                     <b-icon icon="settings" />
                                     <span class="is-hidden-desktop">Configure</span>
                                   </button>
@@ -61,6 +64,14 @@
               </div>
             </div>
           </div>
+          <b-modal
+            v-if="currentModule"
+            :active.sync="moduleModalOpen"
+            :can-cancel="['escape', 'outside']"
+            has-modal-card
+            trap-focus>
+              <component :guild="guild" :module="currentModule" :saveCallback="save" :is="currentModuleComponent" />
+          </b-modal>
         </b-tab-item>
         <b-tab-item label="Statistics">
           <div class="container flex-center">zop</div>
@@ -74,33 +85,21 @@
 <script>
 import GuildIcon from '../components/GuildIcon'
 
+import DashboardLanguageModal from '../components/dashboard/DashboardLanguageModal'
+import DashboardPrefixModal from '../components/dashboard/DashboardPrefixModal'
+
 export default {
   name: 'TestDashboard',
   head: { title: { inner: 'Test Dashboard' } },
-  components: { GuildIcon },
+  components: { GuildIcon, DashboardLanguageModal, DashboardPrefixModal },
   data () {
     return {
       discord: this.$api.state,
       activeTab: 0,
-      featureSearch: '',
-      features: [{
-        key: 'prefix',
-        displayName: 'Prefix',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        configurable: true
-      }, {
-        key: 'joinlock',
-        displayName: 'Join lock',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        configurable: true,
-        toggleable: true,
-        toggled: true
-      }, {
-        key: 'language',
-        displayName: 'Language',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        configurable: true
-      }]
+      moduleSearch: '',
+      modules: [],
+      currentModule: null,
+      moduleModalOpen: true
     }
   },
   computed: {
@@ -110,25 +109,53 @@ export default {
       return guild && guild.common && guild.permissions.has('MANAGE_SERVER') ? guild : null
     },
     filteredFeatures () {
-      return this.features
-        ? this.features.filter(f => f.displayName.toLowerCase().indexOf(this.featureSearch.toLowerCase()) >= 0)
+      return this.modules
+        ? this.modules.filter(m => m.displayName.toLowerCase().indexOf(this.moduleSearch.toLowerCase()) >= 0)
         : []
+    },
+    currentModuleComponent () {
+      return this.currentModule ? `Dashboard${this.currentModule.displayName}Modal` : 'Dashboard'
     }
   },
   methods: {
-    toggleFeature (key, value) {
-      const feature = this.features && this.features.find(f => f.key === key)
-      if (!feature || !feature.toggleable) return
+    toggleModule (name, value) {
+      const mod = this.modules && this.modules.find(f => f.name === name)
+      if (!mod || !mod.toggleable) return
 
-      feature.toggled = value
-      console.log(`"${feature.displayName}" is ${value ? 'on' : 'off'}`)
+      mod.active = value
+      console.log(`"${mod.displayName}" is ${value ? 'on' : 'off'}`)
+      this.saveState(mod)
     },
-    configurationModal (key) {
-      const feature = this.features && this.features.find(f => f.key === key)
-      if (!feature) return
+    configurationModal (name) {
+      const mod = this.modules && this.modules.find(f => f.name === name)
+      if (!mod) return
 
-      console.log(`Open "${feature.displayName}" modal`)
+      this.currentModule = mod
+      this.moduleModalOpen = true
+      console.log(`Open "${this.currentModuleComponent}" modal`)
+    },
+    save () {
+      if (!this.currentModule) return
+      this.$api.saveModuleValues(this.guild.id, this.currentModule).then(() => {
+        this.moduleModalOpen = false
+        this.savedToast()
+      })
+    },
+    saveState (mod) {
+      if (!mod) return
+      this.$api.saveModuleState(this.guild.id, mod).then(() => this.savedToast(mod))
+    },
+    savedToast (mod = this.currentModule) {
+      this.$toast.open({
+        message: `${mod.displayName} module saved successfully!`,
+        type: 'is-success'
+      })
     }
+  },
+  async mounted () {
+    const { modules } = await this.$api.modules(this.$route.params.id)
+    console.log(modules)
+    this.modules = modules
   }
 }
 </script>
@@ -168,6 +195,10 @@ export default {
   .button .icon:first-child:not(:last-child) {
     margin-right: calc(-0.375em - 1px) !important;
   }
+}
+
+.sad-face {
+  font-size: 8vh;
 }
 </style>
 
