@@ -13,7 +13,6 @@ import LoginAuth from '../pages/LoginAuth'
 import NotFound from '../pages/NotFound'
 import Profile from '../pages/Profile'
 import ServerSelector from '../pages/ServerSelector'
-import TestDashboard from '../pages/TestDashboard'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true, defaultToastDuration: 3000 })
 
@@ -55,12 +54,6 @@ export default new Router({
       path: '/dashboard/:id',
       name: 'Dashboard',
       component: Dashboard,
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/tdashboard/:id',
-      name: 'Test Dashboard',
-      component: TestDashboard,
       meta: { requiresAuth: true }
     },
     {

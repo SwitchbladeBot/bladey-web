@@ -104,12 +104,12 @@ class VueSwitchbladeApi {
     return this._request(`/guilds/${id}/modules`)
   }
 
-  saveModuleState (id, mod) {
-    return this._request(`/guilds/${id}/modules/${mod.name}/state`, { method: 'PATCH', body: { active: mod.active } })
+  saveModuleState (id, name, state) {
+    return this._request(`/guilds/${id}/modules/${name}/state`, { method: 'PATCH', body: { active: !!state } })
   }
 
-  saveModuleValues (id, mod) {
-    return this._request(`/guilds/${id}/modules/${mod.name}/values`, { method: 'PATCH', body: { values: mod.values } })
+  saveModuleValues (id, name, values) {
+    return this._request(`/guilds/${id}/modules/${name}/values`, { method: 'PATCH', body: { values } })
   }
 
   // Locales

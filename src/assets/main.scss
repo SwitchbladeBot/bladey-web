@@ -107,6 +107,10 @@ $modal-card-foot-border-top: 1px solid $light-gray-but-not-so-light;
   align-items: center;
 }
 
+.module-card-footer {
+  flex-direction: row-reverse;
+}
+
 // Import Bulma and Buefy styles and custom font
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,900,900i');
 @import url('https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css');

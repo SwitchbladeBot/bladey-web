@@ -5,13 +5,14 @@
       <button class="delete" aria-label="close" @click="$parent.close()"></button>
     </header>
     <section class="modal-card-body">
-      <b-input
-        v-model="moduleValues.prefix"
-        :maxlength="module.input.prefix.max"
-        placeholder="Prefix used to execute commands. Ex.: s!"
-        required>
-      </b-input>
-      <b-switch v-model="moduleValues.spacePrefix">Ignore spaces after prefix</b-switch>
+      <b-field label="Kick message">
+        <b-input
+          v-model="moduleValues.message"
+          :maxlength="module.input.message.max"
+          type="textarea"
+          placeholder="You've been kicked from {server} because the join lock is enabled. Please try joining again later.">
+        </b-input>
+      </b-field>
     </section>
     <footer class="modal-card-foot module-card-footer">
       <b-button type="is-primary" :loading="saving" :disabled="!changed" @click="save()">Save</b-button>
@@ -23,7 +24,7 @@
 import _ from 'lodash'
 
 export default {
-  name: 'DashboardPrefixModal',
+  name: 'DashboardJoinLockModal',
   props: [ 'guild', 'module', 'saveCallback' ],
   data () {
     return {
