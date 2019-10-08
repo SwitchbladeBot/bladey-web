@@ -16,6 +16,7 @@
     "vue-head": "^2.1.1",
     "vue-localstorage": "^0.6.2",
     "vue-router": "^3.0.2",
+    "vue-slider-component": "^3.0.15",
     "vue-swatches": "^1.0.2"
   },
   "devDependencies": {
@@ -61,6 +62,7 @@
     "uglifyjs-webpack-plugin": "^2.1.1",
     "url-loader": "^1.1.2",
     "vue-loader": "^15.6.2",
+    "vue-markdown": "^2.2.4",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.2",
     "webpack": "^4.29.2",
@@ -70,7 +72,7 @@
     "webpack-merge": "^4.2.1"
   },
   "engines": {
-    "node": ">= 6.0.0",
+    "node": ">= 6.0.1",
     "npm": ">= 3.0.0"
   },
   "browserslist": [

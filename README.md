@@ -31,3 +31,14 @@ npm install
 ```
 npm run start
 ```
+
+**4. Install Dependencies**
+```bash
+npm install
+``` 
+
+**5. Run**
+```
+npm run start-dev
+```
+After this, just start the website instance and you're done!

@@ -69,6 +69,12 @@ $navbar-divider-background-color: $dark-but-not-black;
 // Footer
 $footer-background-color: $dark-but-not-black;
 
+// Buttons
+$button-background-color: $primary;
+$button-color: $primary-invert;
+$button-border-color: $button-background-color;
+$button-hover-border-color: lighten($button-background-color, 10%);
+
 // Input
 $input-background-color: $light-gray-but-not-so-light;
 $input-disabled-background-color: $dark;
@@ -96,6 +102,9 @@ $modal-card-head-border-bottom: 1px solid $light-gray-but-not-so-light;
 $modal-card-body-background-color: $background-color;
 $modal-card-foot-border-top: 1px solid $light-gray-but-not-so-light;
 
+// Message
+$message-background-color: $dark-but-not-black;
+$message-header-background-color: $not-quite-black;
 
 // Global styles
 .round {
@@ -114,6 +123,7 @@ $modal-card-foot-border-top: 1px solid $light-gray-but-not-so-light;
 // Import Bulma and Buefy styles and custom font
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,900,900i');
 @import url('https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css');
+@import url('https://use.fontawesome.com/releases/v5.8.1/css/all.css');
 @import "~bulma";
 
 $background: $white;

@@ -7,12 +7,14 @@ import Buefy from 'buefy'
 import SwitchbladeApi from '../api/VueSwitchbladeApi'
 
 import Contributors from '../pages/Contributors'
+import Commands from '../pages/Commands'
 import Dashboard from '../pages/Dashboard'
 import Homepage from '../pages/Homepage'
 import LoginAuth from '../pages/LoginAuth'
 import NotFound from '../pages/NotFound'
 import Profile from '../pages/Profile'
 import ServerSelector from '../pages/ServerSelector'
+import ConnectionCallback from '../pages/ConnectionCallback'
 
 Vue.use(Buefy, { defaultTooltipAnimated: true, defaultToastDuration: 3000 })
 
@@ -40,9 +42,19 @@ export default new Router({
       component: LoginAuth
     },
     {
+      path: '/connections/:connection/callback',
+      name: 'ConnectionCallback',
+      component: ConnectionCallback
+    },
+    {
       path: '/contributors',
       name: 'Contributors',
       component: Contributors
+    },
+    {
+      path: '/commands',
+      name: 'Commands',
+      component: Commands
     },
     {
       path: '/dashboard',
