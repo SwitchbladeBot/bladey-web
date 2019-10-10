@@ -1,12 +1,16 @@
 <template>
   <div>
     <div class="container dash-flex">
-      <b-field>
-        <b-input v-model="moduleSearch"
+      <b-field grouped>
+        <b-input expanded
+          v-model="moduleSearch"
           placeholder="Search..."
           type="search"
           icon="magnify">
         </b-input>
+        <b-tooltip label="Reload modules" type="is-dark">
+            <b-button type="is-primary" icon-right="refresh" @click="reloadModules()" />
+        </b-tooltip>
       </b-field>
       <div class="conf-cards">
         <div class="columns is-multiline">
@@ -20,9 +24,9 @@
                   {{ mod.displayName }}
                 </p>
                 <div v-if="mod.toggleable" class="card-header-icon" aria-label="toggle">
-                  <div class="field">
+                  <b-field>
                     <b-switch @input="value => toggleModule(mod, value)" v-model="mod.active" />
-                  </div>
+                  </b-field>
                 </div>
               </header>
               <div class="card-content">
@@ -30,7 +34,7 @@
                   <div class="cards">
                     <div class="columns">
                       <div class="column">
-                        {{ mod.description || 'Lorem ipsum dolor sit amet.' }}
+                        {{ mod.description || 'No description available.' }}
                       </div>
                       <div class="column is-narrow conf-column">
                         <b-field>
@@ -94,6 +98,12 @@ export default {
     }
   },
   methods: {
+    // Reload list
+    reloadModules () {
+      this.modules = []
+      this.updateModules()
+    },
+
     // Loading
     toggleModuleLoading (mod, on = true) {
       if (on) {
