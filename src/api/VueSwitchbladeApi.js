@@ -76,6 +76,10 @@ class VueSwitchbladeApi {
     }))
   }
 
+  members (id) {
+    return this._request(`/guilds/${id}/members`)
+  }
+
   commands () {
     return this._request('/commands')
   }
@@ -92,15 +96,6 @@ class VueSwitchbladeApi {
 
   saveProfile (entity) {
     return this._request('/users/@me/profile', { method: 'PATCH', body: entity })
-  }
-
-  // Guild configuration
-  guildConfiguration (id) {
-    return this._request(`/guilds/${id}/config`)
-  }
-
-  saveGuildConfiguration (id, entity) {
-    return this._request(`/guilds/${id}/config`, { method: 'PATCH', body: entity })
   }
 
   // Modules
