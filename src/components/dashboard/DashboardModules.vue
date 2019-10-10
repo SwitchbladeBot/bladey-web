@@ -8,9 +8,7 @@
           type="search"
           icon="magnify">
         </b-input>
-        <b-tooltip label="Reload modules" type="is-dark">
-            <b-button type="is-primary" icon-right="refresh" @click="reloadModules()" />
-        </b-tooltip>
+        <b-button type="is-primary" icon-right="refresh" @click="reloadModules()" />
       </b-field>
       <div class="conf-cards">
         <div class="columns is-multiline">
