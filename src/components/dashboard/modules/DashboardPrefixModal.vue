@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     changed () {
-      return !_.isEqual(this.moduleValues, this.module.values) && !this.requiredValues.some(k => !this.moduleValues[k])
+      return !_.isEqual(this.moduleValues, this.module.values) && this.requiredValues.every(k => this.moduleValues[k])
     }
   },
   methods: {
