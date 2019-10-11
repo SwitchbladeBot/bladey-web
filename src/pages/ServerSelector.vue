@@ -4,7 +4,9 @@
       <h1 class="title is-spaced">Servers</h1>
       <div class="columns is-multiline is-centered">
         <div class="column is-2 has-text-centered" v-for="guild in guilds" v-bind:key="guild.id">
-          <GuildIcon :guild="guild" />
+          <router-link :to="`/dashboard/${guild.id}`">
+            <GuildIcon :guild="guild" />
+          </router-link>
         </div>
       </div>
     </div>

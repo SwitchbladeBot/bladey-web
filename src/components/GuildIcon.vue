@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/dashboard/${guild.id}`" class="guild-icon">
+  <div class="guild-icon">
     <b-tooltip :label="tooltip ? guild.name : ''" position="is-bottom">
       <figure v-if="guild.icon" :class="`image is-${size}x${size} guild-image`">
         <img draggable="false" :src="guild.iconURL" class="round is-unselectable">
@@ -8,7 +8,7 @@
         {{guild.nameAcronym}}
       </div>
     </b-tooltip>
-  </router-link>
+  </div>
 </template>
 
 <script>
