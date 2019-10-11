@@ -5,12 +5,14 @@
       <button class="delete" aria-label="close" @click="$parent.close()"></button>
     </header>
     <section class="modal-card-body">
-      <b-input
-        v-model="moduleValues.prefix"
-        :maxlength="module.input.prefix.max"
-        placeholder="Prefix used to execute commands. Ex.: s!"
-        required>
-      </b-input>
+      <b-field>
+        <b-input
+          v-model="moduleValues.prefix"
+          :maxlength="module.input.prefix.max"
+          placeholder="Prefix used to execute commands. Ex.: s!"
+          required>
+        </b-input>
+      </b-field>
       <b-switch v-model="moduleValues.spacePrefix">Ignore spaces after prefix</b-switch>
     </section>
     <footer class="modal-card-foot module-card-footer">
@@ -28,12 +30,13 @@ export default {
   data () {
     return {
       saving: false,
-      moduleValues: JSON.parse(JSON.stringify(this.module.values))
+      moduleValues: JSON.parse(JSON.stringify(this.module.values)),
+      requiredValues: [ 'prefix' ]
     }
   },
   computed: {
     changed () {
-      return !_.isEqual(this.moduleValues, this.module.values)
+      return !_.isEqual(this.moduleValues, this.module.values) && !this.requiredValues.some(k => !this.moduleValues[k])
     }
   },
   methods: {
