@@ -14,7 +14,7 @@
                   type="is-dark"
                   tag="router-link"
                   to="/dashboard">
-                    Change servers
+                    Change server
                 </b-button>
               </span>
             </div>
