@@ -69,6 +69,14 @@ export default {
 </style>
 
 <style>
+.modal .animation-content .modal-card {
+  overflow: visible !important;
+}
+
+.modal-card-body {
+  overflow: visible !important;
+}
+
 .dashboard-container .tab-content {
   flex: 1;
 }
