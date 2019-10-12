@@ -1,46 +1,48 @@
 <template>
-  <div class="dashboard-container">
-    <div v-if="guild">
-      <ServerHero :guild="guild" />
-      <div class="section container">
-        <div class="columns">
-          <div class="column">
-            <aside class="menu">
-              <p class="menu-label">
-                Dashboard
-              </p>
-              <ul class="menu-list">
-                <li v-for="cat in categories" v-bind:key="cat" v-on:click="currentCat = cat">
-                  <a v-bind:class="[{ 'is-active': currentCat === cat }]">{{ cat }}</a>
-                </li>
-              </ul>
-            </aside>
-          </div>
-          <div class="column is-full">
-            <h1 class="title is-spaced">{{ currentCat }}</h1>
-            <component :guild="guild" v-bind:is="currentCategoryComponent" />
+  <div class="fill-flex dashboard-container">
+    <div class="fill-flex" v-if="guild">
+      <section class="hero is-primary">
+        <div class="hero-body">
+          <div class="container">
+            <GuildIcon :guild="guild" :tooltip="false" :size="128" class="flex-center" />
+            <div class="flex-center has-text-centered">
+              <h1 class="title"> {{ guild.name }} </h1>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+      <b-tabs
+        class="fill-flex"
+        position="is-centered"
+        size="is-medium"
+        v-model="activeTab">
+          <b-tab-item class="fill-flex" label="Modules">
+            <DashboardModules :guild="guild" />
+          </b-tab-item>
+          <b-tab-item class="fill-flex" label="Statistics">
+            <div class="container flex-center is-vcentered">
+              <DashboardStats :guild="guild" />
+            </div>
+          </b-tab-item>
+      </b-tabs>
     </div>
-    <b-loading :active="!guild" />
   </div>
 </template>
 
 <script>
-import ServerHero from '../components/ServerHero.vue'
-import DashboardGeneral from '../components/dashboard/DashboardGeneral'
-import DashboardModeration from '../components/dashboard/DashboardModeration'
+import GuildIcon from '../components/GuildIcon'
+
+import DashboardModules from '../components/dashboard/DashboardModules'
+import DashboardStats from '../components/dashboard/DashboardStats'
 
 export default {
   name: 'Dashboard',
   head: { title: { inner: 'Dashboard' } },
-  components: { DashboardGeneral, DashboardModeration, ServerHero },
+  components: { GuildIcon, DashboardModules, DashboardStats },
   data () {
     return {
       discord: this.$api.state,
-      categories: [ 'General' ],
-      currentCat: 'General'
+      activeTab: 0
     }
   },
   computed: {
@@ -48,16 +50,46 @@ export default {
       if (!this.discord.guilds) return
       const guild = this.discord.guilds.find(g => g.id === this.$route.params.id)
       return guild && guild.common && guild.permissions.has('MANAGE_SERVER') ? guild : null
-    },
-    currentCategoryComponent () { return `Dashboard${this.currentCat}` }
+    }
   }
 }
 </script>
 
 <style scoped>
-.dashboard-container {
+.fill-flex {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+</style>
+
+<style>
+.dashboard-container .tab-content {
+  flex: 1;
+}
+
+.dashboard-container .b-tabs .tabs {
+  background-color: #7289DA !important;
+}
+.dashboard-container .tabs ul,
+.dashboard-container .tabs li a {
+  border-bottom-color: #7289DA;
+}
+
+.dashboard-container .tabs li.is-active a {
+  border-bottom-color: white;
+}
+.dashboard-container .tabs li.is-active a,
+.dashboard-container .tabs a:hover {
+  color: white;
+}
+
+.dashboard-container .tab-content {
+  padding: 1.5rem !important;
 }
 </style>

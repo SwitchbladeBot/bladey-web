@@ -21,17 +21,13 @@ export default {
 </script>
 
 <style scoped>
-.info {
-  margin-top: -52px;
-}
-
-.info .container > .title {
+.title {
   font-weight: 900;
   font-style: italic;
   font-size: 150px;
 }
 
-.info .container > .subtitle {
+.subtitle {
   font-size: 50px;
 }
 </style>

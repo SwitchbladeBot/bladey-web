@@ -76,6 +76,10 @@ class VueSwitchbladeApi {
     }))
   }
 
+  members (id) {
+    return this._request(`/guilds/${id}/members`)
+  }
+
   commands () {
     return this._request('/commands')
   }
@@ -94,13 +98,17 @@ class VueSwitchbladeApi {
     return this._request('/users/@me/profile', { method: 'PATCH', body: entity })
   }
 
-  // Guild configuration
-  guildConfiguration (id) {
-    return this._request(`/guilds/${id}/config`)
+  // Modules
+  modules (id) {
+    return this._request(`/guilds/${id}/modules`)
   }
 
-  saveGuildConfiguration (id, entity) {
-    return this._request(`/guilds/${id}/config`, { method: 'PATCH', body: entity })
+  saveModuleState (id, name, state) {
+    return this._request(`/guilds/${id}/modules/${name}/state`, { method: 'PATCH', body: { active: !!state } })
+  }
+
+  saveModuleValues (id, name, values) {
+    return this._request(`/guilds/${id}/modules/${name}/values`, { method: 'PATCH', body: { values } })
   }
 
   // Locales
