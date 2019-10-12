@@ -60,16 +60,19 @@ export default {
   },
   computed: {
     changed () {
-      return !_.isEqual(this.moduleValues, this.module.values)
+      return !_.isEqual(this.parseSave(), this.module.values)
     }
   },
   methods: {
     save () {
       this.saving = true
-      this.saveCallback(this.module, {
+      this.saveCallback(this.module, this.parseSave())
+    },
+    parseSave () {
+      return {
         userRoles: this.moduleValues.userRoles.map(r => r.id),
         botRoles: this.moduleValues.botRoles.map(r => r.id)
-      })
+      }
     },
     filter (text) {
       return r => r.name
