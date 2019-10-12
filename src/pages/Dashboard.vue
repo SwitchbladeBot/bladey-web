@@ -2,11 +2,21 @@
   <div class="fill-flex dashboard-container">
     <div class="fill-flex" v-if="guild">
       <section class="hero is-primary">
-        <div class="hero-body">
+        <div class="hero-body header-body">
           <div class="container">
             <GuildIcon :guild="guild" :tooltip="false" :size="128" class="flex-center" />
             <div class="flex-center has-text-centered">
               <h1 class="title"> {{ guild.name }} </h1>
+              <span>
+                <b-button
+                  rounded
+                  size="is-small"
+                  type="is-dark"
+                  tag="router-link"
+                  to="/dashboard">
+                    Change servers
+                </b-button>
+              </span>
             </div>
           </div>
         </div>
@@ -20,9 +30,7 @@
             <DashboardModules :guild="guild" />
           </b-tab-item>
           <b-tab-item class="fill-flex" label="Statistics">
-            <div class="container flex-center is-vcentered">
-              <DashboardStats :guild="guild" />
-            </div>
+            <DashboardStats :guild="guild" />
           </b-tab-item>
       </b-tabs>
     </div>
@@ -56,6 +64,10 @@ export default {
 </script>
 
 <style scoped>
+.header-body {
+  padding-bottom: 1.5rem;
+}
+
 .fill-flex {
   display: flex;
   flex-direction: column;
@@ -65,6 +77,7 @@ export default {
 .flex-center {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 </style>
 

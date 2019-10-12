@@ -1,6 +1,25 @@
 <template>
-  <div class="container dash-flex">
-    <span v-if="guildStats" class="bigbig">Members: {{ guildStats.memberCount }}</span>
+  <div class="dash-flex">
+    <nav class="level">
+      <div v-if="guildStats" class="level-item has-text-centered">
+        <div>
+          <p class="heading">Members</p>
+          <p class="title">{{ format(guildStats.totalMembers) }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Users</p>
+          <p class="title">{{ format(guildStats.userMembers) }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Bots</p>
+          <p class="title">{{ format(guildStats.botMembers) }}</p>
+        </div>
+      </div>
+    </nav>
     <b-loading :active="!guildStats" />
   </div>
 </template>
@@ -20,6 +39,9 @@ export default {
     async updateStats () {
       if (!this.guild) return
       this.guildStats = await this.$api.members(this.guild.id)
+    },
+    format (nmb) {
+      return new Intl.NumberFormat().format(nmb)
     }
   },
   watch: {
