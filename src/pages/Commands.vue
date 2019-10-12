@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     nothingFound () {
-      return !this.filteredCommands.filter(c => !!c.commands.length).length
+      return this.filteredCommands.every(c => !c.commands.length)
     }
   },
   methods: {
