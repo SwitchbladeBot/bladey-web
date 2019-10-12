@@ -33,6 +33,7 @@
           field="name"
           icon="label"
           placeholder="Add a role"
+          type="is-primary"
           @typing="getFilteredBotRoles">
         </b-taginput>
       </b-field>
