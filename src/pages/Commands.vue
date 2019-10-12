@@ -83,15 +83,29 @@
 
 <script>
 import VueMarkdown from 'vue-markdown'
+import _ from 'lodash'
+
 export default {
   name: 'Commands',
   head: { title: { inner: 'Commands' } },
   components: {
     VueMarkdown
   },
-  data: () => ({ categories: null, commandSearch: '' }),
-  mounted: async function () {
+  data () {
+    return {
+      categories: null,
+      commandSearch: '',
+      filteredCommands: []
+    }
+  },
+  async mounted () {
     this.categories = await this.$api.commands().then(c => c.categories)
+    this.filterCommands()
+  },
+  computed: {
+    nothingFound () {
+      return !this.filteredCommands.filter(c => !!c.commands.length).length
+    }
   },
   methods: {
     getArgType (usage) {
@@ -104,19 +118,20 @@ export default {
         ...(requiredArgs.filter(({ arg }) => requiredRegex.test(arg))),
         ...(optionalArgs.filter(({ arg }) => optionalRegex.test(arg)))
       ]
-    }
-  },
-  computed: {
-    filteredCommands () {
+    },
+    filterCommands () {
       const filterInclude = q => q.toLowerCase().includes(this.commandSearch.toLowerCase())
       const filter = c => filterInclude(c.name) || filterInclude(c.description) || (c.aliases ? c.aliases.find(a => filterInclude(a)) : false)
       const filtered = this.categories.map(c => ({ ...c, commands: c.commands.filter(filter) }))
-      return this.categories
-        ? filtered
-        : []
-    },
-    nothingFound () {
-      return !this.filteredCommands.filter(c => !!c.commands.length).length
+      this.filteredCommands = this.categories ? filtered : []
+    }
+  },
+  created () {
+    this.debouncedFilterCommands = _.debounce(this.filterCommands, 500)
+  },
+  watch: {
+    commandSearch () {
+      this.debouncedFilterCommands()
     }
   }
 }
