@@ -17,140 +17,38 @@
           <template slot-scope="props">
             <b-icon :icon="categoryIcon(props.option)" size="is-small" />
             {{ props.option.name }}
-            <small class="command-category-tag">{{ props.option.category }}</small>
+            <small v-if="props.option.category !== 'all'" class="command-category-tag">{{ props.option.category }}</small>
           </template>
           <template slot="empty">No results for {{ commandInput }}</template>
         </b-autocomplete>
       </b-field>
       <hr>
-      <!-- Whitelist -->
-      <b-field>
-        <template slot="label">
-          Whitelist
-          <p><small>This command can only be used in these channels/categories by these users/roles.</small></p>
-        </template>
-        <b-autocomplete
-          v-model="whitelistCandidate"
-          placeholder="Select a candidate"
-          field="name"
-          icon="plus"
-          :disabled="!commandSelected"
-          :loading="fetchingWhitelistCandidates"
-          :data="whitelistCandidates"
-          @typing="getWhitelistCandidates"
-          @select="selectWhitelistCandidate">
-          <template slot-scope="props">
-            <span v-if="props.option.type === 'user'">
-              <b-icon icon="at" size="is-small" />
-              {{ `${props.option.displayName}#${props.option.discriminator}` }}
-            </span>
-            <span v-if="props.option.type === 'role'">
-              <b-icon icon="briefcase" size="is-small" />
-              {{ props.option.name }}
-            </span>
-            <span v-if="props.option.type === 'channel'">
-              <b-icon icon="pound" size="is-small" />
-              {{ props.option.name }}
-            </span>
-            <span v-if="props.option.type === 'category'">
-              <b-icon icon="shape" size="is-small" />
-              {{ props.option.name }}
-            </span>
-            <small class="command-category-tag">{{ props.option.type }}</small>
+      <CommandToggleInput
+        :command="commandSelected"
+        :guild="guild"
+        icon="plus"
+        :module="module"
+        :list="whitelist"
+        :categoryIcon="categoryIcon"
+        :selectCondition="listCheck">
+          <template slot="label">
+            Whitelist
+            <p><small>This command can only be used in these channels/categories by these users/roles.</small></p>
           </template>
-          <template slot="empty">No results for {{ whitelistCandidate }}</template>
-        </b-autocomplete>
-      </b-field>
-      <b-taglist>
-        <b-tag
-          v-for="(tag, index) in whitelist"
-          :key="index"
-          type="is-primary"
-          :tabstop="false"
-          closable
-          @close="removeWhitelist(index)">
-            <span v-if="tag.type === 'user'">
-              <b-icon icon="at" size="is-small" />
-              {{ `${tag.displayName}#${tag.discriminator}` }}
-            </span>
-            <span v-if="tag.type === 'role'">
-              <b-icon icon="briefcase" size="is-small" />
-              {{ tag.name }}
-            </span>
-            <span v-if="tag.type === 'channel'">
-              <b-icon icon="pound" size="is-small" />
-              {{ tag.name }}
-            </span>
-            <span v-if="tag.type === 'category'">
-              <b-icon icon="shape" size="is-small" />
-              {{ tag.name }}
-            </span>
-        </b-tag>
-      </b-taglist>
-      <!-- Blacklist -->
-      <b-field>
-        <template slot="label">
-          Blacklist
+      </CommandToggleInput>
+      <CommandToggleInput
+        :command="commandSelected"
+        :guild="guild"
+        icon="minus"
+        :module="module"
+        :list="blacklist"
+        :categoryIcon="categoryIcon"
+        :selectCondition="listCheck">
+          <template slot="label">
+            Blacklist
           <p><small>This command can't be used in these channels/categories or by these users/roles.</small></p>
-        </template>
-        <b-autocomplete
-          v-model="blacklistCandidate"
-          placeholder="Select a candidate"
-          field="name"
-          icon="minus"
-          :disabled="!commandSelected"
-          :loading="fetchingBlacklistCandidates"
-          :data="blacklistCandidates"
-          @typing="getBlacklistCandidates"
-          @select="selectBlacklistCandidate">
-          <template slot-scope="props">
-            <span v-if="props.option.type === 'user'">
-              <b-icon icon="at" size="is-small" />
-              {{ `${props.option.displayName}#${props.option.discriminator}` }}
-            </span>
-            <span v-if="props.option.type === 'role'">
-              <b-icon icon="briefcase" size="is-small" />
-              {{ props.option.name }}
-            </span>
-            <span v-if="props.option.type === 'channel'">
-              <b-icon icon="pound" size="is-small" />
-              {{ props.option.name }}
-            </span>
-            <span v-if="props.option.type === 'category'">
-              <b-icon icon="shape" size="is-small" />
-              {{ props.option.name }}
-            </span>
-            <small class="command-category-tag">{{ props.option.type }}</small>
           </template>
-          <template slot="empty">No results for {{ blacklistCandidate }}</template>
-        </b-autocomplete>
-      </b-field>
-      <b-taglist>
-        <b-tag
-          v-for="(tag, index) in blacklist"
-          :key="index"
-          type="is-primary"
-          :tabstop="false"
-          closable
-          @close="removeBlacklist(index)">
-            <span v-if="tag.type === 'user'">
-              <b-icon icon="at" size="is-small" />
-              {{ `${tag.displayName}#${tag.discriminator}` }}
-            </span>
-            <span v-if="tag.type === 'role'">
-              <b-icon icon="briefcase" size="is-small" />
-              {{ tag.name }}
-            </span>
-            <span v-if="tag.type === 'channel'">
-              <b-icon icon="pound" size="is-small" />
-              {{ tag.name }}
-            </span>
-            <span v-if="tag.type === 'category'">
-              <b-icon icon="shape" size="is-small" />
-              {{ tag.name }}
-            </span>
-        </b-tag>
-      </b-taglist>
+      </CommandToggleInput>
     </section>
     <footer class="modal-card-foot module-card-footer">
       <b-button type="is-primary" :loading="this.saving" :disabled="!changed" @click="save()">Save</b-button>
@@ -160,10 +58,12 @@
 
 <script>
 import _ from 'lodash'
+import CommandToggleInput from './commands/CommandToggleInput'
 
 export default {
   name: 'DashboardCommandsModal',
   props: [ 'guild', 'module', 'saveCallback' ],
+  components: { CommandToggleInput },
   data () {
     return {
       saving: false,
@@ -173,15 +73,7 @@ export default {
       // Command
       commandInput: '',
       commandSelected: null,
-      fetchingCommand: false,
-      // Whitelist
-      whitelistCandidate: '',
-      whitelistCandidates: [],
-      fetchingWhitelistCandidates: false,
-      // Blacklist
-      blacklistCandidate: '',
-      blacklistCandidates: [],
-      fetchingBlacklistCandidates: false
+      fetchingCommand: false
     }
   },
   computed: {
@@ -201,13 +93,17 @@ export default {
 
       this.saving = true
       await this.$api.moduleMethod(this.guild.id, this.module.name, 'saveCommand', {
-        cmd: this.commandSelected.name,
+        cmd: this.commandSelected.category === 'all' ? 'all' : this.commandSelected.name,
         values: { whitelist: this.whitelist, blacklist: this.blacklist }
       })
       this.saveCallback(this.module, null, true)
     },
     parseSave () {
-      return { whitelist: this.whitelist, blacklist: this.blacklist }
+      const filter = (o) => !o.missing
+      return {
+        whitelist: this.whitelist.filter(filter),
+        blacklist: this.blacklist.filter(filter)
+      }
     },
     filter (text) {
       const t = text.toLowerCase()
@@ -216,6 +112,28 @@ export default {
         (c.aliases && c.aliases.some(a => a.toLowerCase().includes(t))) ||
         c.category.toLowerCase().includes(t)
       )
+    },
+    listCheck (candidate) {
+      const iE = (v) => _.isEqual(candidate, v)
+      return this.whitelist.some(iE) || this.blacklist.some(iE)
+    },
+    async selectCommand (option) {
+      if (!option) {
+        this.commandSelected = null
+        this.whitelist = []
+        this.blacklist = []
+        return
+      }
+
+      this.fetchingCommand = true
+      const cmd = await this.$api.moduleMethod(this.guild.id, this.module.name, 'retrieveCommand', {
+        cmd: option.category === 'all' ? 'all' : option.name
+      })
+      this.commandSelected = { ...option, ...cmd }
+      this.whitelist = _.cloneDeep(cmd.whitelist)
+      this.blacklist = _.cloneDeep(cmd.blacklist)
+      this.fetchingCommand = false
+      console.log(this.commandSelected)
     },
     categoryIcon (command = this.commandSelected) {
       switch (command.category) {
@@ -245,75 +163,9 @@ export default {
           return 'wrench'
         case 'general':
           return 'book'
+        case 'all':
+          return 'asterisk'
       }
-    },
-    async selectCommand (option) {
-      if (!option) {
-        this.commandSelected = null
-        this.whitelistCandidate = ''
-        this.whitelistCandidates = []
-        this.fetchingWhitelistCandidates = false
-        this.whitelist = []
-        this.blacklistCandidate = ''
-        this.blacklistCandidates = []
-        this.fetchingBlacklistCandidates = false
-        this.blacklist = []
-        return
-      }
-
-      this.fetchingCommand = true
-      const cmd = await this.$api.moduleMethod(this.guild.id, this.module.name, 'retrieveCommand', {
-        cmd: option.name
-      })
-      this.commandSelected = { ...option, ...cmd }
-      this.whitelist = _.cloneDeep(cmd.whitelist)
-      this.blacklist = _.cloneDeep(cmd.blacklist)
-      this.fetchingCommand = false
-      console.log(this.commandSelected)
-    },
-    // Whitelist
-    getWhitelistCandidates: _.debounce(async function () {
-      if (!this.whitelistCandidate) return
-
-      this.fetchingWhitelistCandidates = true
-      const { candidates } = await this.$api.moduleMethod(this.guild.id, this.module.name, 'validCandidates', {
-        q: this.whitelistCandidate
-      })
-      this.whitelistCandidates = candidates
-      this.fetchingWhitelistCandidates = false
-    }, 500),
-    selectWhitelistCandidate (candidate) {
-      if (!candidate ||
-        this.whitelist.some(v => _.isEqual(candidate, v)) ||
-        this.blacklist.some(v => _.isEqual(candidate, v))
-      ) return
-      this.whitelist.push(candidate)
-      this.whitelistCandidate = ''
-    },
-    removeWhitelist (index) {
-      this.whitelist.splice(index, 1)
-    },
-    // Blacklist
-    getBlacklistCandidates: _.debounce(async function () {
-      if (!this.blacklistCandidate) return
-
-      this.fetchingBlacklistCandidates = true
-      const { candidates } = await this.$api.moduleMethod(this.guild.id, this.module.name, 'validCandidates', {
-        q: this.blacklistCandidate
-      })
-      this.blacklistCandidates = candidates
-      this.fetchingBlacklistCandidates = false
-    }, 500),
-    selectBlacklistCandidate (candidate) {
-      if (!candidate ||
-        this.whitelist.some(v => _.isEqual(candidate, v)) ||
-        this.blacklist.some(v => _.isEqual(candidate, v))
-      ) return
-      this.blacklist.push(candidate)
-      this.blacklistCandidate = ''
-    },
-    removeBlacklist (index) {
-      this.blacklist.splice(index, 1)
     }
   }
 }
