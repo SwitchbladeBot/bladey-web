@@ -19,6 +19,7 @@
           placeholder="Add a role"
           type="is-primary"
           @typing="getFilteredUserRoles">
+          <template slot="empty">No results</template>
         </b-taginput>
       </b-field>
       <b-field>
@@ -35,6 +36,7 @@
           placeholder="Add a role"
           type="is-primary"
           @typing="getFilteredBotRoles">
+          <template slot="empty">No results</template>
         </b-taginput>
       </b-field>
     </section>
