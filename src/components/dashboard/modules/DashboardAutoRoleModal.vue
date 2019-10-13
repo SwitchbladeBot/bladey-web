@@ -100,11 +100,6 @@ export default {
 </script>
 
 <style scoped>
-.dashboard-option {
-  color: #fff;
-  background-color: #484B52;
-}
-
 .modal .field small {
   font-weight: 400;
 }

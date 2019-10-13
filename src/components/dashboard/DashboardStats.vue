@@ -1,7 +1,7 @@
 <template>
   <div class="dash-flex">
-    <nav class="level">
-      <div v-if="guildStats" class="level-item has-text-centered">
+    <nav class="level" v-if="guildStats">
+      <div class="level-item has-text-centered">
         <div>
           <p class="heading">Members</p>
           <p class="title">{{ format(guildStats.totalMembers) }}</p>

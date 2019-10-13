@@ -154,8 +154,13 @@ export default {
       const { modules } = await this.$api.modules(this.guild.id)
       this.modules = modules
     },
-    save (mod, values) {
+    save (mod, values, justToast = false) {
       if (!mod) return
+      if (justToast) {
+        this.moduleModalOpen = false
+        return this.successSaveToast(mod)
+      }
+
       this.$api.saveModuleValues(this.guild.id, mod.name, values).then(() => {
         this.moduleModalOpen = false
         mod.values = values

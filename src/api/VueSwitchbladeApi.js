@@ -99,8 +99,8 @@ class VueSwitchbladeApi {
   }
 
   // Modules
-  modules (id) {
-    return this._request(`/guilds/${id}/modules`)
+  modules (id, simple) {
+    return this._request(`/guilds/${id}/modules${simple ? '?simple=true' : ''}`)
   }
 
   saveModuleState (id, name, state) {
@@ -109,6 +109,10 @@ class VueSwitchbladeApi {
 
   saveModuleValues (id, name, values) {
     return this._request(`/guilds/${id}/modules/${name}/values`, { method: 'PATCH', body: { values } })
+  }
+
+  moduleMethod (id, name, method, payload) {
+    return this._request(`/guilds/${id}/modules/${name}/methods/${method}`, { method: 'POST', body: payload })
   }
 
   // Locales
@@ -138,11 +142,11 @@ class VueSwitchbladeApi {
   }
 
   async saveConnectionConfig (conn, config) {
-    return this._request(`/users/@me/connections/${conn}/`, { method: 'PATCH', body: config })
+    return this._request(`/users/@me/connections/${conn}`, { method: 'PATCH', body: config })
   }
 
   async removeConnection (conn) {
-    return this._request(`/users/@me/connections/${conn}/`, { method: 'DELETE' })
+    return this._request(`/users/@me/connections/${conn}`, { method: 'DELETE' })
   }
 
   // Authorization
