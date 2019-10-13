@@ -18,7 +18,7 @@
             <div class="column is-2 has-text-centered" v-for="contributor in role.members" v-bind:key="contributor.id">
               <figure class="image is-128x128 contributor-avatar">
                 <img draggable="false" :src="contributor.displayAvatarURL" class="round is-unselectable">
-                <div draggable="false" class="round is-unselectable status">
+                <div class="round is-unselectable status">
                   <img draggable="false" class="is-unselectable status-svg" :src="`static/icons/status-${contributor.status}.svg`">
                 </div>
               </figure>
