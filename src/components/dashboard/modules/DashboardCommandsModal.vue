@@ -33,7 +33,7 @@
         :selectCondition="listCheck">
           <template slot="label">
             Whitelist
-            <p><small>This command can only be used in these channels/categories by these users/roles.</small></p>
+            <p><small>This command can be used in these channels/categories by these users/roles.</small></p>
           </template>
       </CommandToggleInput>
       <CommandToggleInput
@@ -46,7 +46,7 @@
         :selectCondition="listCheck">
           <template slot="label">
             Blacklist
-          <p><small>This command can't be used in these channels/categories or by these users/roles.</small></p>
+          <p><small>This command cannot be used in these channels/categories or by these users/roles.</small></p>
           </template>
       </CommandToggleInput>
     </section>
