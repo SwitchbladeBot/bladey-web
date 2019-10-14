@@ -97,6 +97,7 @@ export default {
         values: { whitelist: this.whitelist, blacklist: this.blacklist }
       })
       this.saveCallback(this.module, null, true)
+      this.saving = false
     },
     parseSave () {
       const filter = (o) => !o.missing

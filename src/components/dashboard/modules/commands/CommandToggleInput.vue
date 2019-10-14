@@ -89,7 +89,7 @@ export default {
       this.candidates = candidates
       this.fetchingCandidates = false
     }, 500),
-    selectCandidate (candidate) {
+    addCanditate (candidate) {
       if (
         !candidate ||
         this.list.some(v => _.isEqual(candidate, v)) ||
@@ -97,6 +97,12 @@ export default {
       ) return
       this.list.push(candidate)
       this.candidate = ''
+    },
+    selectCandidate (candidate) {
+      this.addCanditate(candidate)
+      this.$nextTick(() => {
+        this.candidate = ''
+      })
     },
     removeTag (index) {
       this.list.splice(index, 1)

@@ -156,10 +156,7 @@ export default {
     },
     save (mod, values, justToast = false) {
       if (!mod) return
-      if (justToast) {
-        this.moduleModalOpen = false
-        return this.successSaveToast(mod)
-      }
+      if (justToast) return this.successSaveToast(mod)
 
       this.$api.saveModuleValues(this.guild.id, mod.name, values).then(() => {
         this.moduleModalOpen = false
