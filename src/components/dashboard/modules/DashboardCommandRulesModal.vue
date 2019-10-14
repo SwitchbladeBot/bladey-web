@@ -15,7 +15,9 @@
           :data="filteredCommands"
           @select="selectCommand">
           <template slot-scope="props">
-            <b-icon :icon="categoryIcon(props.option)" size="is-small" />
+            <b-icon
+              :icon="categoryIcon(props.option)"
+              size="is-small" />
             {{ props.option.name }}
             <small v-if="props.option.category !== 'all'" class="command-category-tag">{{ props.option.category }}</small>
           </template>
@@ -95,7 +97,8 @@ export default {
       const values = { whitelist: this.whitelist, blacklist: this.blacklist }
       await this.$api.moduleMethod(this.guild.id, this.module.name, 'saveCommand', {
         cmd: this.commandSelected.category === 'all' ? 'all' : this.commandSelected.name,
-        values
+        values,
+        isCategory: this.commandSelected.category === 'category'
       })
       this.commandSelected = { ...this.commandSelected, ..._.cloneDeep(values) }
       this.saveCallback(this.module, null, true)
@@ -130,15 +133,17 @@ export default {
 
       this.fetchingCommand = true
       const cmd = await this.$api.moduleMethod(this.guild.id, this.module.name, 'retrieveCommand', {
-        cmd: option.category === 'all' ? 'all' : option.name
+        cmd: option.category === 'all' ? 'all' : option.name,
+        isCategory: option.category === 'category'
       })
       this.commandSelected = { ...option, ...cmd }
       this.whitelist = _.cloneDeep(cmd.whitelist)
       this.blacklist = _.cloneDeep(cmd.blacklist)
       this.fetchingCommand = false
     },
-    categoryIcon (command = this.commandSelected) {
-      switch (command.category) {
+    categoryIcon (command = this.commandSelected, key = 'category') {
+      if (command.category === 'category') key = 'name'
+      switch (command[key]) {
         case 'games':
           return 'gamepad-variant'
         case 'bot':
