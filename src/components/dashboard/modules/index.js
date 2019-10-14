@@ -1,12 +1,12 @@
 import DashboardAutoRoleModal from './DashboardAutoRoleModal'
-import DashboardCommandsModal from './DashboardCommandsModal'
+import DashboardCommandRulesModal from './DashboardCommandRulesModal'
 import DashboardJoinLockModal from './DashboardJoinLockModal'
 import DashboardLanguageModal from './DashboardLanguageModal'
 import DashboardPrefixModal from './DashboardPrefixModal'
 
 export default {
   DashboardAutoRoleModal,
-  DashboardCommandsModal,
+  DashboardCommandRulesModal,
   DashboardJoinLockModal,
   DashboardLanguageModal,
   DashboardPrefixModal

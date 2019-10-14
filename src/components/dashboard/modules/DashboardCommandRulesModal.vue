@@ -92,10 +92,12 @@ export default {
       if (!this.commandSelected) return
 
       this.saving = true
+      const values = { whitelist: this.whitelist, blacklist: this.blacklist }
       await this.$api.moduleMethod(this.guild.id, this.module.name, 'saveCommand', {
         cmd: this.commandSelected.category === 'all' ? 'all' : this.commandSelected.name,
-        values: { whitelist: this.whitelist, blacklist: this.blacklist }
+        values
       })
+      this.commandSelected = { ...this.commandSelected, ..._.cloneDeep(values) }
       this.saveCallback(this.module, null, true)
       this.saving = false
     },
@@ -134,7 +136,6 @@ export default {
       this.whitelist = _.cloneDeep(cmd.whitelist)
       this.blacklist = _.cloneDeep(cmd.blacklist)
       this.fetchingCommand = false
-      console.log(this.commandSelected)
     },
     categoryIcon (command = this.commandSelected) {
       switch (command.category) {
