@@ -8,6 +8,7 @@
       <b-field>
         <b-input
           v-model="moduleValues.prefix"
+          ref="prefix"
           :maxlength="module.input.prefix.max"
           placeholder="Prefix used to execute commands. Ex.: s!"
           required>
@@ -30,13 +31,12 @@ export default {
   data () {
     return {
       saving: false,
-      moduleValues: JSON.parse(JSON.stringify(this.module.values)),
-      requiredValues: [ 'prefix' ]
+      moduleValues: JSON.parse(JSON.stringify(this.module.values))
     }
   },
   computed: {
     changed () {
-      return !_.isEqual(this.moduleValues, this.module.values) && this.requiredValues.every(k => this.moduleValues[k])
+      return !_.isEqual(this.moduleValues, this.module.values) && this.$refs.prefix.checkHtml5Validity()
     }
   },
   methods: {
