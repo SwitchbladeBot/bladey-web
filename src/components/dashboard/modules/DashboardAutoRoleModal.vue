@@ -19,6 +19,7 @@
           placeholder="Add a role"
           type="is-primary"
           @typing="getFilteredUserRoles">
+          <template slot="empty">No results</template>
         </b-taginput>
       </b-field>
       <b-field>
@@ -35,6 +36,7 @@
           placeholder="Add a role"
           type="is-primary"
           @typing="getFilteredBotRoles">
+          <template slot="empty">No results</template>
         </b-taginput>
       </b-field>
     </section>
@@ -98,11 +100,6 @@ export default {
 </script>
 
 <style scoped>
-.dashboard-option {
-  color: #fff;
-  background-color: #484B52;
-}
-
 .modal .field small {
   font-weight: 400;
 }
