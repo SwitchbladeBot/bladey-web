@@ -5,7 +5,13 @@
       <button class="delete" aria-label="close" @click="$parent.close()"></button>
     </header>
     <section class="modal-card-body">
-      <b-field label="Kick message">
+      <b-field>
+        <template slot="label">
+          Kick message
+          <b-tooltip type="is-primary" label="You can use placeholder expressions. Ex. {server}">
+            <b-icon size="is-small" icon="information-outline"></b-icon>
+          </b-tooltip>
+        </template>
         <PlaceholderInput
           v-model="moduleValues.message"
           field="name"
