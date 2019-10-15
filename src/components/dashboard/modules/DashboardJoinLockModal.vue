@@ -15,7 +15,7 @@
         <PlaceholderInput
           v-model="moduleValues.message"
           field="name"
-          :data="validPlaceholders"
+          :data="module.input.placeholders"
           :maxlength="module.input.message.max"
           placeholder="You've been kicked from {server} because the join lock is enabled. Please try joining again later.">
           <template slot="header">
@@ -48,12 +48,7 @@ export default {
   data () {
     return {
       saving: false,
-      moduleValues: JSON.parse(JSON.stringify(this.module.values)),
-      // TODO: Backend placeholder handler
-      validPlaceholders: [{
-        name: 'server',
-        description: 'Name of the server'
-      }]
+      moduleValues: JSON.parse(JSON.stringify(this.module.values))
     }
   },
   computed: {
