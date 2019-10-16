@@ -10,7 +10,6 @@
           v-model="commandInput"
           placeholder="Select a command"
           field="name"
-          :loading="fetchingCommand"
           :icon="commandSelected ? categoryIcon(commandSelected) : 'magnify'"
           :data="filteredCommands"
           @select="selectCommand">
@@ -30,6 +29,7 @@
         :guild="guild"
         icon="plus"
         :module="module"
+        :candidates="module.input.candidates"
         :list="whitelist"
         :categoryIcon="categoryIcon"
         :selectCondition="listCheck">
@@ -43,6 +43,7 @@
         :guild="guild"
         icon="minus"
         :module="module"
+        :candidates="module.input.candidates"
         :list="blacklist"
         :categoryIcon="categoryIcon"
         :selectCondition="listCheck">
@@ -74,16 +75,18 @@ export default {
       blacklist: [],
       // Command
       commandInput: '',
-      commandSelected: null,
-      fetchingCommand: false
+      commandSelected: null
     }
   },
   computed: {
     changed () {
-      return this.commandSelected ? !_.isEqual(this.parseSave(), {
-        whitelist: this.commandSelected.whitelist,
-        blacklist: this.commandSelected.blacklist
-      }) : false
+      if (this.commandSelected) {
+        const { whitelist, blacklist } = this.parseSave()
+        const whitelistChanged = !!_.differenceWith(this.commandSelected.whitelist, whitelist, _.isEqual).length
+        const blacklistChanged = !!_.differenceWith(this.commandSelected.blacklist, blacklist, _.isEqual).length
+        return whitelistChanged || blacklistChanged
+      }
+      return false
     },
     filteredCommands () {
       return this.module.input.commands.filter(this.filter(this.commandInput))
@@ -131,15 +134,14 @@ export default {
         return
       }
 
-      this.fetchingCommand = true
-      const cmd = await this.$api.moduleMethod(this.guild.id, this.module.name, 'retrieveCommand', {
-        cmd: option.category === 'all' ? 'all' : option.name,
-        isCategory: option.category === 'category'
-      })
+      const cmd = (option.category === 'all'
+        ? this.module.input.rules.all
+        : option.category === 'category'
+          ? this.module.input.rules.categories[option.name]
+          : this.module.input.rules.commands[option.name]) || { blacklist: [], whitelist: [] }
       this.commandSelected = { ...option, ...cmd }
       this.whitelist = _.cloneDeep(cmd.whitelist)
       this.blacklist = _.cloneDeep(cmd.blacklist)
-      this.fetchingCommand = false
     },
     categoryIcon (command = this.commandSelected, key = 'category') {
       if (command.category === 'category') key = 'name'
