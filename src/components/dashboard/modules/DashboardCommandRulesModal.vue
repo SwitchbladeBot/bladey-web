@@ -5,53 +5,93 @@
       <button class="delete" aria-label="close" @click="$parent.close()"></button>
     </header>
     <section class="modal-card-body">
-      <b-field>
-        <b-autocomplete
-          v-model="commandInput"
-          placeholder="Select a command"
-          field="name"
-          :icon="commandSelected ? categoryIcon(commandSelected) : 'magnify'"
-          :data="filteredCommands"
-          @select="selectCommand">
-          <template slot-scope="props">
-            <b-icon
-              :icon="categoryIcon(props.option)"
-              size="is-small" />
-            {{ props.option.name }}
-            <small v-if="props.option.category !== 'all'" class="command-category-tag">{{ props.option.category }}</small>
-          </template>
-          <template slot="empty">No results for {{ commandInput }}</template>
-        </b-autocomplete>
-      </b-field>
-      <hr>
-      <CommandToggleInput
-        :command="commandSelected"
-        :guild="guild"
-        icon="plus"
-        :module="module"
-        :candidates="module.input.candidates"
-        :list="whitelist"
-        :categoryIcon="categoryIcon"
-        :selectCondition="listCheck">
-          <template slot="label">
-            Whitelist
-            <p><small>This command can be used in these channels/categories by these users/roles.</small></p>
-          </template>
-      </CommandToggleInput>
-      <CommandToggleInput
-        :command="commandSelected"
-        :guild="guild"
-        icon="minus"
-        :module="module"
-        :candidates="module.input.candidates"
-        :list="blacklist"
-        :categoryIcon="categoryIcon"
-        :selectCondition="listCheck">
-          <template slot="label">
-            Blacklist
-          <p><small>This command cannot be used in these channels/categories or by these users/roles.</small></p>
-          </template>
-      </CommandToggleInput>
+      <div class="columns">
+        <transition name="fade">
+        <div v-show="!emptyMenu" class="column is-narrow menu-column">
+          <b-menu>
+            <b-menu-list v-if="allRule" label="General rules">
+              <b-menu-item
+                :active="isSelected(allRule)"
+                :key="allRule.name"
+                :icon="categoryIcon(allRule)"
+                :label="allRule.name"
+                @click="menuSelect(allRule)"
+              />
+            </b-menu-list>
+            <b-menu-list v-if="categoriesRules.length !== 0" label="Category rules">
+              <b-menu-item
+                v-for="category in categoriesRules"
+                :active="isSelected(category)"
+                :key="category.name"
+                :icon="categoryIcon(category)"
+                :label="category.name"
+                @click="menuSelect(category)"
+              />
+            </b-menu-list>
+            <b-menu-list v-if="commandsRules.length !== 0" label="Command rules">
+              <b-menu-item
+                v-for="command in commandsRules"
+                :active="isSelected(command)"
+                :key="command.name"
+                :icon="categoryIcon(command)"
+                :label="command.name"
+                @click="menuSelect(command)"
+              />
+            </b-menu-list>
+          </b-menu>
+        </div>
+      </transition>
+        <div class="column">
+          <b-field>
+            <b-autocomplete
+              v-model="commandInput"
+              placeholder="Select a command"
+              ref="commandInput"
+              field="name"
+              :icon="commandSelected ? categoryIcon(commandSelected) : 'magnify'"
+              :data="filteredCommands"
+              @select="selectCommand">
+              <template slot-scope="props">
+                <b-icon
+                  :icon="categoryIcon(props.option)"
+                  size="is-small" />
+                {{ props.option.name }}
+                <small v-if="props.option.category !== 'all'" class="command-category-tag">{{ props.option.category }}</small>
+              </template>
+              <template slot="empty">No results for {{ commandInput }}</template>
+            </b-autocomplete>
+          </b-field>
+          <hr>
+          <CommandToggleInput
+            :command="commandSelected"
+            :guild="guild"
+            icon="plus"
+            :module="module"
+            :candidates="module.input.candidates"
+            :list="whitelist"
+            :categoryIcon="categoryIcon"
+            :selectCondition="listCheck">
+              <template slot="label">
+                Whitelist
+                <p><small>This command can be used in these channels/categories by these users/roles.</small></p>
+              </template>
+          </CommandToggleInput>
+          <CommandToggleInput
+            :command="commandSelected"
+            :guild="guild"
+            icon="minus"
+            :module="module"
+            :candidates="module.input.candidates"
+            :list="blacklist"
+            :categoryIcon="categoryIcon"
+            :selectCondition="listCheck">
+              <template slot="label">
+                Blacklist
+              <p><small>This command cannot be used in these channels/categories or by these users/roles.</small></p>
+              </template>
+          </CommandToggleInput>
+        </div>
+      </div>
     </section>
     <footer class="modal-card-foot module-card-footer">
       <b-button type="is-primary" :loading="this.saving" :disabled="!changed" @click="save()">Save</b-button>
@@ -75,24 +115,36 @@ export default {
       blacklist: [],
       // Command
       commandInput: '',
-      commandSelected: null
+      commandSelected: null,
+      allRule: null,
+      commandsRules: [],
+      categoriesRules: []
     }
   },
   computed: {
     changed () {
       if (this.commandSelected) {
         const { whitelist, blacklist } = this.parseSave()
-        const whitelistChanged = !!_.differenceWith(this.commandSelected.whitelist, whitelist, _.isEqual).length
-        const blacklistChanged = !!_.differenceWith(this.commandSelected.blacklist, blacklist, _.isEqual).length
-        return whitelistChanged || blacklistChanged
+        const { whitelist: aWhitelist, blacklist: aBlacklist } = this.getCommandRules(this.commandSelected)
+
+        const whitelistDiff = (_.differenceWith(whitelist, aWhitelist, _.isEqual).length ||
+          _.differenceWith(aWhitelist, whitelist, _.isEqual).length) && (whitelist.length || aWhitelist.length)
+        const blacklistDiff = (_.differenceWith(blacklist, aBlacklist, _.isEqual).length ||
+          _.differenceWith(aBlacklist, blacklist, _.isEqual).length) && (blacklist.length || aBlacklist.length)
+
+        return (whitelistDiff || blacklistDiff)
       }
       return false
     },
     filteredCommands () {
       return this.module.input.commands.filter(this.filter(this.commandInput))
+    },
+    emptyMenu () {
+      return !this.allRule && !this.categoriesRules.length && !this.commandsRules.length
     }
   },
   methods: {
+    // Saving
     async save () {
       if (!this.commandSelected) return
 
@@ -103,7 +155,9 @@ export default {
         values,
         isCategory: this.commandSelected.category === 'category'
       })
-      this.commandSelected = { ...this.commandSelected, ..._.cloneDeep(values) }
+
+      this.setRules(this.commandSelected, values)
+      this.commandSelected = this.commandSelected
       this.saveCallback(this.module, null, true)
       this.saving = false
     },
@@ -122,11 +176,11 @@ export default {
         c.category.toLowerCase().includes(t)
       )
     },
-    listCheck (candidate) {
-      const iE = (v) => _.isEqual(candidate, v)
-      return this.whitelist.some(iE) || this.blacklist.some(iE)
+    // Command input
+    isSelected (command) {
+      return this.commandSelected ? _.isEqual(this.commandSelected, command) : false
     },
-    async selectCommand (option) {
+    selectCommand (option) {
       if (!option) {
         this.commandSelected = null
         this.whitelist = []
@@ -134,15 +188,55 @@ export default {
         return
       }
 
-      const cmd = (option.category === 'all'
-        ? this.module.input.rules.all
-        : option.category === 'category'
-          ? this.module.input.rules.categories[option.name]
-          : this.module.input.rules.commands[option.name]) || { blacklist: [], whitelist: [] }
-      this.commandSelected = { ...option, ...cmd }
-      this.whitelist = _.cloneDeep(cmd.whitelist)
-      this.blacklist = _.cloneDeep(cmd.blacklist)
+      const { whitelist, blacklist } = this.getCommandRules(option)
+      this.commandSelected = option
+      this.whitelist = _.cloneDeep(whitelist)
+      this.blacklist = _.cloneDeep(blacklist)
     },
+    menuSelect (option) {
+      this.$refs.commandInput.setSelected(option)
+    },
+    // Rules
+    getCommandRules (command) {
+      return (command.category === 'all'
+        ? this.module.input.rules.all
+        : command.category === 'category'
+          ? this.module.input.rules.categories[command.name]
+          : this.module.input.rules.commands[command.name]) || { blacklist: [], whitelist: [] }
+    },
+    setRules (command, values) {
+      const checkLen = values.whitelist.length || values.blacklist.length
+      if (command.category === 'all') {
+        if (checkLen) this.module.input.rules.all = _.cloneDeep(values)
+        else this.module.input.rules.all = null
+        this.updateAllRule()
+      } else if (command.category === 'category') {
+        if (checkLen) this.module.input.rules.categories[command.parsedName] = _.cloneDeep(values)
+        else this.$delete(this.module.input.rules.categories, command.parsedName)
+        this.updateCategoriesRules()
+      } else {
+        if (checkLen) this.module.input.rules.commands[command.parsedName] = _.cloneDeep(values)
+        else this.$delete(this.module.input.rules.commands, command.parsedName)
+        this.updateCommandsRules()
+      }
+    },
+    updateAllRule () {
+      this.allRule = this.module.input.rules.all ? this.module.input.commands.find(c => c.category === 'all') : null
+    },
+    updateCategoriesRules () {
+      this.categoriesRules = Object.entries(this.module.input.rules.categories)
+        .map(([ k ]) => this.module.input.commands.find(c => c.parsedName === k))
+    },
+    updateCommandsRules () {
+      this.commandsRules = Object.entries(this.module.input.rules.commands)
+        .map(([ k ]) => this.module.input.commands.find(c => c.parsedName === k))
+    },
+    // Whitelist/Blacklist
+    listCheck (candidate) {
+      const iE = (v) => _.isEqual(candidate, v)
+      return this.whitelist.some(iE) || this.blacklist.some(iE)
+    },
+    // Misc
     categoryIcon (command = this.commandSelected, key = 'category') {
       if (command.category === 'category') key = 'name'
       switch (command[key]) {
@@ -176,6 +270,11 @@ export default {
           return 'asterisk'
       }
     }
+  },
+  mounted () {
+    this.updateAllRule()
+    this.updateCategoriesRules()
+    this.updateCommandsRules()
   }
 }
 </script>
@@ -188,9 +287,20 @@ export default {
 .command-modal hr {
   background-color: #484B52;
 }
-</style>
 
-<style>
+.menu-column {
+  -ms-overflow-style: none;
+  overflow-y: overlay;
+  max-height: 415px;
+  max-width: 205px;
+  border-right: 1px solid #484B52;
+  margin-top: 12px;
+}
+
+.menu-column::-webkit-scrollbar {
+  display: none;
+}
+
 .command-category-tag {
   color: rgba(255, 255, 255, 0.2);
 }
