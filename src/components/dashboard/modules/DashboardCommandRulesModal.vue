@@ -132,7 +132,7 @@ export default {
         const blacklistDiff = (_.differenceWith(blacklist, aBlacklist, _.isEqual).length ||
           _.differenceWith(aBlacklist, blacklist, _.isEqual).length) && (blacklist.length || aBlacklist.length)
 
-        return (whitelistDiff || blacklistDiff)
+        return whitelistDiff || blacklistDiff
       }
       return false
     },
@@ -157,7 +157,6 @@ export default {
       })
 
       this.setRules(this.commandSelected, values)
-      this.commandSelected = this.commandSelected
       this.saveCallback(this.module, null, true)
       this.saving = false
     },

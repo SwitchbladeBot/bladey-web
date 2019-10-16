@@ -51,10 +51,10 @@
             <b-icon :icon="typeIcon(tag)" size="is-small" />
             all channels
           </span>
-          <span v-else-if="tag.missing">
+          <b-tooltip v-else-if="tag.missing" label="Invalid rule">
             <b-icon :icon="typeIcon(tag)" size="is-small" />
             {{ tag.id }}
-          </span>
+          </b-tooltip>
           <span v-else>
             <b-icon :icon="typeIcon(tag)" size="is-small" />
             {{ tag.name }}
