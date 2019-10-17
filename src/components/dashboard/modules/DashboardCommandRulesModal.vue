@@ -173,7 +173,7 @@ export default {
         const { whitelist: aWhitelist, blacklist: aBlacklist } = this.getCommandRules(this.commandSelected)
 
         const whitelistDiff = !_.isEqual(whitelist, aWhitelist) || _.differenceWith(whitelist, aWhitelist, _.isEqual).length
-        const blacklistDiff = !_.isEqual(whitelist, aWhitelist) || _.differenceWith(blacklist, aBlacklist, _.isEqual).length
+        const blacklistDiff = !_.isEqual(blacklist, aBlacklist) || _.differenceWith(blacklist, aBlacklist, _.isEqual).length
 
         this.changed = whitelistDiff || blacklistDiff
       } else {
