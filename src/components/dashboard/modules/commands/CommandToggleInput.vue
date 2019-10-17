@@ -10,10 +10,9 @@
         field="name"
         :icon="icon"
         :disabled="!command"
-        :loading="fetchingCandidates"
-        :data="candidates"
-        @typing="getCandidates"
-        @select="selectCandidate">
+        :data="filteredCandidates"
+        :clear-on-select="true"
+        @select="addCanditate">
           <template slot-scope="props">
             <span v-if="tagCondition(props.option, 'user')">
               <b-icon :icon="typeIcon(props.option)" size="is-small" />
@@ -52,10 +51,10 @@
             <b-icon :icon="typeIcon(tag)" size="is-small" />
             all channels
           </span>
-          <span v-else-if="tag.missing">
+          <b-tooltip v-else-if="tag.missing" label="Invalid rule">
             <b-icon :icon="typeIcon(tag)" size="is-small" />
             {{ tag.id }}
-          </span>
+          </b-tooltip>
           <span v-else>
             <b-icon :icon="typeIcon(tag)" size="is-small" />
             {{ tag.name }}
@@ -70,25 +69,23 @@ import _ from 'lodash'
 
 export default {
   name: 'CommandToggleInput',
-  props: [ 'command', 'guild', 'module', 'list', 'icon', 'selectCondition', 'categoryIcon' ],
+  props: [ 'command', 'guild', 'module', 'list', 'icon', 'selectCondition', 'categoryIcon', 'candidates' ],
   data () {
     return {
-      candidate: '',
-      candidates: [],
-      fetchingCandidates: false
+      candidate: ''
+    }
+  },
+  computed: {
+    filteredCandidates () {
+      const check = (v) => v.toLowerCase().includes(this.candidate.toLowerCase())
+      return this.candidates.filter(c => (
+        (c.name && check(c.name)) ||
+        (c.displayName && check(c.displayName)) ||
+        (c.type === 'all' && (check('all channels') || check('*')))
+      ))
     }
   },
   methods: {
-    getCandidates: _.debounce(async function () {
-      if (!this.candidate) return
-
-      this.fetchingCandidates = true
-      const { candidates } = await this.$api.moduleMethod(this.guild.id, this.module.name, 'validCandidates', {
-        q: this.candidate
-      })
-      this.candidates = candidates
-      this.fetchingCandidates = false
-    }, 500),
     addCanditate (candidate) {
       if (
         !candidate ||
@@ -96,16 +93,11 @@ export default {
         (this.selectCondition && this.selectCondition(candidate))
       ) return
       this.list.push(candidate)
-      this.candidate = ''
-    },
-    selectCandidate (candidate) {
-      this.addCanditate(candidate)
-      this.$nextTick(() => {
-        this.candidate = ''
-      })
+      this.$emit('add', candidate)
     },
     removeTag (index) {
-      this.list.splice(index, 1)
+      const [ candidate ] = this.list.splice(index, 1)
+      this.$emit('remove', candidate)
     },
     tagCondition (tag, type) {
       return tag.type === type && !tag.missing
