@@ -93,9 +93,11 @@ export default {
         (this.selectCondition && this.selectCondition(candidate))
       ) return
       this.list.push(candidate)
+      this.$emit('add', candidate)
     },
     removeTag (index) {
-      this.list.splice(index, 1)
+      const [ candidate ] = this.list.splice(index, 1)
+      this.$emit('remove', candidate)
     },
     tagCondition (tag, type) {
       return tag.type === type && !tag.missing

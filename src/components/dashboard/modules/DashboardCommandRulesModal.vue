@@ -7,7 +7,7 @@
     <section class="modal-card-body">
       <div class="columns">
         <transition name="fade">
-        <div v-show="!emptyMenu" class="column is-narrow menu-column">
+        <div v-show="!emptyMenu" class="column is-narrow is-hidden-mobile menu-column">
           <b-menu>
             <b-menu-list v-if="allRule" label="General rules">
               <b-menu-item
@@ -15,6 +15,7 @@
                 :key="allRule.name"
                 :icon="categoryIcon(allRule)"
                 :label="allRule.name"
+                :disabled="saving"
                 @click="menuSelect(allRule)"
               />
             </b-menu-list>
@@ -22,9 +23,10 @@
               <b-menu-item
                 v-for="category in categoriesRules"
                 :active="isSelected(category)"
-                :key="category.name"
+                :key="category.parsedName"
                 :icon="categoryIcon(category)"
                 :label="category.name"
+                :disabled="saving"
                 @click="menuSelect(category)"
               />
             </b-menu-list>
@@ -32,9 +34,10 @@
               <b-menu-item
                 v-for="command in commandsRules"
                 :active="isSelected(command)"
-                :key="command.name"
+                :key="command.parsedName"
                 :icon="categoryIcon(command)"
                 :label="command.name"
+                :disabled="saving"
                 @click="menuSelect(command)"
               />
             </b-menu-list>
@@ -50,6 +53,7 @@
               field="name"
               :icon="commandSelected ? categoryIcon(commandSelected) : 'magnify'"
               :data="filteredCommands"
+              :disabled="saving"
               @select="selectCommand">
               <template slot-scope="props">
                 <b-icon
@@ -118,24 +122,12 @@ export default {
       commandSelected: null,
       allRule: null,
       commandsRules: [],
-      categoriesRules: []
+      categoriesRules: [],
+      // Save
+      changed: false
     }
   },
   computed: {
-    changed () {
-      if (this.commandSelected) {
-        const { whitelist, blacklist } = this.parseSave()
-        const { whitelist: aWhitelist, blacklist: aBlacklist } = this.getCommandRules(this.commandSelected)
-
-        const whitelistDiff = (_.differenceWith(whitelist, aWhitelist, _.isEqual).length ||
-          _.differenceWith(aWhitelist, whitelist, _.isEqual).length) && (whitelist.length || aWhitelist.length)
-        const blacklistDiff = (_.differenceWith(blacklist, aBlacklist, _.isEqual).length ||
-          _.differenceWith(aBlacklist, blacklist, _.isEqual).length) && (blacklist.length || aBlacklist.length)
-
-        return whitelistDiff || blacklistDiff
-      }
-      return false
-    },
     filteredCommands () {
       return this.module.input.commands.filter(this.filter(this.commandInput))
     },
@@ -175,6 +167,20 @@ export default {
         c.category.toLowerCase().includes(t)
       )
     },
+    hasChanged () {
+      if (this.commandSelected) {
+        const { whitelist, blacklist } = this.parseSave()
+        const { whitelist: aWhitelist, blacklist: aBlacklist } = this.getCommandRules(this.commandSelected)
+
+        const whitelistDiff = !_.isEqual(whitelist, aWhitelist) || _.differenceWith(whitelist, aWhitelist, _.isEqual).length
+        const blacklistDiff = !_.isEqual(whitelist, aWhitelist) || _.differenceWith(blacklist, aBlacklist, _.isEqual).length
+
+        this.changed = whitelistDiff || blacklistDiff
+      } else {
+        this.changed = false
+      }
+      return this.changed
+    },
     // Command input
     isSelected (command) {
       return this.commandSelected ? _.isEqual(this.commandSelected, command) : false
@@ -200,8 +206,8 @@ export default {
       return (command.category === 'all'
         ? this.module.input.rules.all
         : command.category === 'category'
-          ? this.module.input.rules.categories[command.name]
-          : this.module.input.rules.commands[command.name]) || { blacklist: [], whitelist: [] }
+          ? this.module.input.rules.categories[command.parsedName]
+          : this.module.input.rules.commands[command.parsedName]) || { blacklist: [], whitelist: [] }
     },
     setRules (command, values) {
       const checkLen = values.whitelist.length || values.blacklist.length
@@ -218,6 +224,7 @@ export default {
         else this.$delete(this.module.input.rules.commands, command.parsedName)
         this.updateCommandsRules()
       }
+      this.hasChanged()
     },
     updateAllRule () {
       this.allRule = this.module.input.rules.all ? this.module.input.commands.find(c => c.category === 'all') : null
@@ -274,6 +281,14 @@ export default {
     this.updateAllRule()
     this.updateCategoriesRules()
     this.updateCommandsRules()
+  },
+  watch: {
+    whitelist () {
+      this.hasChanged()
+    },
+    blacklist () {
+      this.hasChanged()
+    }
   }
 }
 </script>
@@ -292,7 +307,7 @@ export default {
   overflow-y: overlay;
   max-height: 415px;
   max-width: 205px;
-  border-right: 1px solid #484B52;
+  border-right: 2px solid #484B52;
   margin-top: 12px;
 }
 
