@@ -149,6 +149,15 @@ class VueSwitchbladeApi {
     return this._request(`/users/@me/connections/${conn}`, { method: 'DELETE' })
   }
 
+  // Misc
+  openInvite (guild) {
+    window.open(
+      `https://discordapp.com/api/oauth2/authorize?client_id=${this.clientId}&permissions=19456&scope=bot&guild_id=${guild.id}`,
+      '_blank',
+      this._buildQuery(this.popupOptions, ',')
+    )
+  }
+
   // Authorization
   loginPopup () {
     if (this.state.logging) return
