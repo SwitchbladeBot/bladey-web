@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import User from './User'
 import Guild from './Guild'
 
@@ -214,9 +215,9 @@ class VueSwitchbladeApi {
   _request (endpoint, { method = 'GET', query, body } = {}) {
     return fetch(`${this._apiURL}${endpoint}?${this._buildQuery(query)}`, {
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `User ${this.token}`
+        Authorization: `User ${this.token}`
       },
       body: body ? JSON.stringify(body) : undefined,
       method

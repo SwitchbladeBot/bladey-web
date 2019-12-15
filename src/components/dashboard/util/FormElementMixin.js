@@ -45,7 +45,7 @@ export default {
       if (typeof this.parentField.newType === 'string') {
         return this.parentField.newType
       } else {
-        for (let key in this.parentField.newType) {
+        for (const key in this.parentField.newType) {
           if (this.parentField.newType[key]) {
             return key
           }
@@ -104,8 +104,8 @@ export default {
     },
 
     setInvalid () {
-      let type = 'is-danger'
-      let message = this.validationMessage || this.getElement().validationMessage
+      const type = 'is-danger'
+      const message = this.validationMessage || this.getElement().validationMessage
       this.setValidity(type, message)
     },
 
