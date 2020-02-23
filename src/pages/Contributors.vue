@@ -18,7 +18,9 @@
             <div class="column is-2 has-text-centered" v-for="contributor in role.members" v-bind:key="contributor.id">
               <figure class="image is-128x128 contributor-avatar">
                 <img draggable="false" :src="contributor.displayAvatarURL" class="round is-unselectable">
-                <img draggable="false" :src="`static/img/status-${contributor.status}.png`" class="round is-unselectable status">
+                <div class="round is-unselectable status">
+                  <img draggable="false" class="is-unselectable status-svg" :src="`static/icons/status-${contributor.status}.svg`">
+                </div>
               </figure>
               <span class="contributor-name">{{contributor.tag}}</span>
             </div>
@@ -63,18 +65,27 @@ export default {
 }
 
 .contributor-avatar,
-.contributor-avatar img:not(.status) {
+.contributor-avatar img:not(.status-svg) {
   position: relative;
   top: 0;
   left: 0;
 }
 
+.status-svg {
+  height: 28px;
+  width: 28px;
+  left: 2px;
+  top: 2px;
+  position: relative;
+}
+
 .contributor-avatar .status {
   box-shadow: 0 0 0 3pt #18191c;
+  background-color: #18191c;
   position: relative;
   bottom: 32px;
   left: calc(100% - 32px);
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
 }
 </style>

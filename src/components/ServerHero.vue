@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import GuildIcon from '../components/GuildIcon'
+import GuildIcon from './GuildIcon'
 
 export default {
   props: {

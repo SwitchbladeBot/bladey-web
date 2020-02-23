@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import User from './User'
 import Guild from './Guild'
 
@@ -76,6 +77,10 @@ class VueSwitchbladeApi {
     }))
   }
 
+  members (id) {
+    return this._request(`/guilds/${id}/members`)
+  }
+
   commands () {
     return this._request('/commands')
   }
@@ -94,13 +99,21 @@ class VueSwitchbladeApi {
     return this._request('/users/@me/profile', { method: 'PATCH', body: entity })
   }
 
-  // Guild configuration
-  guildConfiguration (id) {
-    return this._request(`/guilds/${id}/config`)
+  // Modules
+  modules (id, simple) {
+    return this._request(`/guilds/${id}/modules${simple ? '?simple=true' : ''}`)
   }
 
-  saveGuildConfiguration (id, entity) {
-    return this._request(`/guilds/${id}/config`, { method: 'PATCH', body: entity })
+  saveModuleState (id, name, state) {
+    return this._request(`/guilds/${id}/modules/${name}/state`, { method: 'PATCH', body: { active: !!state } })
+  }
+
+  saveModuleValues (id, name, values) {
+    return this._request(`/guilds/${id}/modules/${name}/values`, { method: 'PATCH', body: { values } })
+  }
+
+  moduleMethod (id, name, method, payload) {
+    return this._request(`/guilds/${id}/modules/${name}/methods/${method}`, { method: 'POST', body: payload })
   }
 
   // Locales
@@ -130,11 +143,20 @@ class VueSwitchbladeApi {
   }
 
   async saveConnectionConfig (conn, config) {
-    return this._request(`/users/@me/connections/${conn}/`, { method: 'PATCH', body: config })
+    return this._request(`/users/@me/connections/${conn}`, { method: 'PATCH', body: config })
   }
 
   async removeConnection (conn) {
-    return this._request(`/users/@me/connections/${conn}/`, { method: 'DELETE' })
+    return this._request(`/users/@me/connections/${conn}`, { method: 'DELETE' })
+  }
+
+  // Misc
+  openInvite (guild) {
+    window.open(
+      `https://discordapp.com/api/oauth2/authorize?client_id=${this.clientId}&permissions=19456&scope=bot&guild_id=${guild.id}`,
+      '_blank',
+      this._buildQuery(this.popupOptions, ',')
+    )
   }
 
   // Authorization
@@ -193,9 +215,9 @@ class VueSwitchbladeApi {
   _request (endpoint, { method = 'GET', query, body } = {}) {
     return fetch(`${this._apiURL}${endpoint}?${this._buildQuery(query)}`, {
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `User ${this.token}`
+        Authorization: `User ${this.token}`
       },
       body: body ? JSON.stringify(body) : undefined,
       method

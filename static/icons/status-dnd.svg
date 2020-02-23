@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 128 128"><defs><mask id="denied"><rect width="100%" height="100%" fill="white"/><path d="M34,48q-18,0,-18,16t18,16l60,0q18,0,18,-16t-18,-16l-62,0" fill="black" /></mask></defs><circle cx="64" cy="64" r="64" fill="#F04747" mask="url(#denied)" /></svg>
