@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const SentryWebpackPlugin = require('@sentry/webpack-plugin')
 
 const env = require('../config/prod.env')
 
@@ -122,7 +123,11 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsRoot,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new SentryWebpackPlugin({
+      include: '.',
+      ignore: ['node_modules', 'webpack.base.conf.js', 'webpack.prod.conf.js']
+    })
   ]
 })
 

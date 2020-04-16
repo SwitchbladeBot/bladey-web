@@ -6,5 +6,6 @@ const getVar = (v) => process.env[varKey(v)] || process.env[v]
 module.exports = {
   CLIENT_ID: `"${getVar('CLIENT_ID')}"`,
   REDIRECT_URI: `"${getVar('REDIRECT_URI')}"`,
-  BLADEY_API_ROOT: `"${getVar('BLADEY_API_ROOT')}"`
+  BLADEY_API_ROOT: `"${getVar('BLADEY_API_ROOT')}"`,
+  SENTRY_DSN: `"${getVar('SENTRY_DSN')}"`
 }
