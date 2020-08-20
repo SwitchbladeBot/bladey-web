@@ -15,9 +15,10 @@
 
 <script>
 import LastfmConnection from './connections/LastfmConnection'
+import OsuConnection from './connections/OsuConnection'
 export default {
   name: 'ProfileConnections',
-  components: { LastfmConnection },
+  components: { LastfmConnection, OsuConnection },
   data: () => ({
     loaded: false,
     connections: null,
