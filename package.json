@@ -60,7 +60,7 @@
     "rimraf": "^2.6.0",
     "sass-loader": "^7.1.0",
     "semver": "^5.3.0",
-    "shelljs": "^0.7.6",
+    "shelljs": "^0.8.5",
     "standard": "14.3.1",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.1",
